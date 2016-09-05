@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-body post">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="post-header">
+                    <a href="<% post.user.link %>">
+                        <img src="<% post.user.avatar %>" class="min-avatar">
+                        <h4><% post.user.name %></h4>
+                    </a>
+                    <small class="pull-right"><% post.date | date:'fullDate' %> o <% post.time %></small>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="post-body-section">
+                    <p><% post.text %></p>
+                </div>
+                <div class="post-image-section">
+                    <img ng-if="post.photo" class="post-image" src="<% post.photo %>">
+                </div>
+                <hr>
+                <post-like userid="userid" postid="post.id" liked="post.liked" likes="post.likes_count"></post-like>
+                <a ng-click="showComments()"><i class="fa fa-comments" aria-hidden="true"></i> Komentarze <small ng-if="post.comments_count">(<% post.comments_count %>)</small></a>
+                <post-delete ng-if="isowner" postid="post.id"></post-delete>
+
+                <div class="comments" ng-if="commentsShown">
+                    <hr>
+                    <comment ng-repeat="comment in post.comments" comment="comment" userid="userid"></comment>
+                    <add-comment postid="post.id" userid="userid" type="post"></add-comment>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

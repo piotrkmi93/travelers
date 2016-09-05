@@ -1,0 +1,36 @@
+<div class="row" ng-init="userFriendsControllerInit(undefined)">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>Znajomi <small>(<% friendsCount %>)</small></h2>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <input class="form-control" type="search" placeholder="Filtruj..." ng-model="search.phrase">
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row" ng-repeat="friend in friends">
+                    <a href="<% friend.username %>">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="col-md-2">
+                                        <img src="<% friend.avatar %>" class="avatar">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h2><small class="pull-right"><i class="fa fa-circle" ng-class="{'user-active': friend.is_active}" aria-hidden="true"></i></small> <% friend.name %> <small>@<% friend.username %></small></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

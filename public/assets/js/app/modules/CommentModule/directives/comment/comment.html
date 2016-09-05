@@ -1,0 +1,10 @@
+<div class="row comment">
+    <div class="col-md-1">
+        <a style="margin:0" href="<% comment.user.link %>"><img src="<% comment.user.avatar %>" class="min-avatar"></a>
+    </div>
+    <div class="col-md-11">
+        <p><a style="margin:0" href="<% comment.user.link %>"><strong><% comment.user.name %></strong></a> <% comment.text %></p>
+        <comment-like userid="userid" commentid="comment.id" liked="comment.liked" likes="comment.likes_count"></comment-like>
+        <comment-delete ng-if="isowner" postid="comment.id"></comment-delete>
+    </div>
+</div>
