@@ -65,4 +65,16 @@ class UserRepository implements UserRepositoryInterface {
     public function isActive($id){
         return $this->model->find($id)->active_to > Carbon::now();
     }
+
+    public function searchByPhrase($phrase)
+    {
+        return $this -> model -> distinct()
+            -> where('first_name' , 'like', "%$phrase%")
+            -> orWhere('last_name' , 'like', "%$phrase%")
+            -> orWhere('username' , 'like', "%$phrase%")
+            -> orWhere('email' , 'like', "%$phrase%")
+            -> get();
+    }
+
+
 }

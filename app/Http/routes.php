@@ -80,7 +80,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     /*********** Places ***********/
 
-
     Route::get('places/add', 'PlaceController@getPlaceForm');
     Route::get('places/edit/{slug}', 'PlaceController@getPlaceForm');
     Route::get('places/{slug}', 'PlaceController@index');
@@ -89,6 +88,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('places/get_user_places', 'PlaceController@getUserPlaces');
     Route::post('like_place', 'PlaceController@like');
     Route::post('unlike_place', 'PlaceController@unlike');
+    Route::post('get_place_comments', 'CommentController@getPlaceComments');
+
+    /*********** Bug Reports ***********/
+    Route::get('bug_reports', 'BugReportController@index');
+    Route::post('bug_reports/add', 'BugReportController@add');
+
+    /*********** Search Engine ***********/
+    Route::get('search/{phrase}', 'SearchEngineController@search');
 });
 
-Route::post('get_place_comments', 'CommentController@getPlaceComments');

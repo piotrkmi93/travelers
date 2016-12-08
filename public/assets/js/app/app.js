@@ -20,6 +20,8 @@
         'LikeModule',
         'CommentModule',
         'MessageModule',
-        'PlaceModule'
+        'PlaceModule',
+        'BugReportModule',
+        'SearchEngineModule'
     ]);
 })();

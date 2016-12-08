@@ -33,6 +33,13 @@
     <div id="paginator"></div>
     @yield('content')
 
+    @if(Auth::user())
+    <div id="bug-report">
+        <button class="btn btn-lg btn-warning" data-toggle="modal" data-target="#bug-report-modal"><i class="fa fa-bug" aria-hidden="true"></i> <span>Zgłoś błąd</span></button>
+    </div>
+        @include('chunks.bug_report')
+    @endif
+
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -44,6 +51,7 @@
 
     {{-- Vendor js --}}
     <script src="{{asset('assets/vendor/angular/lodash.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/typeahead.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular-simple-logger.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular-google-maps.min.js')}}"></script>
@@ -53,10 +61,6 @@
     <script src="{{asset('assets/vendor/angular/ui-bootstrap-tpls-2.0.1.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular-locale_pl-pl.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/ng-infinite-scroll.js')}}"></script>
-    {{--<script src="{{asset('assets/vendor/rangy/rangy-core.js')}}"></script>--}}
-    {{--<script src="{{asset('assets/vendor/rangy/rangy-selectionsaverestore.js')}}"></script>--}}
-    {{--<script src="{{asset('assets/vendor/angular/textAngularSetup.js')}}"></script>--}}
-    {{--<script src="{{asset('assets/vendor/angular/textAngular.min.js')}}"></script>--}}
     <script src="{{asset('assets/vendor/color-picker/color-picker.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular-wysiwyg.js')}}"></script>
     <script src="{{asset('assets/vendor/scrollglue.js')}}"></script>
@@ -117,5 +121,9 @@
     <script src="{{asset('assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/PlaceModule/controllers/PlaceController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/PlaceModule/services/PlaceService.js')}}"></script>
+
+    <script src="{{asset('assets/js/app/modules/BugReportModule/BugReportModule.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/BugReportModule/controllers/BugReportController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/BugReportModule/services/BugReportService.js')}}"></script>
 </body>
 </html>

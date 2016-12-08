@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Repositories\BugReportRepositoryInterface;
 use App\Repositories\CityRepositoryInterface;
 use App\Repositories\CommentLikeNotificationRepositoryInterface;
 use App\Repositories\CommentLikeRepositoryInterface;
 use App\Repositories\CommentNotificationRepositoryInterface;
 use App\Repositories\CommentRepositoryInterface;
+use App\Repositories\Eloquent\BugReportRepository;
 use App\Repositories\Eloquent\CityRepository;
 use App\Repositories\Eloquent\CommentLikeNotificationRepository;
 use App\Repositories\Eloquent\CommentLikeRepository;
@@ -28,6 +30,10 @@ use App\Repositories\Eloquent\PostCommentRepository;
 use App\Repositories\Eloquent\PostLikeNotificationRepository;
 use App\Repositories\Eloquent\PostLikeRepository;
 use App\Repositories\Eloquent\PostRepository;
+use App\Repositories\Eloquent\TripCommentRepository;
+use App\Repositories\Eloquent\TripPlaceRepository;
+use App\Repositories\Eloquent\TripRepository;
+use App\Repositories\Eloquent\TripUserRepository;
 use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\FriendsPairRepositoryInterface;
 use App\Repositories\GalleryRepositoryInterface;
@@ -45,6 +51,10 @@ use App\Repositories\PostCommentRepositoryInterface;
 use App\Repositories\PostLikeNotificationRepositoryInterface;
 use App\Repositories\PostLikeRepositoryInterface;
 use App\Repositories\PostRepositoryInterface;
+use App\Repositories\TripCommentRepositoryInterface;
+use App\Repositories\TripPlaceRepositoryInterface;
+use App\Repositories\TripRepositoryInterface;
+use App\Repositories\TripUserRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -104,6 +114,12 @@ class AppServiceProvider extends ServiceProvider
         $this -> app -> singleton(PlaceLikeNotificationRepositoryInterface::class, PlaceLikeNotificationRepository::class);
 
         // trips repositories
-        // TODO: ER Diagram and Use Case Diagram
+        $this -> app -> singleton(TripRepositoryInterface::class, TripRepository::class);
+        $this -> app -> singleton(TripPlaceRepositoryInterface::class, TripPlaceRepository::class);
+        $this -> app -> singleton(TripUserRepositoryInterface::class, TripUserRepository::class);
+        $this -> app -> singleton(TripCommentRepositoryInterface::class, TripCommentRepository::class);
+
+        // bug reports
+        $this -> app -> singleton(BugReportRepositoryInterface::class, BugReportRepository::class);
     }
 }

@@ -12,4 +12,5 @@ interface UserRepositoryInterface {
     public function getUserBasicsById($id);
     public function extendActiveTimestamp($id);
     public function isActive($id);
+    public function searchByPhrase($phrase);
 }

@@ -538,3 +538,28 @@ video#bgvid {
 .list-group-item > a > h3 {
     margin: 0;
 }
+
+#bug-report{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+#bug-report > button{
+    transition: .5s ease all;
+    width: 50.72px;
+}
+
+#bug-report > button > span {
+    transition: .5s ease all;
+    display: inline-block;
+    opacity: 0;
+}
+
+#bug-report > button:hover{
+    width: 133.25px;
+}
+
+#bug-report > button:hover > span {
+    opacity: 1;
+}

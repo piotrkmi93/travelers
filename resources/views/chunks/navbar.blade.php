@@ -17,6 +17,7 @@
                 </a>
             </div>
 
+
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
@@ -24,9 +25,10 @@
                         <li><a href="{{ url('/') }}"><small><i class="fa fa-newspaper-o" aria-hidden="true"></i></small> Tablica</a></li>
                         <li><a href="{{ url('places/add') }}"><small><i class="fa fa-map-marker" aria-hidden="true"></i></small> Dodaj miejsce</a></li>
                         <li><a><small><i class="fa fa-map" aria-hidden="true"></i></small> Stwórz wycieczkę</a></li>
-                        <li><a><small><i class="fa fa-search" aria-hidden="true"></i></small> Wyszukaj</a></li>
+                        <li><a type="button" data-toggle="modal" data-target="#search-modal"><small><i class="fa fa-search"></i></small> Wyszukaj...</a></li>
                     @endif
                 </ul>
+
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
@@ -56,5 +58,6 @@
 
     @if(Auth::user())
         @include('chunks.notificationsModal')
+        @include('chunks.searchModal')
     @endif
 </div>
