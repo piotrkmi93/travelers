@@ -31,3 +31,9 @@ if (!function_exists('isActive')){
         return $user -> active_to > \Carbon\Carbon::now();
     }
 }
+
+if (!function_exists('getSlug')){
+    function getSlug($id){
+        return \App\Place::find($id)->slug;
+    }
+}

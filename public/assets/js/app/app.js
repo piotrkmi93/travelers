@@ -6,8 +6,11 @@
         'config',
         'ui.bootstrap',
         'infinite-scroll',
-        // 'textAngular',
+        'ngSanitize',
         'wysiwyg.module',
+        'luegg.directives',
+        'uiGmapgoogle-maps',
+        'jkuri.gallery',
 
         'CityModule',
         'RegisterModule',
@@ -15,6 +18,8 @@
         'NotificationModule',
         'PostModule',
         'LikeModule',
-        'CommentModule'
+        'CommentModule',
+        'MessageModule',
+        'PlaceModule'
     ]);
 })();

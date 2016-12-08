@@ -3,7 +3,8 @@
         <a style="margin:0" href="<% user.link %>"><img src="<% user.avatar %>" class="min-avatar"></a>
     </div>
     <div class="col-md-11">
-        <textarea ng-model="text" class="form-control"></textarea>
+        <!--<textarea ng-model="text" class="form-control"></textarea>-->
+        <wysiwyg textarea-id="new-comment" textarea-class="comment-new form-control" textarea-name="newComment" textarea-required ng-model="text" enable-bootstrap-title="true"></wysiwyg>
 
         <a ng-click="addComment()" style="margin-right: 0; margin-top: 5px;" class="btn btn-success btn-sm pull-right">Dodaj komentarz</a>
     </div>

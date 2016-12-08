@@ -16,8 +16,7 @@ class GalleryRepository implements GalleryRepositoryInterface {
 
     public function create(){
         $gallery = new Gallery();
-        $gallery -> save();
-        return $this -> model -> orderBy('id', 'desc') -> first() -> id;
+        return $gallery -> save() ? $gallery -> id : null;
     }
 
     public function delete($id){

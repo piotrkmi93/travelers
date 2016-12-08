@@ -25,6 +25,16 @@
                     }).then(function(response){
                         return response.data;
                     });
+                },
+
+                placeLikeToggle: function(user_id, place_id, liked){
+                    var url = liked ? 'unlike_place' : 'like_place';
+                    return $http.post(SERVER.url + url, {
+                        user_id: user_id,
+                        place_id: place_id
+                    }).then(function(response){
+                        return response.data;
+                    });
                 }
             };
         }]);

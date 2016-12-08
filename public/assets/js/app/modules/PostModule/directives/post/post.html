@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="post-body-section">
-                    <p><% post.text %></p>
+                    <div ng-bind-html="trustAsHtml(post.text)"></div>
                 </div>
                 <div class="post-image-section">
                     <img ng-if="post.photo" class="post-image" src="<% post.photo %>">
@@ -27,7 +27,7 @@
                 <post-delete ng-if="isowner" postid="post.id"></post-delete>
 
                 <div class="comments" ng-if="commentsShown">
-                    <hr>
+                    <br>
                     <comment ng-repeat="comment in post.comments" comment="comment" userid="userid"></comment>
                     <add-comment postid="post.id" userid="userid" type="post"></add-comment>
                 </div>

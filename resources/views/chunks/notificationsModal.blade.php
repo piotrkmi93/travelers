@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-md-11 notification-body">
                                 <a href="user/<% notification.senderUsername %>"><strong><% notification.senderName %></strong></a> polubił(a) Twój post!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
-                                <small><% notification.post_text %></small> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>
+                                <small ng-bind-html="trustAsHtml(notification.post_text)"></small> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>
                             </div>
                         </div>
 
@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-md-11 notification-body">
                                 <a href="user/<% notification.senderUsername %>"><strong><% notification.senderName %></strong></a> polubił(a) Twój komentarz!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
-                                <small><% notification.comment_text %></small> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>
+                                <small ng-bind-html="trustAsHtml(notification.comment_text)"></small> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>
                             </div>
                         </div>
 
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-11 notification-body">
                                 <a href="user/<% notification.senderUsername %>"><strong><% notification.senderName %></strong></a> skomentował(a) Twój post!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
-                                <small><% notification.comment_text %></small> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>
+                                <small ng-bind-html="trustAsHtml(notification.comment_text)"></small> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>
                             </div>
                         </div>
 

@@ -17,8 +17,13 @@ use App\Repositories\Eloquent\GalleryRepository;
 use App\Repositories\Eloquent\InvitationNotificationRepository;
 use App\Repositories\Eloquent\LikeNotificationRepository;
 use App\Repositories\Eloquent\LikeRepository;
+use App\Repositories\Eloquent\MessageRepository;
 use App\Repositories\Eloquent\NotificationRepository;
 use App\Repositories\Eloquent\PhotoRepository;
+use App\Repositories\Eloquent\PlaceCommentRepository;
+use App\Repositories\Eloquent\PlaceLikeNotificationRepository;
+use App\Repositories\Eloquent\PlaceLikeRepository;
+use App\Repositories\Eloquent\PlaceRepository;
 use App\Repositories\Eloquent\PostCommentRepository;
 use App\Repositories\Eloquent\PostLikeNotificationRepository;
 use App\Repositories\Eloquent\PostLikeRepository;
@@ -29,8 +34,13 @@ use App\Repositories\GalleryRepositoryInterface;
 use App\Repositories\InvitationNotificationRepositoryInterface;
 use App\Repositories\LikeNotificationRepositoryInterface;
 use App\Repositories\LikeRepositoryInterface;
+use App\Repositories\MessageRepositoryInterface;
 use App\Repositories\NotificationRepositoryInterface;
 use App\Repositories\PhotoRepositoryInterface;
+use App\Repositories\PlaceCommentRepositoryInterface;
+use App\Repositories\PlaceLikeNotificationRepositoryInterface;
+use App\Repositories\PlaceLikeRepositoryInterface;
+use App\Repositories\PlaceRepositoryInterface;
 use App\Repositories\PostCommentRepositoryInterface;
 use App\Repositories\PostLikeNotificationRepositoryInterface;
 use App\Repositories\PostLikeRepositoryInterface;
@@ -83,5 +93,17 @@ class AppServiceProvider extends ServiceProvider
         $this -> app -> singleton(LikeRepositoryInterface::class, LikeRepository::class);
         $this -> app -> singleton(PostLikeRepositoryInterface::class, PostLikeRepository::class);
         $this -> app -> singleton(CommentLikeRepositoryInterface::class, CommentLikeRepository::class);
+
+        // messages repository
+        $this -> app -> singleton(MessageRepositoryInterface::class, MessageRepository::class);
+
+        // places repositories
+        $this -> app -> singleton(PlaceRepositoryInterface::class, PlaceRepository::class);
+        $this -> app -> singleton(PlaceCommentRepositoryInterface::class, PlaceCommentRepository::class);
+        $this -> app -> singleton(PlaceLikeRepositoryInterface::class, PlaceLikeRepository::class);
+        $this -> app -> singleton(PlaceLikeNotificationRepositoryInterface::class, PlaceLikeNotificationRepository::class);
+
+        // trips repositories
+        // TODO: ER Diagram and Use Case Diagram
     }
 }

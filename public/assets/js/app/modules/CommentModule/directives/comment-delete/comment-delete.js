@@ -10,7 +10,7 @@
                 restrict: 'E',
                 templateUrl: SERVER.url + 'assets/js/app/modules/CommentModule/directives/comment-delete/comment-delete.html',
                 scope: {
-                    comentid: '='
+                    commentid: '='
                 },
                 link: function(scope){
                     scope.deleteComment = function(){

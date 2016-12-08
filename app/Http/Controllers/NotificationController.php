@@ -12,6 +12,7 @@ use App\Repositories\LikeNotificationRepositoryInterface;
 use App\Repositories\LikeRepositoryInterface;
 use App\Repositories\NotificationRepositoryInterface;
 use App\Repositories\PhotoRepositoryInterface;
+use App\Repositories\PostCommentRepositoryInterface;
 use App\Repositories\PostLikeNotificationRepositoryInterface;
 use App\Repositories\PostLikeRepositoryInterface;
 use App\Repositories\PostRepositoryInterface;
@@ -37,7 +38,8 @@ class NotificationController extends Controller
             $commentRepository,
             $commentLikeRepository,
             $commentLikeNotificationRepository,
-            $commentNotificationRepository;
+            $commentNotificationRepository,
+            $postCommentRepository;
 
     /**
      * NotificationController constructor.
@@ -63,7 +65,8 @@ class NotificationController extends Controller
                                 CommentRepositoryInterface                  $commentRepository,
                                 CommentLikeRepositoryInterface              $commentLikeRepository,
                                 CommentLikeNotificationRepositoryInterface  $commentLikeNotificationRepository,
-                                CommentNotificationRepositoryInterface      $commentNotificationRepository){
+                                CommentNotificationRepositoryInterface      $commentNotificationRepository,
+                                PostCommentRepositoryInterface              $postCommentRepository){
 
         $this -> notificationRepository             = $notificationRepository;
         $this -> invitationNotificationRepository   = $invitationNotificationRepository;
@@ -80,6 +83,7 @@ class NotificationController extends Controller
         $this -> commentLikeRepository = $commentLikeRepository;
         $this -> commentLikeNotificationRepository = $commentLikeNotificationRepository;
         $this -> commentNotificationRepository = $commentNotificationRepository;
+        $this -> postCommentRepository = $postCommentRepository;
     }
 
 
@@ -107,50 +111,71 @@ class NotificationController extends Controller
                     case 'invitation':
                         $invitationNotification = $this->invitationNotificationRepository->getByNotificationId($notification->id);
                         $friendsPair = $this->friendsPairRepository->getById($invitationNotification->friends_pair_id);
-                        $sender = $this->userRepository->getById($friendsPair->from_user_id);
-                        $item['type'] = $notification->type;
+                        if ($friendsPair){
+                            $sender = $this->userRepository->getById($friendsPair->from_user_id);
+                            $item['type'] = $notification->type;
+                        } else {
+                            $this -> invitationNotificationRepository -> delete($invitationNotification->friends_pair_id);
+                            $this -> notificationRepository -> delete($notification->id);
+                        }
                         break;
 
                     case 'like':
                         $likeNotification = $this->likeNotificationRepository->getByNotificationId($notification->id);
                         $like = $this->likeRepository->getById($likeNotification->like_id);
-                        $sender = $this->userRepository->getById($like->user_id);
+                        if($like){
+                            $sender = $this->userRepository->getById($like->user_id);
+                            $item['type'] = $like->type . '-' .$notification->type;
 
-                        $item['type'] = $like->type . '-' .$notification->type;
+                            switch ($like->type){
+                                case 'post':
+                                    $postLike = $this->postLikeNotificationRepository->getByLikeNotificationId($likeNotification->id);
+                                    $item['post_id'] = $postLike -> post_id;
+                                    $text = $this->postRepository->getById($postLike->post_id)->text;
+                                    $item['post_text'] = strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text;
+                                    break;
 
-                        switch ($like->type){
-                            case 'post':
-                                $text = $this->postRepository->getById($this->postLikeNotificationRepository->getByLikeNotificationId($likeNotification->id)->post_id)->text;
-                                $item['post_text'] = strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text;
-                                break;
-
-                            case 'comment':
-                                $text = $this -> commentRepository -> getById($this->commentLikeNotificationRepository->getByLikeNotificationId($likeNotification->id)->comment_id)->text;
-                                $item['comment_text'] = strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text;
-                                break;
+                                case 'comment':
+                                    $commentLike = $this->commentLikeNotificationRepository->getByLikeNotificationId($likeNotification->id);
+                                    $item['comment_id'] = $commentLike -> comment_id;
+                                    $text = $this -> commentRepository -> getById($commentLike->comment_id)->text;
+                                    $item['comment_text'] = strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text;
+                                    break;
+                            }
+                        } else {
+                            $this -> likeNotificationRepository -> delete($likeNotification->id);
+                            $this -> notificationRepository -> delete($notification->id);
                         }
-
                         break;
 
                     case 'comment':
                         $commentNotification = $this -> commentNotificationRepository -> getByNotificationId($notification->id);
                         $comment = $this -> commentRepository -> getById($commentNotification->comment_id);
-                        $sender = $this -> userRepository -> getById($comment->author_user_id);
-                        $text = $comment -> text;
-                        $item['comment_text'] = strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text;;
-                        $item['type'] = $comment->type . '-' . $notification->type;
+                        if($comment){
+                            $sender = $this -> userRepository -> getById($comment->author_user_id);
+                            $text = $comment -> text;
+                            $item['comment_text'] = strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text;;
+                            $item['type'] = $comment->type . '-' . $notification->type;
+                            $postComment = $this -> postCommentRepository -> getByCommentId($comment->id);
+                            $item['post_id'] = $postComment -> post_id;
+                        } else {
+                            $this -> commentNotificationRepository -> delete($commentNotification->id);
+                            $this -> notificationRepository -> delete($notification->id);
+                        }
                         break;
                 }
 
-                $item['senderName'] = $sender->first_name . ' ' . $sender->last_name;
-                $item['senderId'] = $sender->id;
-                $item['senderUsername'] = $sender->username;
-                $item['senderAvatar'] = $sender->avatar_photo_id ? asset($this->photoRepository->getById($sender->avatar_photo_id)->thumb_url) : asset('images/avatar_min_' . $sender -> sex . '.png');
+                if ($sender){
+                    $item['senderName'] = $sender->first_name . ' ' . $sender->last_name;
+                    $item['senderId'] = $sender->id;
+                    $item['senderUsername'] = $sender->username;
+                    $item['senderAvatar'] = $sender->avatar_photo_id ? asset($this->photoRepository->getById($sender->avatar_photo_id)->thumb_url) : asset('images/avatar_min_' . $sender -> sex . '.png');
 
-                array_push($return['notifications'], $item);
+                    array_push($return['notifications'], $item);
+                }
             }
 
-            $return['lastId'] = $return['notifications'][$return['notificationsCount'] - 1]['id'];
+            if(!empty($return['notifications'])) $return['lastId'] = $return['notifications'][$return['notificationsCount'] - 1]['id'];
         }
 
         return response() -> json($return);

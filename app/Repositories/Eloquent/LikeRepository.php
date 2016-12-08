@@ -47,4 +47,10 @@ class LikeRepository implements LikeRepositoryInterface{
     public function getById($id) {
         return $this -> model -> find($id);
     }
+
+    public function countUserLikes($user_id){
+        return $this -> model -> where('user_id', '=', $user_id) -> count();
+    }
+
+
 }

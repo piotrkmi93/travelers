@@ -6,4 +6,5 @@ interface LikeRepositoryInterface{
     public function create($user_id, $type);
     public function delete($id);
     public function getById($id);
+    public function countUserLikes($user_id);
 }

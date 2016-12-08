@@ -1,8 +1,16 @@
 body {
     font-family: 'Lato';
-    background-size: cover;
-    background-position-y: -50px;
-    background-color: lightgrey;
+    /*background-size: cover;*/
+    /*background-position-y: -50px;*/
+    /*background-color: lightgrey;*/
+
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+
+    background: #7474BF; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #7474BF , #348AC7); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #7474BF , #348AC7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 a {
@@ -37,9 +45,16 @@ a {
     -moz-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
     height: 54px;
-    background-color: #0b97c4;
+    /*background-color: #0b97c4;*/
     color: white;
     border: unset;
+
+
+
+    background: #4b6cb7; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #4b6cb7 , #182848); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #4b6cb7 , #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 /*.navbar-default .navbar-brand {*/
@@ -234,7 +249,8 @@ textarea {
 
 .notification-modal-body{
     height: 70vh;
-    overflow-y: scroll;
+    overflow-y: auto;
+    /*overflow-y: scroll;*/
 }
 
 .navbar.navbar-default.navbar-static-top {
@@ -369,4 +385,156 @@ video#bgvid {
 
 .board-sidebar small {
     margin-top: 12px;
+}
+
+.strong {
+    font-weight: bolder;
+}
+
+.last-message {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    clear: both;
+}
+
+.messages-box{
+    padding-top: 72px;
+    height: calc(100% - 10vh);
+    overflow: auto;
+    background-color: white;
+}
+
+.new-message-box{
+    background-color: white;
+    position: absolute;
+    padding: 30px;
+    height: 10vh;
+    text-align: center;
+    bottom:0;
+    width: 100%;
+}
+
+.new-message-box > textarea {
+    margin-bottom: 10px;
+}
+
+.conversation{
+    position: absolute;
+    height: 100vh;
+    top: -72px;
+    width: 100%;
+}
+
+.message-box{
+    display: flex;
+}
+
+.message-box:not(.col-xs-offset-4){
+    justify-content: flex-start;
+}
+
+.message-box.col-xs-offset-4{
+    justify-content: flex-end;
+}
+
+.message-box img {
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+
+    height: 100%;
+    margin: -16px 10px 0px 10px;
+}
+
+.message-box p {
+    padding:10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #ffffff;
+}
+
+.message-box p > small{
+    font-size: 10px;
+    font-style: italic;
+}
+
+.message-box:not(.col-xs-offset-4) p {
+    border-top-right-radius: 10px;
+    background-color: #2b542c;
+    text-align: left;
+}
+
+.message-box.col-xs-offset-4 p {
+    border-top-left-radius: 10px;
+    background-color: #23527c;
+    text-align: right;
+}
+
+
+
+.message-row{
+
+}
+
+.angular-google-map-container { height: 400px; }
+
+.panel-default{
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+#place-images{
+    display: none;
+}
+
+.image-preview {
+    width:150px;
+    float:left;
+    margin: 10px;
+    border-radius: 4px;
+    border: 1px solid grey;
+    position: relative;
+}
+
+.place-images-panel{
+    position: relative;
+}
+
+.images-loading{
+    position: absolute;
+    height:100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.5);
+    top:0;
+    left:0;
+    border-radius: 4px;
+    color: #FFF;
+}
+
+.image-preview > img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.image-preview > .fa.fa-times {
+    position: absolute;
+    font-size: 30px;
+    color: rgba(0,0,0,0.5);
+    cursor: pointer;
+    bottom: 5px;
+    right: 5px;
+    transition: .3s ease all;
+}
+
+.image-preview > .fa.fa-times:hover{
+    color: rgba(255,0,0,1);
+}
+
+.list-group-item > a > h3 {
+    margin: 0;
 }

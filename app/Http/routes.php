@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('get_user_friends', 'FriendsController@getUserFriends');
     Route::post('get_user_by_id', 'UserController@getUserById');
     Route::post('get_user_basics_by_id', 'UserController@getUserBasicsById');
+    Route::post('get_user_gallery', 'UserController@getGallery');
 
     // posts
     Route::post('get_users_posts', 'PostController@getUsersPosts');
@@ -48,8 +49,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('like_post', 'PostController@like');
     Route::post('unlike_post', 'PostController@unlike');
 
+    Route::post('get_updated_post_statistics', 'PostController@getUpdatedPostStatistics');
+
     // comments
     Route::post('get_post_comments', 'CommentController@getPostComments');
+//    Route::post('get_place_comments', 'CommentController@getPlaceComments');
 
     Route::post('add_comment', 'CommentController@addComment');
     Route::post('delete_comment', 'CommentController@deleteComment');
@@ -61,4 +65,30 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('is_user_active', 'UserController@isUserActive');
     Route::post('are_users_active', 'UserController@areUsersActive');
 
+    Route::post('get_updated_comment_statistics', 'CosmmentController@getUpdatedCommentStatistics');
+
+    /*********** Messanger ***********/
+
+    Route::get('messanger', 'MessageController@index');
+
+    Route::post('get_messages', 'MessageController@getMessages');
+    Route::post('get_messanger_friends', 'MessageController@getFriends');
+    Route::post('get_user_by_username', 'MessageController@getUserByUsername');
+    Route::post('get_conversation', 'MessageController@getConversation');
+    Route::post('read_messages', 'MessageController@readMessages');
+    Route::post('send_message', 'MessageController@sendMessage');
+
+    /*********** Places ***********/
+
+
+    Route::get('places/add', 'PlaceController@getPlaceForm');
+    Route::get('places/edit/{slug}', 'PlaceController@getPlaceForm');
+    Route::get('places/{slug}', 'PlaceController@index');
+    Route::post('places/save', 'PlaceController@savePlace');
+    Route::post('places/is_slug_exists', 'PlaceController@isSlugExists');
+    Route::post('places/get_user_places', 'PlaceController@getUserPlaces');
+    Route::post('like_place', 'PlaceController@like');
+    Route::post('unlike_place', 'PlaceController@unlike');
 });
+
+Route::post('get_place_comments', 'CommentController@getPlaceComments');

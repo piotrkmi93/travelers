@@ -38,7 +38,7 @@
                         user_id: user_id,
                         offset: offset
                     }).then(function(response){
-                        console.log(response);
+                        // console.log(response);
                         return response.data.posts;
                     });
                 },
@@ -48,8 +48,16 @@
                         user_id: user_id,
                         offset: offset
                     }).then(function(response){
-                        console.log(response);
+                        // console.log(response);
                         return response.data.posts;
+                    });
+                },
+
+                getUpdatedPostStatistics: function(post_id){
+                    return $http.post(SERVER.url + 'get_updated_post_statistics', {
+                        post_id: post_id
+                    }).then(function(response){
+                        return response.data;
                     });
                 }
             };

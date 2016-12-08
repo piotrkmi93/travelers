@@ -204,4 +204,14 @@ class PostController extends Controller
             $this -> likeRepository -> delete($find->like_id)
         );
     }
+
+    public function getUpdatedPostStatistics(Request $request){
+        $post_id = $request -> post_id;
+        $likes_count = $this -> postLikeRepository -> count($post_id);
+        $comments_count = $this -> postCommentRepository -> count($post_id);
+        return response() -> json(array(
+            'likes_count' => $likes_count,
+            'comments_count' => $comments_count,
+        ));
+    }
 }

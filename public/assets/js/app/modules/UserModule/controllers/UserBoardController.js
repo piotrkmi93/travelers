@@ -41,5 +41,7 @@
             });
 
             getUserPosts();
+
+            console.log($scope);
         }]);
 })();

@@ -12,5 +12,17 @@
                 <h3><strong><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Konto od:</strong> <% user.created | date:'fullDate' %></h3>
             </div>
         </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>Statystyki</h2>
+                <hr>
+                <h3><strong><i class="fa fa-pencil" aria-hidden="true"></i> Posty:</strong> <% user.posts %></h3>
+                <h3><strong><i class="fa fa-comment" aria-hidden="true"></i> Komentarze:</strong> <% user.comments %></h3>
+                <h3><strong><i class="fa fa-heart" aria-hidden="true"></i> Polubienia:</strong> <% user.likes %></h3>
+                <!--<h3><strong><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Stworzone miejsca:</strong> <% user.created | date:'fullDate' %></h3>-->
+                <!--<h3><strong><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Stworzone wycieczki:</strong> <% user.created | date:'fullDate' %></h3>-->
+            </div>
+        </div>
     </div>
 </div>

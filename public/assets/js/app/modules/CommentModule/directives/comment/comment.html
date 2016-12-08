@@ -3,8 +3,8 @@
         <a style="margin:0" href="<% comment.user.link %>"><img src="<% comment.user.avatar %>" class="min-avatar"></a>
     </div>
     <div class="col-md-11">
-        <p><a style="margin:0" href="<% comment.user.link %>"><strong><% comment.user.name %></strong></a> <% comment.text %></p>
+        <p><a style="margin:0" href="<% comment.user.link %>"><strong><% comment.user.name %></strong></a> <span ng-bind-html="trustAsHtml(comment.text)"></span><small class="pull-right"><% comment.date %> <% comment.time %></small></p>
         <comment-like userid="userid" commentid="comment.id" liked="comment.liked" likes="comment.likes_count"></comment-like>
-        <comment-delete ng-if="isowner" postid="comment.id"></comment-delete>
+        <comment-delete ng-if="isowner" commentid="comment.id"></comment-delete>
     </div>
 </div>

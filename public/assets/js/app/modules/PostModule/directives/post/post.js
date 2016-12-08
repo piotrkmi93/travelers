@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('PostModule')
-        .directive('post', ['CommentService', 'SERVER', function(CommentService, SERVER){
+        .directive('post', ['PostService', 'CommentService', 'SERVER', '$sce', '$rootScope', function(PostService, CommentService, SERVER, $sce, $rootScope){
             return {
                 restrict: 'E',
                 templateUrl: SERVER.url + 'assets/js/app/modules/PostModule/directives/post/post.html',
@@ -26,7 +26,10 @@
                             scope.commentsShown = true;
                             getPostComments();
                         }
+                    };
 
+                    scope.trustAsHtml = function(string) {
+                        return $sce.trustAsHtml(string);
                     };
 
                     scope.$on('post-comment-added', function(){
@@ -35,6 +38,15 @@
 
                     scope.$on('comment-deleted', function(){
                         getPostComments();
+                    });
+
+                    $rootScope.$on('update-post', function(event, post_id){
+                        if (scope.post.id == post_id){
+                            PostService.getUpdatedPostStatistics(post_id).then(function(data){
+                                scope.post.likes_count = data.likes_count;
+                                scope.post.comments_count = data.comments_count;
+                            });
+                        }
                     });
 
                     function getPostComments(){

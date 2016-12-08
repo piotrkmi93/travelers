@@ -60,7 +60,6 @@
                 extendActiveTimestamp: function(user_id){
                     return $http.post(SERVER.url + 'extend_active_timestamp', {user_id: user_id})
                         .then(function(response){
-                            console.log(response.data);
                             return response.data;
                         });
                 },
@@ -68,7 +67,7 @@
                 isUserActive: function(user_id){
                     return $http.post(SERVER.url + 'is_user_active', {user_id: user_id})
                         .then(function(response){
-                            console.log(response.data);
+                            //console.log(response.data);
                             return response.data;
                         });
                 },
@@ -76,8 +75,15 @@
                 areUsersActive: function(ids){
                     return $http.post(SERVER.url + 'are_users_active', {ids: ids})
                         .then(function(response){
-                            console.log(response.data);
+                            //console.log(response.data);
                             return response.data;
+                        });
+                },
+
+                getUserGallery: function(user_id){
+                    return $http.post(SERVER.url + 'get_user_gallery', {user_id: user_id})
+                        .then(function(response){
+                            return response.data.photos;
                         });
                 }
             }

@@ -3,7 +3,11 @@
 @section('content')
     <div class="container" ng-controller="PostController" ng-init="postsInit({{Auth::user()->id}})">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-2 board-sidebar">
+                @include('chunks.board_sidebar')
+            </div>
+
+            <div class="col-md-6 col-md-offset-4">
 
                 <add-post user-id="{{Auth::user()->id}}"></add-post>
 
@@ -16,10 +20,6 @@
                 </div>
 
                 <div style="text-align: center;"><hr><p>Posty się skończyły :(</p></div>
-            </div>
-
-            <div class="col-md-2 col-md-offset-10 board-sidebar">
-                @include('chunks.board_sidebar')
             </div>
         </div>
     </div>

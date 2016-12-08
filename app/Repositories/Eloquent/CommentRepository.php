@@ -29,4 +29,10 @@ class CommentRepository implements CommentRepositoryInterface {
     public function getById($id){
         return $this -> model -> find($id);
     }
+
+    public function countUserComments($user_id){
+        return $this -> model -> where('author_user_id', '=', $user_id) -> count();
+    }
+
+
 }

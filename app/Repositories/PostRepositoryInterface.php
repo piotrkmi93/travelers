@@ -9,4 +9,5 @@ interface PostRepositoryInterface {
     public function getById($id);
     public function getUserPosts($author_user_id, $offset);
     public function getUsersPosts($users, $offset);
+    public function countUserPosts($user_id);
 }

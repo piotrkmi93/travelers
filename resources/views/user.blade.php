@@ -78,16 +78,16 @@
                         </div>
 
                         <div class="user-sidebar-item">
-                            {{--<a href="#/board">--}}
-                                <h1><i class="fa fa-map" aria-hidden="true"></i></h1>
-                                <h3>Wycieczki</h3>
-                            {{--</a>--}}
+                            <a href="#/places">
+                                <h1><i class="fa fa-map-marker" aria-hidden="true"></i></h1>
+                                <h3>Miejsca</h3>
+                            </a>
                         </div>
 
                         <div class="user-sidebar-item">
                             {{--<a href="#/board">--}}
-                                <h1><i class="fa fa-map-marker" aria-hidden="true"></i></h1>
-                                <h3>Miejsca</h3>
+                                <h1><i class="fa fa-map" aria-hidden="true"></i></h1>
+                                <h3>Wycieczki</h3>
                             {{--</a>--}}
                         </div>
 
@@ -102,7 +102,7 @@
             </div>
 
             <div class="col-md-6 col-md-offset-4">
-                <div ng-controller="UserViewController" ng-init="viewInit({{$user->id}})" ng-view></div>
+                <div ng-controller="UserViewController" ng-init="viewInit({{$user->id}}, {{Auth::user()->id}})" ng-view></div>
             </div>
         </div>
     </div>

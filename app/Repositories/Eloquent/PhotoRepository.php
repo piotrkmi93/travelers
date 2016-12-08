@@ -21,14 +21,15 @@ class PhotoRepository implements PhotoRepositoryInterface {
 
         switch ($type) {
             case 'background':
-                // dodawanie avatara
+                // dodawanie zdjęcia w tle
                 $thumb_path = null;
-                Image::make($image) -> resize(1122, null, function ($constraint) {
+                Image::make($image) -> resize(1248, null, function ($constraint) {
                     $constraint->aspectRatio();
-                }) -> crop(1122, 364) -> save( public_path($image_path) );
+                }) -> crop(1248, 406) -> save( public_path($image_path) );
                 break;
 
             case 'avatar':
+                // dodanie avatara
                 Image::make($image) -> resize(600, 600) -> save( public_path($image_path) );
                 Image::make($image) -> resize(32, 32) -> save( public_path($thumb_path) );
                 break;
@@ -88,5 +89,16 @@ class PhotoRepository implements PhotoRepositoryInterface {
 
     public function getById($id){
         return $this -> model -> find($id);
+    }
+
+    public function getUserPhotos($user){
+        return $this -> model -> where('gallery_id', '=', $user -> gallery_id)
+            -> where('id', '<>', $user -> avatar_photo_id)
+            -> where('id', '<>', $user -> background_photo_id)
+            -> get();
+    }
+
+    public function getByGalleryId($gallery_id){
+        return $this -> model -> where('gallery_id', '=', $gallery_id) -> get();
     }
 }

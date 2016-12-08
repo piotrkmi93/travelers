@@ -9,6 +9,8 @@ use App\Repositories\CommentRepositoryInterface;
 use App\Repositories\LikeNotificationRepositoryInterface;
 use App\Repositories\LikeRepositoryInterface;
 use App\Repositories\NotificationRepositoryInterface;
+use App\Repositories\PlaceCommentRepositoryInterface;
+use App\Repositories\PlaceRepositoryInterface;
 use App\Repositories\PostCommentRepositoryInterface;
 use App\Repositories\PostRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
@@ -28,7 +30,9 @@ class CommentController extends Controller
             $likeNotificationRepository,
             $commentLikeNotificationRepository,
             $postRepository,
-            $userRepository;
+            $userRepository,
+            $placeCommentRepository,
+            $placeRepository;
 
     /**
      * CommentController constructor.
@@ -51,7 +55,9 @@ class CommentController extends Controller
                                 LikeNotificationRepositoryInterface $likeNotificationRepository,
                                 CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository,
                                 PostRepositoryInterface $postRepository,
-                                UserRepositoryInterface $userRepository){
+                                UserRepositoryInterface $userRepository,
+                                PlaceCommentRepositoryInterface $placeCommentRepository,
+                                PlaceRepositoryInterface $placeRepository){
         $this -> commentRepository = $commentRepository;
         $this -> postCommentRepository = $postCommentRepository;
         $this -> notificationRepository = $notificationRepository;
@@ -62,6 +68,8 @@ class CommentController extends Controller
         $this -> commentLikeNotificationRepository = $commentLikeNotificationRepository;
         $this -> postRepository = $postRepository;
         $this -> userRepository = $userRepository;
+        $this -> placeCommentRepository = $placeCommentRepository;
+        $this -> placeRepository = $placeRepository;
     }
 
     /**
@@ -73,7 +81,7 @@ class CommentController extends Controller
         $text = $request -> text;
         $user_id = $request -> user_id; // autor komentarza
 
-        $comment_id = $this -> commentRepository -> create($text, $user_id, 'post');
+        $comment_id = $this -> commentRepository -> create($text, $user_id, $type);
 
         switch ($type){
             case 'post':
@@ -92,6 +100,14 @@ class CommentController extends Controller
             case 'place':
                 $place_id = $request -> place_id;
 
+                $place_comment_id = $this -> placeCommentRepository -> create($place_id, $comment_id);
+                $place = $this -> placeRepository -> getById($place_id);
+
+                if ($place -> author_user_id != $user_id){
+                    $notification_id = $this -> notificationRepository -> create($place -> author_user_id, 'comment');
+                    $comment_notification_id = $this -> commentNotificationRepository -> create($comment_id, $notification_id);
+                }
+
                 break;
         }
 
@@ -99,6 +115,7 @@ class CommentController extends Controller
     }
 
     /**
+     * TODO: coś tu jest nie tak
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -106,12 +123,12 @@ class CommentController extends Controller
         $comment_id = $request -> comment_id;
         $type = $this -> commentRepository -> getById($comment_id) -> type;
         switch($type){
-            case 'post-comment':
+            case 'post':
                 $post_comment_id = $this -> postCommentRepository -> getByCommentId($comment_id) -> id;
                 $this -> postCommentRepository -> delete($post_comment_id);
                 break;
 
-            case 'place-comment':
+            case 'place':
 
                 break;
         }
@@ -172,5 +189,35 @@ class CommentController extends Controller
         }
 
         return response() -> json($comments);
+    }
+
+    public function getPlaceComments(Request $request){
+        $place_id = $request -> place_id;
+        $user_id = $request -> user_id;
+        $place_comments = $this -> placeCommentRepository -> getByPlaceId($place_id);
+        $comments = array();
+        foreach ($place_comments as $index => $place_comment) {
+            $comment = $this -> commentRepository -> getById($place_comment -> comment_id);
+            array_push($comments, array(
+                'id' => $comment -> id,
+                'text' => $comment -> text,
+                'user' => $this->userRepository -> getUserBasicsById($comment->author_user_id),
+                'date' => Carbon::parse($comment -> created_at) -> toDateString(),
+                'time' => Carbon::parse($comment -> created_at) -> format('H:i'),
+
+                'likes_count' => $this -> commentLikeRepository -> count($comment->id),
+                'liked' => $this -> commentLikeRepository -> exists($user_id, $comment->id),
+            ));
+        }
+
+        return response() -> json($comments);
+    }
+
+    public function getUpdatedCommentStatistics(Request $request){
+        $comment_id = $request -> comment_id;
+        $likes_count = $this -> commentLikeRepository -> count($comment_id);
+        return response() -> json(array(
+            'likes_count' => $likes_count,
+        ));
     }
 }

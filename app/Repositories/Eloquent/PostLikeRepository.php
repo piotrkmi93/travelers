@@ -21,7 +21,7 @@ class PostLikeRepository implements PostLikeRepositoryInterface  {
     }
 
     public function delete($id){
-        $postLike = $this -> model -> find($id) -> delete();
+        return $this -> model -> find($id) -> delete();
     }
 
     public function getAllByPostId($post_id){

@@ -13,6 +13,8 @@
                 },
                 link: function(scope){
 
+                    console.log(scope.user_id);
+
                     var newPostImageInput = angular.element(document.querySelector('#new-post-image-input'));
                     var newPostImage = angular.element(document.querySelector('img#new-post-image'));
 
@@ -50,7 +52,7 @@
                                 if (data.post_id) {
                                     scope.newPostSending = false;
                                     scope.form = {
-                                        text: undefined,
+                                        text: '',
                                         photo: undefined
                                     };
                                     newPostImage.removeAttr('src');

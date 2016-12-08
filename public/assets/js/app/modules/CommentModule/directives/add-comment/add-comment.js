@@ -12,10 +12,10 @@
                 scope: {
                     userid: '=',
                     postid: '=',
+                    placeid: '=',
                     type: '@type'
                 },
                 link: function(scope){
-                    console.log(scope.userid);
                     UserService.getUserBasicsById(scope.userid).then(function(user){
                         scope.user = user;
                     });
@@ -24,7 +24,17 @@
                         if (scope.type == 'post' && scope.text != ''){
                             CommentService.addPostComment(scope.user.id, scope.postid, scope.text).then(function(success){
                                 if(success){
+                                    scope.text = '';
                                     scope.$emit('post-comment-added');
+                                }
+                            });
+                        }
+
+                        if (scope.type == 'place' && scope.text != ''){
+                            CommentService.addPlaceComment(scope.user.id, scope.placeid, scope.text).then(function(success){
+                                if(success){
+                                    scope.text = '';
+                                    scope.$emit('place-comment-added');
                                 }
                             });
                         }

@@ -58,4 +58,8 @@ class PostRepository implements PostRepositoryInterface {
         foreach ($users as $user) array_push($users_ids, $user->id);
         return $this -> model -> whereIn('author_user_id', $users_ids) -> skip($offset) -> take(10) -> orderBy('created_at', 'desc') -> get();
     }
+
+    public function countUserPosts($user_id){
+        return $this -> model -> where('author_user_id', '=', $user_id) -> count();
+    }
 }

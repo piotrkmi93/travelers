@@ -33,7 +33,35 @@
                     }).then(function(response){
                         return response.data;
                     });
-                }
+                },
+
+                getUpdatedCommentStatistics: function(comment_id){
+                    return $http.post(SERVER.url + 'get_updated_comment_statistics', {
+                        comment_id: comment_id
+                    }).then(function(response){
+                        return response.data;
+                    });
+                },
+
+                addPlaceComment: function(user_id, place_id, text){
+                    return $http.post(SERVER.url + 'add_comment', {
+                        user_id: user_id,
+                        place_id: place_id,
+                        text: text,
+                        type: 'place'
+                    }).then(function(response){
+                        return response.data;
+                    });
+                },
+
+                getPlaceComments: function(user_id, place_id){
+                    return $http.post(SERVER.url + 'get_place_comments', {
+                        user_id: user_id,
+                        place_id: place_id
+                    }).then(function(response){
+                        return response.data;
+                    });
+                },
             };
         }]);
 })();

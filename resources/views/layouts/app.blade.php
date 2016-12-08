@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
 
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+
+    <link rel="stylesheet" href="{{asset('assets/vendor/angular/ngGallery.css')}}">
 </head>
 <body id="app-layout" ng-app="app">
     @include('chunks.navbar')
@@ -37,9 +39,14 @@
     {{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.3.4/js/froala_editor.min.js"></script>--}}
     <script src="{{asset('assets/js/scripts.js')}}"></script>
 {{--    <script src="{{ asset('assets/vendor/jquery.js') }}"></script>--}}
+    <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyDITB_jJuL58WIVNvBN7LHS0XJbvEK6BwA&sensor=false'></script>
+    {{-- AIzaSyDITB_jJuL58WIVNvBN7LHS0XJbvEK6BwA --}}
 
     {{-- Vendor js --}}
+    <script src="{{asset('assets/vendor/angular/lodash.min.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular.js')}}"></script>
+    <script src="{{asset('assets/vendor/angular/angular-simple-logger.js')}}"></script>
+    <script src="{{asset('assets/vendor/angular/angular-google-maps.min.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular-route.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular-animate.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular-sanitize.js')}}"></script>
@@ -52,6 +59,8 @@
     {{--<script src="{{asset('assets/vendor/angular/textAngular.min.js')}}"></script>--}}
     <script src="{{asset('assets/vendor/color-picker/color-picker.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/angular-wysiwyg.js')}}"></script>
+    <script src="{{asset('assets/vendor/scrollglue.js')}}"></script>
+    <script src="{{asset('assets/vendor/angular/ngGallery.js')}}"></script>
 
 
     {{-- Angular Application --}}
@@ -71,6 +80,8 @@
     <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserNavbarController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserInformationController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserBoardController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserGalleryController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserPlaceController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/UserModule/services/UserService.js')}}"></script>
 
     <script src="{{asset('assets/js/app/modules/NotificationModule/NotificationModule.js')}}"></script>
@@ -97,5 +108,14 @@
     <script src="{{asset('assets/js/app/modules/CommentModule/directives/comment-like/comment-like.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/CommentModule/directives/comment-delete/comment-delete.js')}}"></script>
 
+    <script src="{{asset('assets/js/app/modules/MessageModule/MessageModule.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/MessageModule/controllers/MessageController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/MessageModule/controllers/ConversationController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/MessageModule/services/MessageService.js')}}"></script>
+
+    <script src="{{asset('assets/js/app/modules/PlaceModule/PlaceModule.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/PlaceModule/controllers/PlaceController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/PlaceModule/services/PlaceService.js')}}"></script>
 </body>
 </html>

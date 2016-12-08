@@ -6,8 +6,9 @@
 
     angular.module('UserModule')
         .controller('UserViewController', ['$scope', function ($scope) {
-            $scope.viewInit = function(user_id){
+            $scope.viewInit = function(user_id, current_user_id){
                 $scope.user_id = user_id;
+                $scope.current_user_id = current_user_id;
             }
         }]);
 })();
