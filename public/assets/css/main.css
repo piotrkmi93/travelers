@@ -166,7 +166,8 @@ a {
     cursor: pointer;
 }
 
-.like-liked i {
+i.like-liked,
+.like-liked i{
     color: red;
 }
 
@@ -562,4 +563,56 @@ video#bgvid {
 
 #bug-report > button:hover > span {
     opacity: 1;
+}
+
+#search-input{
+    margin-top: 3px;
+    width: 25vw;
+}
+
+#search-result{
+    background-color: #fff;
+    max-height: 80vh;
+    border-radius: 4px;
+    border: 1px solid black;
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    color: black;
+    overflow-y: scroll;
+}
+
+.search-result-user,
+.search-result-place{
+    transition: .3s ease all;
+    background-color: white;
+    padding: 10px;
+}
+
+.search-result-user:hover,
+.search-result-place:hover{
+    background-color: aquamarine;
+}
+
+.search-result-user img,
+.search-result-place-symbol{
+    float: left;
+    margin-right: 10px;
+    font-size: 32px;
+}
+
+.search-result-user small > span,
+.search-result-place small > span{
+    margin-right: 10px;
+}
+
+.search-result-user small,
+.search-result-place small{
+    font-weight: bold;
+}
+
+#trip-form .col-sm-12 input,
+#trip-form .col-sm-6 input,
+#trip-form .angular-google-map{
+    margin-bottom: 15px;
 }

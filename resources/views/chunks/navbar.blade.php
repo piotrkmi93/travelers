@@ -24,10 +24,14 @@
                     @if (Auth::user())
                         <li><a href="{{ url('/') }}"><small><i class="fa fa-newspaper-o" aria-hidden="true"></i></small> Tablica</a></li>
                         <li><a href="{{ url('places/add') }}"><small><i class="fa fa-map-marker" aria-hidden="true"></i></small> Dodaj miejsce</a></li>
-                        <li><a><small><i class="fa fa-map" aria-hidden="true"></i></small> Stwórz wycieczkę</a></li>
-                        <li><a type="button" data-toggle="modal" data-target="#search-modal"><small><i class="fa fa-search"></i></small> Wyszukaj...</a></li>
+                        <li><a href="{{ url('trips/add') }}"><small><i class="fa fa-map" aria-hidden="true"></i></small> Stwórz wycieczkę</a></li>
+
                     @endif
                 </ul>
+                @if (Auth::user())
+                    @include('chunks.searchbox')
+                @endif
+
 
 
                 <!-- Right Side Of Navbar -->
@@ -58,6 +62,5 @@
 
     @if(Auth::user())
         @include('chunks.notificationsModal')
-        @include('chunks.searchModal')
     @endif
 </div>

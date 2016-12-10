@@ -16,7 +16,7 @@
                             <div class="col-md-11 notification-body">
                                 <a href="user/<% notification.senderUsername %>"><strong><% notification.senderName %></strong></a> zaprosił(a) Cię do znajomych!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
                                 <a style="color:green;cursor:pointer;" ng-click="acceptInvitation({{Auth::user()->id}}, notification.senderId)">Przyjmij zaproszenie</a> |
-                                <a style="color:red;cursor:pointer; ng-click="deleteFromFriends({{Auth::user()->id}}, notification.senderId)">Odrzuć zaproszenie</a>
+                                <a style="color:red;cursor:pointer;" ng-click="deleteFromFriends({{Auth::user()->id}}, notification.senderId)">Odrzuć zaproszenie</a>
                             </div>
                         </div>
 

@@ -6,13 +6,15 @@
             <div class="col-md-6 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h1>{{ $place -> name }} <small class="pull-right"><a ng-click="likeThis()" class="like" ng-class="{'like-liked': liked}"><i class="fa fa-heart"></i> Lubię to!</a> <small ng-if="likes">(<% likes %>)</small></small></h1>
+                        <h1>{{ $place -> name }}<small class="pull-right"><a ng-click="likeThis()" class="like" ng-class="{'like-liked': liked}"><i class="fa fa-heart"></i> Lubię to!</a> <small ng-if="likes">(<% likes %>)</small></small></h1>
+                        <h4><i class="fa fa-map-marker"></i> {{ $city -> name }}</h4>
+                        <h4><a href="{{ asset('user/'.$user->username.'#/board') }}"><i class="fa fa-user"></i> {{ $user -> first_name }} {{ $user -> last_name }}</a></h4>
                         <hr>
                         <p>{{ $place -> long_description }}</p>
-                        @if($place -> phone && $place -> address && $place -> email) <hr> @endif
-                        @if( $place -> phone ) <p><strong>Telefon: </strong>{{ $place -> phone }}</p>@endif
-                        @if( $place -> address ) <p><strong>Adres: </strong>{{ $place -> address }}</p>@endif
-                        @if( $place -> email ) <p><strong>E-mail: </strong>{{ $place -> email }}</p>@endif
+                        @if($place -> phone || $place -> address || $place -> email) <hr> @endif
+                        @if( $place -> phone ) <p><strong><i class="fa fa-phone"></i> Telefon: </strong>{{ $place -> phone }}</p>@endif
+                        @if( $place -> address ) <p><strong><i class="fa fa-map"></i> Adres: </strong>{{ $place -> address }}</p>@endif
+                        @if( $place -> email ) <p><strong><i class="fa fa-envelope"></i> E-mail: </strong>{{ $place -> email }}</p>@endif
                     </div>
                 </div>
 

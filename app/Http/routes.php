@@ -15,17 +15,21 @@ Route::get('/', 'PostController@index');
 Route::auth();
 Route::get('home', 'HomeController@index');
 
-// json responses
+/*********** json responses ***********/
+
 Route::post('get_cities', 'CityController@getCities');
 
 Route::group(['middleware' => 'auth'], function(){
+
     Route::get('user/{username}', 'UserController@index');
 
-    // personal functions
+    /*********** personal functions ***********/
+
     route::post('user/change_avatar', 'UserController@changeAvatar');
     route::post('user/change_background', 'UserController@changeBackground');
 
-    // json responses for auth users
+    /*********** json responses for auth users ***********/
+
     Route::post('check_is_user_your_friend', 'FriendsController@checkIsUserYourFriend');
     Route::post('send_invitation', 'FriendsController@sendInvitation');
     Route::post('accept_invitation', 'FriendsController@acceptInvitation');
@@ -39,7 +43,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('get_user_basics_by_id', 'UserController@getUserBasicsById');
     Route::post('get_user_gallery', 'UserController@getGallery');
 
-    // posts
+    /*********** Posts ***********/
+
     Route::post('get_users_posts', 'PostController@getUsersPosts');
     Route::post('get_user_posts', 'PostController@getUserPosts');
 
@@ -51,9 +56,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::post('get_updated_post_statistics', 'PostController@getUpdatedPostStatistics');
 
-    // comments
+    /*********** Comments ***********/
+
     Route::post('get_post_comments', 'CommentController@getPostComments');
-//    Route::post('get_place_comments', 'CommentController@getPlaceComments');
 
     Route::post('add_comment', 'CommentController@addComment');
     Route::post('delete_comment', 'CommentController@deleteComment');
@@ -89,12 +94,21 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('like_place', 'PlaceController@like');
     Route::post('unlike_place', 'PlaceController@unlike');
     Route::post('get_place_comments', 'CommentController@getPlaceComments');
+    Route::get('places/{city_id}/{phrase}', 'PlaceController@getByPhraseAndCityId');
 
     /*********** Bug Reports ***********/
+
     Route::get('bug_reports', 'BugReportController@index');
     Route::post('bug_reports/add', 'BugReportController@add');
 
     /*********** Search Engine ***********/
-    Route::get('search/{phrase}', 'SearchEngineController@search');
+
+    Route::get('search/{user_id}/{phrase}', 'SearchEngineController@search');
+
+    /*********** Trips ***********/
+
+    Route::get('trips/add', 'TripController@form');
+    Route::get('trips/edit/{slug}', 'TripController@form');
+    Route::post('trips/exists', 'TripController@exists');
 });
 

@@ -114,7 +114,6 @@
 
                 if(!isLoadingMessages) getMessages().then(function(){
                     if (oldMessagesCount < $scope.newMessagesCount){
-                        // TODO: zmienić dźwięk nowej wiadomości
                         var notificationSound = new Audio(SERVER.url+'sounds/message.mp3');
                         notificationSound.play();
                     }
@@ -130,6 +129,15 @@
 
             $scope.trustAsHtml = function(string) {
                 return $sce.trustAsHtml(string);
+            };
+
+            $scope.deleteFromFriends = function(toUserId, fromUserId){
+                UserService.deleteFromFriends(toUserId, fromUserId)
+                    .then(function(success) {
+                        if (success) {
+                            refreshNotifications();
+                        }
+                    });
             };
         }]);
 })();

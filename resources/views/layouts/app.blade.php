@@ -125,5 +125,14 @@
     <script src="{{asset('assets/js/app/modules/BugReportModule/BugReportModule.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/BugReportModule/controllers/BugReportController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/BugReportModule/services/BugReportService.js')}}"></script>
+
+    <script src="{{asset('assets/js/app/modules/SearchEngineModule/SearchEngineModule.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/SearchEngineModule/controllers/SearchEngineController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/SearchEngineModule/services/SearchEngineService.js')}}"></script>
+
+    <script src="{{asset('assets/js/app/modules/TripModule/TripModule.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/TripModule/controllers/TripFormController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/TripModule/controllers/TripController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/TripModule/services/TripService.js')}}"></script>
 </body>
 </html>

@@ -24,6 +24,13 @@
                     });
                 },
 
+                getByPhraseAndCityId: function(phrase, city_id){
+                    return $http.get(SERVER.url + 'places/' + city_id + '/' + phrase)
+                        .then(function(response){
+                            return response.data;
+                        })
+                }
+
             };
         }]);
 })();

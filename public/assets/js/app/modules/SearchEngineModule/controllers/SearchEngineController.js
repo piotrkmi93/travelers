@@ -2,20 +2,39 @@
     'use strict';
 
     angular.module('SearchEngineModule')
-        .controller('SearchEngineController', ['$scope', 'SearchEngineService', function($scope, SearchEngineService){
+        .controller('SearchEngineController', ['$scope', 'SearchEngineService', '$timeout', function($scope, SearchEngineService, $timeout){
 
-            $scope.results = [];
+            $scope.users = [];
+            $scope.places = [];
             $scope.phrase = undefined;
+            $scope.show = false;
+            var user_id = undefined;
 
             $scope.$watch(function(){
                 return $scope.phrase;
             }, function(n,o){
                 if($scope.phrase){
-                    SearchEngineService.search($scope.phrase).then(function(data){
-
+                    SearchEngineService.search(user_id, $scope.phrase).then(function(data){
+                        $scope.users = data.users;
+                        $scope.places = data.places;
                     });
                 }
             });
+
+            $scope.init = function(id){
+                user_id = id;
+            };
+
+            $scope.focus = function(){
+                if($scope.show){
+                    $timeout(function(){
+                        $scope.show = !$scope.show;
+                    }, 200);
+                } else {
+                    $scope.show = !$scope.show;
+                }
+
+            }
 
         }]);
 })();

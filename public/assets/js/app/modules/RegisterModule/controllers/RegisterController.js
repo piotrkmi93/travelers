@@ -117,7 +117,7 @@
 
             $scope.init = function(){
                 setUserGeolocation();
-            }
+            };
 
 
             $scope.$watch(function(){return $scope.dt}, function(n, o){

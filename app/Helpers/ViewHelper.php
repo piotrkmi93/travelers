@@ -16,7 +16,7 @@ if (!function_exists('getImage')){
 if (!function_exists('getThumb')){
     function getThumb($id){
         if($id) return \App\Photo::find($id) -> thumb_url;
-        else return 'images/avatar_min_' . Auth::user()->sex . '.png';
+        else return 'images/avatar_min_' . (Auth::user()?Auth::user()->sex:'m') . '.png';
     }
 }
 

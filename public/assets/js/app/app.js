@@ -22,6 +22,7 @@
         'MessageModule',
         'PlaceModule',
         'BugReportModule',
-        'SearchEngineModule'
+        'SearchEngineModule',
+        'TripModule'
     ]);
 })();

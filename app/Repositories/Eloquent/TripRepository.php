@@ -74,6 +74,15 @@ class TripRepository implements TripRepositoryInterface
     }
 
     /**
+     * @param string $slug
+     * @return Trip|null
+     */
+    public function getBySlug($slug)
+    {
+        return $this -> model -> whereSlug($slug) -> first();
+    }
+
+    /**
      * @param Trip $trip
      * @param array $data
      * @return Trip|null
@@ -82,9 +91,16 @@ class TripRepository implements TripRepositoryInterface
     {
         if(isset($data['user_id'])) $trip -> user_id = $data['user_id'];
         if(isset($data['name'])) $trip -> name = $data['name'];
+        if(isset($data['slug'])) $trip -> slug = $data['slug'];
         if(isset($data['description'])) $trip -> description = $data['description'];
-        if(isset($data['start'])) $trip -> start = $data['start'];
-        if(isset($data['end'])) $trip -> end = $data['end'];
+        if(isset($data['start_time'])) $trip -> start_time = $data['start_time'];
+        if(isset($data['start_address'])) $trip -> start_address = $data['start_address'];
+        if(isset($data['start_latitude'])) $trip -> start_latitude = $data['start_latitude'];
+        if(isset($data['start_longitude'])) $trip -> start_longitude = $data['start_longitude'];
+        if(isset($data['end_time'])) $trip -> end_time = $data['end_time'];
+        if(isset($data['end_address'])) $trip -> end_address = $data['end_address'];
+        if(isset($data['end_latitude'])) $trip -> end_latitude = $data['end_latitude'];
+        if(isset($data['end_longitude'])) $trip -> end_longitude = $data['end_longitude'];
         return $trip -> save() ? $trip : null;
     }
 }

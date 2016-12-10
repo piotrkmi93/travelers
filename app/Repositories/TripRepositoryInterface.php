@@ -15,5 +15,6 @@ interface TripRepositoryInterface
     public function update($id, array $data);
     public function delete($id);
     public function get($id);
+    public function getBySlug($slug);
     public function getByUserId($user_id);
 }

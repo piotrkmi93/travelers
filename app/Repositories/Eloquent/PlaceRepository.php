@@ -33,7 +33,7 @@ class PlaceRepository implements PlaceRepositoryInterface {
      * @param $author_user_id
      * @return bool
      */
-    public function create($name, $slug, $short_description, $long_description, $gallery_id, $phone, $address, $email, $latitude, $longitude, $place_type, $author_user_id){
+    public function create($name, $slug, $short_description, $long_description, $gallery_id, $phone, $address, $email, $latitude, $longitude, $place_type, $author_user_id, $city_id){
         $place = new Place();
         $place -> name = $name;
         $place -> slug = $slug;
@@ -47,6 +47,7 @@ class PlaceRepository implements PlaceRepositoryInterface {
         $place -> longitude = $longitude;
         $place -> place_type = $place_type;
         $place -> author_user_id = $author_user_id;
+        $place -> city_id = $city_id;
         return $place -> save() ? $place : null;
     }
 
@@ -62,7 +63,7 @@ class PlaceRepository implements PlaceRepositoryInterface {
      * @param $longitude
      * @return mixed
      */
-    public function edit($id, $name, $slug, $short_description, $long_description, $phone, $address, $email, $latitude, $longitude){
+    public function edit($id, $name, $slug, $short_description, $long_description, $phone, $address, $email, $latitude, $longitude, $city_id){
         $place = $this -> model -> find($id);
         $place -> name = $name;
         $place -> slug = $slug;
@@ -73,6 +74,7 @@ class PlaceRepository implements PlaceRepositoryInterface {
         $place -> email = $email;
         $place -> latitude = $latitude;
         $place -> longitude = $longitude;
+        $place -> city_id = $city_id;
         return $place -> save() ? $place : null;
     }
 
@@ -114,5 +116,21 @@ class PlaceRepository implements PlaceRepositoryInterface {
     public function getAll(){
         return $this -> model -> all();
     }
+
+    public function getByPhrase($phrase)
+    {
+        return $this -> model -> where('name', 'like', "%$phrase%") -> get();
+    }
+
+    public function getByCityId($city_id)
+    {
+        return $this -> model -> whereCityId($city_id) -> get();
+    }
+
+    public function getByPhraseAndCityId($phrase, $city_id)
+    {
+        return $this -> model -> whereCityId($city_id) -> where('name', 'like', "%$phrase%") -> get();
+    }
+
 
 }

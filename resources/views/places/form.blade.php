@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" ng-controller="PlaceFormController" @if(isset($place)) ng-init="placeFormInit({{$images}}, {{ $place->latitude }}, {{ $place->longitude }})" @else ng-init="placeFormInit(undefined,undefined,undefined)" @endif>
+    <div class="container" ng-controller="PlaceFormController" @if(isset($place)) ng-init="placeFormInit({{"'".$images."'"}}, {{ $place->latitude }}, {{ $place->longitude }}, {{ "'".$city->name."'" }}, {{ $city->id }})" @else ng-init="placeFormInit(undefined,undefined,undefined)" @endif>
         <form method="POST" enctype="multipart/form-data" action="{{ url('places/save') }}">
 
             <div class="row">
@@ -53,6 +53,19 @@
                                 <input type="text" class="form-control" placeholder="Wpisz nazwę aby zobaczyć wygenerowany link..." ng-model="place.slug" disabled>
                             </div>
                             @endif
+
+                            <div class="form-group">
+                                <label for="city">Miasto:</label>
+                                <input autocomplete="off" type="text" id="city" class="form-control" name="city" ng-model="phrase.value">
+
+                                <div ng-if="!citySelected" id="city-select">
+                                    <ul>
+                                        <li ng-click="selectCity(city.name, city.id)" ng-repeat="city in cities" style="cursor:pointer"><% city.name %> <small><% city.distance %>km stąd</small></li>
+                                    </ul>
+                                </div>
+
+                                <input type="hidden" name="city_id" value="<% cityIdSelected %>">
+                            </div>
 
                             <div class="form-group">
                                 <label for="place_type">Typ miejsca:</label>
@@ -110,13 +123,13 @@
 
                                 <div class="form-group">
                                     <label for="latitude">Szerokość geograficzna:</label>
-                                    <input type="text" name="latitude" id="latitude" value="<% marker.coords.latitude %>" style="display:none;">
+                                    <input type="hidden" name="latitude" id="latitude" value="<% marker.coords.latitude %>">
                                     <input type="text" class="form-control" placeholder="<% marker.coords.latitude %>" required disabled>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="longitude">Długość geograficzna:</label>
-                                    <input type="text" name="longitude" id="longitude" value="<% marker.coords.longitude %>" style="display:none;">>
+                                    <input type="hidden" name="longitude" id="longitude" value="<% marker.coords.longitude %>">
                                     <input type="text" class="form-control" placeholder="<% marker.coords.longitude %>" required disabled>
                                 </div>
 

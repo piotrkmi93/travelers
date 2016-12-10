@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CityRepositoryInterface;
 use App\Repositories\GalleryRepositoryInterface;
 use App\Repositories\LikeNotificationRepositoryInterface;
 use App\Repositories\LikeRepositoryInterface;
@@ -31,7 +32,8 @@ class PlaceController extends Controller
             $placeLikeNotificationRepository,
             $placeCommentRepository,
             $postRepository,
-            $galleryRepository;
+            $galleryRepository,
+            $cityRepository;
 
     public function __construct(PlaceRepositoryInterface $placeRepository,
                                 PhotoRepositoryInterface $photoRepository,
@@ -43,7 +45,8 @@ class PlaceController extends Controller
                                 PlaceLikeNotificationRepositoryInterface $placeLikeNotificationRepository,
                                 PlaceCommentRepositoryInterface $placeCommentRepository,
                                 PostRepositoryInterface $postRepository,
-                                GalleryRepositoryInterface $galleryRepository){
+                                GalleryRepositoryInterface $galleryRepository,
+                                CityRepositoryInterface $cityRepository){
 
         $this -> placeRepository = $placeRepository;
         $this -> photoRepository = $photoRepository;
@@ -56,12 +59,15 @@ class PlaceController extends Controller
         $this -> placeCommentRepository = $placeCommentRepository;
         $this -> postRepository = $postRepository;
         $this -> galleryRepository = $galleryRepository;
+        $this -> cityRepository = $cityRepository;
     }
 
     public function index(Request $request){
         $slug = $request -> slug;
         $place = $this -> placeRepository -> getBySlug( $slug );
         $images = $this -> photoRepository -> getByGalleryId( $place -> gallery_id ) -> toArray();
+        $city = $this -> cityRepository -> getById($place -> city_id);
+        $user = $this -> userRepository -> getById($place -> author_user_id);
 
         foreach($images as &$image){
             $image['img'] = asset($image['image_url']);
@@ -77,7 +83,7 @@ class PlaceController extends Controller
 
         $images = json_encode( $images );
 
-        return view( 'places.index', compact( 'place', 'images', 'liked', 'likes' ) );
+        return view( 'places.index', compact( 'place', 'images', 'liked', 'likes', 'city', 'user' ) );
     }
 
     public function getPlaceForm(Request $request){
@@ -88,6 +94,7 @@ class PlaceController extends Controller
         }
 
         $place = $this -> placeRepository -> getBySlug( $slug );
+        $city = $this -> cityRepository -> getById($place -> city_id);
 
         if ($place->author_user_id != Auth::user()->id){
             return back();
@@ -99,7 +106,7 @@ class PlaceController extends Controller
         }
         $images = json_encode($images);
 
-        return view( 'places.form', compact( 'place', 'images' ) );
+        return view( 'places.form', compact( 'place', 'images', 'city' ) );
     }
 
     public function savePlace(Request $request){
@@ -115,14 +122,15 @@ class PlaceController extends Controller
         $email = $request -> email;
         $latitude = $request -> latitude;
         $longitude = $request -> longitude;
+        $city_id = $request -> city_id;
 
         $place = $this -> placeRepository -> getBySlug($slug);
 
         if(isset($place)){
-            $place = $this -> placeRepository -> edit($place->id, $name, $slug, $short_description, $long_description, $phone, $address, $email, $latitude, $longitude);
+            $place = $this -> placeRepository -> edit($place->id, $name, $slug, $short_description, $long_description, $phone, $address, $email, $latitude, $longitude, $city_id);
         } else {
             $gallery_id = $this -> galleryRepository -> create();
-            $place = $this -> placeRepository -> create($name, $slug, $short_description, $long_description, $gallery_id, $phone, $address, $email, $latitude, $longitude, $place_type, $user_id);
+            $place = $this -> placeRepository -> create($name, $slug, $short_description, $long_description, $gallery_id, $phone, $address, $email, $latitude, $longitude, $place_type, $user_id, $city_id);
         }
 
         if (isset($request->images) && count($request->images) > 0) {
@@ -148,12 +156,21 @@ class PlaceController extends Controller
         return response() -> json(array('places' => $places));
     }
 
-    public function getByPhrase(Request $request){
-        // TODO: this method
-    }
-
     public function deletePlace(Request $request){
-        // TODO: this method
+        $place_id = $request -> place_id;
+        $placeLikes = $this -> placeLikeRepository -> getAllByPlaceId($place_id);
+
+        foreach ($placeLikes as $placeLike)
+        {
+            $like = $this -> likeRepository -> getById($placeLike -> like_id);
+//            $likeNotification = $this -> likeNotificationRepository ->
+        }
+
+        $placeComments = $this -> placeCommentRepository -> getByPlaceId($place_id);
+
+
+
+        return response() -> json(['success' => $this -> placeRepository -> delete($place_id)]);
     }
 
     public function like(Request $request){
@@ -186,5 +203,10 @@ class PlaceController extends Controller
     public function isSlugExists(Request $request){
         $place = $this -> placeRepository -> getBySlug($request -> slug);
         return response() -> json( isset( $place ) ? true : false );
+    }
+
+    public function getByPhraseAndCityId($city_id, $phrase)
+    {
+        return response() -> json(['places' => $this -> placeRepository -> getByPhraseAndCityId($phrase, $city_id)]);
     }
 }

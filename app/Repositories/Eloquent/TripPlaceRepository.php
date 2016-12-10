@@ -82,7 +82,6 @@ class TripPlaceRepository implements TripPlaceRepositoryInterface
     {
         if(isset($data['trip_id'])) $tripPlace -> trip_id = $data['trip_id'];
         if(isset($data['place_id'])) $tripPlace -> place_id = $data['place_id'];
-        if(isset($data['position'])) $tripPlace -> position = $data['position'];
         if(isset($data['start'])) $tripPlace -> start = $data['start'];
         if(isset($data['end'])) $tripPlace -> trip_endendd = $data['end'];
         return $tripPlace -> save() ? $tripPlace : null;

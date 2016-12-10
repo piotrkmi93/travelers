@@ -2,7 +2,31 @@
     'use strict';
 
     angular.module('PlaceModule')
-        .controller('PlaceFormController', ['$scope', '$interval', 'PlaceService', function($scope, $interval, PlaceService){
+        .controller('PlaceFormController', ['$scope', '$interval', 'PlaceService', 'CitySearchService', function($scope, $interval, PlaceService, CitySearchService){
+
+            $scope.phrase = {
+                value: ''
+            };
+            $scope.cities = [];
+            $scope.citySelected = false;
+            $scope.cityIdSelected = undefined;
+
+            $scope.$watch('phrase', function (n,o) {
+                if ($scope.phrase.value != '' && $scope.phrase.value != undefined){
+                    $scope.citySelected = false;
+                    CitySearchService.getCities($scope.phrase.value, $scope.map.center.latitude, $scope.map.center.longitude)
+                        .then(function (cities) {
+                            $scope.cities = cities;
+                        });
+                }
+            }, true);
+
+            $scope.selectCity = function(cityName, cityId){
+                $scope.phrase.value = cityName;
+                $scope.citySelected = true;
+                $scope.cityIdSelected = cityId;
+                console.log(cityId);
+            };
 
             // variables
 
@@ -61,11 +85,15 @@
                 });
             };
 
-            $scope.placeFormInit = function(images, latitude, longitude){
+            $scope.placeFormInit = function(images, latitude, longitude, city_name, city_id){
+
+                console.log(JSON.parse(images));
+
+                $scope.selectCity(city_name, city_id);
 
                 if(images){
                     console.log(images);
-                    $scope.images = images;
+                    $scope.images = JSON.parse(images);
                 }
 
                 if(latitude && longitude){

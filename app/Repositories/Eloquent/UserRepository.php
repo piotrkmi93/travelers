@@ -72,7 +72,6 @@ class UserRepository implements UserRepositoryInterface {
             -> where('first_name' , 'like', "%$phrase%")
             -> orWhere('last_name' , 'like', "%$phrase%")
             -> orWhere('username' , 'like', "%$phrase%")
-            -> orWhere('email' , 'like', "%$phrase%")
             -> get();
     }
 
