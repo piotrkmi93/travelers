@@ -16,7 +16,6 @@ Route::auth();
 Route::get('home', 'HomeController@index');
 
 /*********** json responses ***********/
-
 Route::post('get_cities', 'CityController@getCities');
 
 Route::group(['middleware' => 'auth'], function(){
@@ -95,6 +94,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('unlike_place', 'PlaceController@unlike');
     Route::post('get_place_comments', 'CommentController@getPlaceComments');
     Route::get('places/{city_id}/{phrase}', 'PlaceController@getByPhraseAndCityId');
+    Route::post('places/delete', 'PlaceController@deletePlace');
 
     /*********** Bug Reports ***********/
 
@@ -110,5 +110,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('trips/add', 'TripController@form');
     Route::get('trips/edit/{slug}', 'TripController@form');
     Route::post('trips/exists', 'TripController@exists');
+    Route::post('trips/search_friends', 'TripController@getFriendsByPhrase');
 });
 

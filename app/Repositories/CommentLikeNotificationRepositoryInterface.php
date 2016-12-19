@@ -8,4 +8,5 @@ interface CommentLikeNotificationRepositoryInterface {
     public function getById($id);
     public function getByLikeNotificationId($like_notification_id);
     public function find($notification_id);
+    public function getByCommentId($comment_id);
 }

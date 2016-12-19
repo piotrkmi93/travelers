@@ -9,4 +9,5 @@ interface FriendsPairRepositoryInterface {
     public function deleteFromFriends($friend1_id, $friend2_id);
     public function getById($id);
     public function getUserFriends($user_id);
+    public function getFriendsByPhrase($user_id, $phrase);
 }

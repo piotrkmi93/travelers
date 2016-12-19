@@ -27,4 +27,11 @@ class CommentNotificationRepository implements CommentNotificationRepositoryInte
     public function getByNotificationId($notification_id){
         return $this->model->where('notification_id', '=', $notification_id)->first();
     }
+
+    public function getByCommentId($comment_id)
+    {
+        return $this -> model -> whereCommentId($comment_id) -> get();
+    }
+
+
 }

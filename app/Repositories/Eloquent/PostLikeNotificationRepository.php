@@ -31,4 +31,11 @@ class PostLikeNotificationRepository implements PostLikeNotificationRepositoryIn
     public function find($notification_id){
         return DB::select("SELECT a.id AS 'notification_id', b.id AS 'like_notification_id', c.id AS 'post_like_notification_id' FROM `notifications` a INNER JOIN `like_notifications` b ON a.id = b.notification_id INNER JOIN `post_like_notifications` c ON b.id = c.like_notification_id WHERE a.id = ". $notification_id)[0];
     }
+
+    public function getByPostId($post_id)
+    {
+        return $this -> model -> wherePostId($post_id) -> get();
+    }
+
+
 }

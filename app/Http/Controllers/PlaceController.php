@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\CityRepositoryInterface;
+use App\Repositories\CommentLikeNotificationRepositoryInterface;
+use App\Repositories\CommentLikeRepositoryInterface;
+use App\Repositories\CommentNotificationRepositoryInterface;
+use App\Repositories\CommentRepositoryInterface;
 use App\Repositories\GalleryRepositoryInterface;
 use App\Repositories\LikeNotificationRepositoryInterface;
 use App\Repositories\LikeRepositoryInterface;
@@ -33,8 +37,31 @@ class PlaceController extends Controller
             $placeCommentRepository,
             $postRepository,
             $galleryRepository,
-            $cityRepository;
+            $cityRepository,
+            $commentRepository,
+            $commentLikeRepository,
+            $commentLikeNotificationRepository,
+            $commentNotificationRepository;
 
+    /**
+     * PlaceController constructor.
+     * @param PlaceRepositoryInterface $placeRepository
+     * @param PhotoRepositoryInterface $photoRepository
+     * @param UserRepositoryInterface $userRepository
+     * @param LikeRepositoryInterface $likeRepository
+     * @param PlaceLikeRepositoryInterface $placeLikeRepository
+     * @param NotificationRepositoryInterface $notificationRepository
+     * @param LikeNotificationRepositoryInterface $likeNotificationRepository
+     * @param PlaceLikeNotificationRepositoryInterface $placeLikeNotificationRepository
+     * @param PlaceCommentRepositoryInterface $placeCommentRepository
+     * @param PostRepositoryInterface $postRepository
+     * @param GalleryRepositoryInterface $galleryRepository
+     * @param CityRepositoryInterface $cityRepository
+     * @param CommentRepositoryInterface $commentRepository
+     * @param CommentLikeRepositoryInterface $commentLikeRepository
+     * @param CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository
+     * @param CommentNotificationRepositoryInterface $commentNotificationRepository
+     */
     public function __construct(PlaceRepositoryInterface $placeRepository,
                                 PhotoRepositoryInterface $photoRepository,
                                 UserRepositoryInterface $userRepository,
@@ -46,7 +73,11 @@ class PlaceController extends Controller
                                 PlaceCommentRepositoryInterface $placeCommentRepository,
                                 PostRepositoryInterface $postRepository,
                                 GalleryRepositoryInterface $galleryRepository,
-                                CityRepositoryInterface $cityRepository){
+                                CityRepositoryInterface $cityRepository,
+                                CommentRepositoryInterface $commentRepository,
+                                CommentLikeRepositoryInterface $commentLikeRepository,
+                                CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository,
+                                CommentNotificationRepositoryInterface $commentNotificationRepository){
 
         $this -> placeRepository = $placeRepository;
         $this -> photoRepository = $photoRepository;
@@ -60,8 +91,18 @@ class PlaceController extends Controller
         $this -> postRepository = $postRepository;
         $this -> galleryRepository = $galleryRepository;
         $this -> cityRepository = $cityRepository;
+        $this -> commentRepository = $commentRepository;
+        $this -> commentLikeRepository = $commentLikeRepository;
+        $this -> commentLikeNotificationRepository = $commentLikeNotificationRepository;
+        $this -> commentNotificationRepository = $commentNotificationRepository;
     }
 
+    /**
+     * Zwraca widok miejsca
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request){
         $slug = $request -> slug;
         $place = $this -> placeRepository -> getBySlug( $slug );
@@ -86,6 +127,12 @@ class PlaceController extends Controller
         return view( 'places.index', compact( 'place', 'images', 'liked', 'likes', 'city', 'user' ) );
     }
 
+    /**
+     * Zwraca formularz do stworzenia lub edycji miejsca
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function getPlaceForm(Request $request){
         $slug = $request -> slug;
 
@@ -109,6 +156,12 @@ class PlaceController extends Controller
         return view( 'places.form', compact( 'place', 'images', 'city' ) );
     }
 
+    /**
+     * Tworzy nowe miejsce na podstawie przesłanych danych
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function savePlace(Request $request){
 
         $user_id = Auth::user()->id;
@@ -142,6 +195,12 @@ class PlaceController extends Controller
         return redirect('places/' . $place -> slug);
     }
 
+    /**
+     * Zwraca miejsca stworzone przez użytkownika
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUserPlaces(Request $request){
         $user_id = $request -> user_id;
         $places = $this -> placeRepository -> getByAuthorId($user_id) -> toArray();
@@ -156,23 +215,71 @@ class PlaceController extends Controller
         return response() -> json(array('places' => $places));
     }
 
+    /**
+     * Usuwa miejsce oraz wszystkie jego elementy
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deletePlace(Request $request){
-        $place_id = $request -> place_id;
-        $placeLikes = $this -> placeLikeRepository -> getAllByPlaceId($place_id);
+        $place = $this -> placeRepository -> getById($request -> place_id);
 
-        foreach ($placeLikes as $placeLike)
-        {
-            $like = $this -> likeRepository -> getById($placeLike -> like_id);
-//            $likeNotification = $this -> likeNotificationRepository ->
+        $placeLikes = $this -> placeLikeRepository -> getAllByPlaceId($place->id); // wszystkie lajki miejsca
+        foreach ($placeLikes as $placeLike){
+            $this -> likeRepository -> delete($placeLike -> like_id); // usuń lajk miejsca
+            $this -> placeLikeRepository -> delete($placeLike -> id); // usuń lajk
         }
 
-        $placeComments = $this -> placeCommentRepository -> getByPlaceId($place_id);
+        $placeLikeNotifications = $this -> placeLikeNotificationRepository -> getByPlaceId($place->id); // notyfikacje o polubieniach miejsca
+        foreach ($placeLikeNotifications as $placeLikeNotification){
+            $likeNotification = $this -> likeNotificationRepository -> get($placeLikeNotification -> like_notification_id);
+            $this -> notificationRepository -> delete($likeNotification -> notification_id); // usuń notyfikację
+            $this -> likeNotificationRepository -> delete($likeNotification -> id); // usuń notyfikację o lajku
+            $this -> likeNotificationRepository -> delete($placeLikeNotification -> id);
+        }
 
+        $placeComments = $this -> placeCommentRepository -> getByPlaceId($place -> id); // wszystkie komentarze miejsca
+        foreach($placeComments as $placeComment){
+            $comment = $this -> commentRepository -> getById($placeComment -> comment_id);
 
+            $commentLikes = $this -> commentLikeRepository -> getByCommentId($comment->id); // wszystkie lajki tego komentarza
+            foreach ($commentLikes as $commentLike){
+                $this -> likeRepository -> delete($commentLike -> like_id); // usuń lajka
+                $this -> commentLikeRepository -> delete($commentLike->id); // usuń lajka komentarza
+            }
 
-        return response() -> json(['success' => $this -> placeRepository -> delete($place_id)]);
+            $commentLikeNotifications = $this -> commentLikeNotificationRepository -> getByCommentId($comment -> id); // notyfikacje odnośnie lajków tego komentarza
+            foreach ($commentLikeNotifications as $commentLikeNotification){
+                $likeNotification = $this -> likeNotificationRepository -> get($commentLikeNotification->like_notification_id); // notyfikacja polubienia
+                $this -> notificationRepository -> delete($likeNotification -> notification_id); // usuń notyfikację
+                $this -> likeNotificationRepository -> delete($likeNotification -> id); // usuń notyfikację polubienia
+                $this -> commentLikeNotificationRepository -> delete($commentLikeNotification->id); // usuń notyfikację polubienia komentarza
+            }
+
+            $commentNotifications = $this -> commentNotificationRepository -> getByCommentId($comment -> id); // notyfikacje odnośnie komentowania
+            foreach ($commentNotifications as $commentNotification){
+                $this -> notificationRepository -> delete($commentNotification -> notification_id);
+                $this -> commentNotificationRepository -> delete($commentNotification -> id);
+            }
+
+            $this -> commentRepository -> delete($comment -> id);
+            $this -> placeCommentRepository -> delete($placeComment -> id);
+        }
+
+        $photos = $this -> photoRepository -> getByGalleryId($place -> gallery_id);
+        foreach ($photos as $photo)
+            $this -> photoRepository -> delete($photo->id);
+        $this -> galleryRepository -> delete($place -> gallery_id);
+
+        return response() -> json(['success' => $this -> placeRepository -> delete($place->id)]);
     }
 
+    /**
+     * Tworzy polubienie miejsca
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function like(Request $request){
         $place_id = $request -> place_id;
         $user_id = $request -> user_id;
@@ -189,6 +296,12 @@ class PlaceController extends Controller
         return response() -> json($place_like_id);
     }
 
+    /**
+     * Usuwa polubienie miejsca
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function unlike(Request $request){
         $place_id = $request -> place_id;
         $user_id = $request -> user_id;
@@ -200,11 +313,24 @@ class PlaceController extends Controller
         );
     }
 
+    /**
+     * Sprawdza czy istnieje już miejsce o takim slugu
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function isSlugExists(Request $request){
         $place = $this -> placeRepository -> getBySlug($request -> slug);
         return response() -> json( isset( $place ) ? true : false );
     }
 
+    /**
+     * Przeszukuje miejsca na podstawie frazy oraz id miasta
+     *
+     * @param int $city_id
+     * @param string $phrase
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getByPhraseAndCityId($city_id, $phrase)
     {
         return response() -> json(['places' => $this -> placeRepository -> getByPhraseAndCityId($phrase, $city_id)]);

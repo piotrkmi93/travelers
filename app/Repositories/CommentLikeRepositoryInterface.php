@@ -9,4 +9,5 @@ interface CommentLikeRepositoryInterface {
     public function count($comment_id);
     public function exists($user_id, $comment_id);
     public function find($user_id, $comment_id);
+    public function getByCommentId($comment_id);
 }

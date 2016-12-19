@@ -30,4 +30,11 @@ class PlaceCommentRepository implements PlaceCommentRepositoryInterface {
     {
         return $this -> model -> where('place_id', '=', $place_id) -> get();
     }
+
+    public function getByCommentId($comment_id)
+    {
+        return $this -> model -> whereCommentId($comment_id) -> first();
+    }
+
+
 }

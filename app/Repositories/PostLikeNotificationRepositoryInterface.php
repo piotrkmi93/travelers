@@ -7,4 +7,5 @@ interface PostLikeNotificationRepositoryInterface{
     public function delete($id);
     public function getByLikeNotificationId($like_notification_id);
     public function find($notification_id);
+    public function getByPostId($post_id);
 }

@@ -36,4 +36,11 @@ class CommentLikeNotificationRepository implements CommentLikeNotificationReposi
     public function find($notification_id){
         return DB::select("SELECT a.id AS 'notification_id', b.id AS 'like_notification_id', c.id AS 'comment_like_notification_id' FROM `notifications` a INNER JOIN `like_notifications` b ON a.id = b.notification_id INNER JOIN `comment_like_notifications` c ON b.id = c.like_notification_id WHERE a.id = ". $notification_id)[0];
     }
+
+    public function getByCommentId($comment_id)
+    {
+        return $this -> model -> whereCommentId($comment_id) -> get();
+    }
+
+
 }

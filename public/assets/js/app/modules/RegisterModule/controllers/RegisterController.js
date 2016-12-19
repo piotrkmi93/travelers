@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('RegisterModule')
-        .controller('RegisterController', ['$scope', '$interval', 'CitySearchService', function($scope, $interval, CitySearchService){
+        .controller('RegisterController', ['$scope', '$interval', 'CitySearchService', '$timeout', function($scope, $interval, CitySearchService, $timeout){
 
             $scope.userGeolocation = undefined;
 
@@ -34,19 +34,31 @@
             $scope.cities = [];
             $scope.citySelected = false;
             $scope.cityIdSelected = undefined;
+            $scope.show = false;
 
-            $scope.$watch('phrase', function (n,o) {
-                if ($scope.phrase.value != '' && $scope.phrase.value != undefined){
-                    $scope.citySelected = false;
-                    CitySearchService.getCities($scope.phrase.value, $scope.userGeolocation.latitude, $scope.userGeolocation.longitude)
-                        .then(function (cities) {
+            $scope.$watch(function(){
+                return $scope.phrase;
+            }, function(n,o){
+                if($scope.phrase && $scope.phrase != ''){
+                    CitySearchService.getCities($scope.phrase, $scope.userGeolocation.latitude, $scope.userGeolocation.longitude)
+                        .then(function(cities){
                             $scope.cities = cities;
                         });
                 }
-            }, true);
+            });
+
+            $scope.focus = function(){
+                if($scope.show){
+                    $timeout(function(){
+                        $scope.show = false;
+                    }, 200);
+                } else {
+                    $scope.show = true;
+                }
+            };
 
             $scope.selectCity = function(cityName, cityId){
-                $scope.phrase.value = cityName;
+                $scope.phrase = cityName;
                 $scope.citySelected = true;
                 $scope.cityIdSelected = cityId;
                 console.log(cityId);

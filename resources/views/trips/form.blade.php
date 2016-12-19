@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" ng-controller="TripFormController" ng-init="init()" id="trip-form">
+    <div class="container" ng-controller="TripFormController" ng-init="init({{ Auth::user()->id}})" id="trip-form">
         <form>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
@@ -63,34 +63,12 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <h4>Dodaj punkt wycieczki</h4>
-
-                            <div class="col-sm-6">
-                                <label>Miasto:</label>
-                                <input class="form-control" type="text" maxlength="255" ng-model="phrases.city" autocomplete="off">
-                                <div ng-if="!citySelected" id="city-select">
-                                    <ul>
-                                        <li ng-click="selectCity(city.name, city.id)" ng-repeat="city in cities" style="cursor:pointer"><% city.name %></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6" ng-if="citySelected">
-                                <label>Miejsce:</label>
-                                <input class="form-control" type="text" maxlength="255" ng-model="phrases.place" autocomplete="off">
-                                <div ng-if="!placeSelected" id="city-select">
-                                    <ul>
-                                        <li ng-click="selectPlace(place.name, place.id)" ng-repeat="place in places" style="cursor:pointer"><% place.name %></li>
-                                    </ul>
-                                </div>
-                            </div>
-
                             <h4 ng-if="trip.places.length">Wybrane punkty wycieczki</h4>
 
                             <div class="panel panel-default" ng-repeat="place in trip.places">
                                 <div class="panel-body">
                                     <div class="col-sm-12">
-                                        <strong><% place.name %></strong>
+                                        <h3><% place.name %></h3>
                                     </div>
 
                                     <div class="col-sm-4">
@@ -108,8 +86,72 @@
                                 </div>
                             </div>
 
+                            <h4>Dodaj punkt wycieczki</h4>
+
+                            <div class="col-sm-6">
+                                <label>Miasto:</label>
+
+                                <input placeholder="Wyszukaj miasto..." class="form-control" type="text" maxlength="255" ng-model="phrases.city" autocomplete="off" ng-focus="cityFocus()" ng-blur="cityFocus()">
+
+                                <div ng-if="citiesShow && cities.length" id="city-select">
+                                    <ul>
+                                        <li ng-click="selectCity(city.name, city.id)" ng-repeat="city in cities" style="cursor:pointer"><% city.name %></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6" ng-if="citySelected">
+                                <label>Miejsce:</label>
+
+                                <input placeholder="Wyszukaj miejsce..." class="form-control" type="text" maxlength="255" ng-model="phrases.place" autocomplete="off" ng-focus="placeFocus()" ng-blur="placeFocus()">
+
+                                <div ng-if="placesShow && places.length" id="place-select">
+                                    <ul>
+                                        <li>
+                                            <span ng-click="selectPlace(place.name, place.id)" ng-repeat="place in places" style="cursor:pointer"><% place.name %></span>
+                                            <div ng-if="place.disabled" class="trip-place-search-disabled"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <div ng-if="trip.users.length">
+                                <h4>Zaproszeni użytkownicy</h4>
+
+                                <div ng-repeat="user in trip.users">
+                                    <img src="<% user.thumb_url %>" class="min-avatar">
+                                    <strong><% user.first_name %> <% user.last_name %></strong>
+                                    <i class="fa fa-times pull-right" style="color: red;"></i>
+                                </div>
+                            </div>
+
+                            <h4>Zaproś uczestników wycieczki</h4>
+
+                            <div class="col-sm-12">
+                                <label>Użytkownik:</label>
+
+                                <input placeholder="Wyszukaj użytkownika" class="form-control" type="text" maxlength="255" ng-model="phrases.user" autocomplete="off" ng-focus="userFocus()" ng-blur="userFocus()">
+
+                                <div ng-if="usersShow && users.length" id="user-select">
+
+                                    <div class="trip-user-search" ng-repeat="user in users">
+                                        <img src="<% user.thumb_url %>" class="min-avatar">
+                                        <strong ng-click="selectUser(user.first_name, user.last_name, user.thumb_url, user.id)"><% user.first_name %> <% user.last_name %> <small ng-if="user.disabled"><i class="fa fa-check" style="color: green;"></i></small></strong>
+                                        <div ng-if="user.disabled" class="trip-user-search-disabled"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="col-md-5">
@@ -157,7 +199,7 @@
                             <div ng-if="!sameAddress">
                                 <div class="col-sm-12">
                                     <label for="end_address">Miejsce zakończenia wycieczki:</label>
-                                    <input id="end_address" name="end_address" type="text" maxlength="255" class="form-control" placeholder="Wpisz adres zakończenia zakończenia...">
+                                    <input id="end_address" name="end_address" type="text" maxlength="255" class="form-control" placeholder="Wpisz adres zakończenia wycieczki...">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="end_latitude">Szerokość geograficzna:</label>

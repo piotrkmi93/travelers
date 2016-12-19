@@ -115,13 +115,12 @@ class CommentController extends Controller
     }
 
     /**
-     * TODO: coś tu jest nie tak
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function deleteComment(Request $request){
-        $comment_id = $request -> comment_id;
-        $type = $this -> commentRepository -> getById($comment_id) -> type;
+        $comment_id = $request -> comment_id; // id komentarza
+        $type = $this -> commentRepository -> getById($comment_id) -> type; // typ komentarza
         switch($type){
             case 'post':
                 $post_comment_id = $this -> postCommentRepository -> getByCommentId($comment_id) -> id;
@@ -129,8 +128,29 @@ class CommentController extends Controller
                 break;
 
             case 'place':
-
+                $place_comment_id = $this -> placeCommentRepository -> getByCommentId($comment_id) -> id;
+                $this -> placeCommentRepository -> delete($place_comment_id);
                 break;
+        }
+
+        $commentLikes = $this -> commentLikeRepository -> getByCommentId($comment_id); // wszystkie lajki tego komentarza
+        foreach ($commentLikes as $commentLike){
+            $this -> likeRepository -> delete($commentLike -> like_id); // usuń lajka
+            $this -> commentLikeRepository -> delete($commentLike->id); // usuń lajka komentarza
+        }
+
+        $commentLikeNotifications = $this -> commentLikeNotificationRepository -> getByCommentId($comment_id); // notyfikacje odnośnie lajków tego komentarza
+        foreach ($commentLikeNotifications as $commentLikeNotification){
+            $likeNotification = $this -> likeNotificationRepository -> get($commentLikeNotification->like_notification_id); // notyfikacja polubienia
+            $this -> notificationRepository -> delete($likeNotification -> notification_id); // usuń notyfikację
+            $this -> likeNotificationRepository -> delete($likeNotification -> id); // usuń notyfikację polubienia
+            $this -> commentLikeNotificationRepository -> delete($commentLikeNotification->id); // usuń notyfikację polubienia komentarza
+        }
+
+        $commentNotifications = $this -> commentNotificationRepository -> getByCommentId($comment_id); // notyfikacje odnośnie komentowania
+        foreach ($commentNotifications as $commentNotification){
+            $this -> notificationRepository -> delete($commentNotification -> notification_id);
+            $this -> commentNotificationRepository -> delete($commentNotification -> id);
         }
 
         return response() -> json($this -> commentRepository -> delete($comment_id));

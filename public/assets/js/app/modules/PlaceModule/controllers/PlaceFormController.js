@@ -2,27 +2,38 @@
     'use strict';
 
     angular.module('PlaceModule')
-        .controller('PlaceFormController', ['$scope', '$interval', 'PlaceService', 'CitySearchService', function($scope, $interval, PlaceService, CitySearchService){
+        .controller('PlaceFormController', ['$scope', '$interval', 'PlaceService', 'CitySearchService', '$timeout', function($scope, $interval, PlaceService, CitySearchService, $timeout){
 
-            $scope.phrase = {
-                value: ''
-            };
+            $scope.phrase = '';
             $scope.cities = [];
             $scope.citySelected = false;
             $scope.cityIdSelected = undefined;
+            $scope.show = false;
 
-            $scope.$watch('phrase', function (n,o) {
-                if ($scope.phrase.value != '' && $scope.phrase.value != undefined){
-                    $scope.citySelected = false;
-                    CitySearchService.getCities($scope.phrase.value, $scope.map.center.latitude, $scope.map.center.longitude)
+            $scope.$watch(function(){
+                return $scope.phrase;
+            }, function (n,o) {
+                if ($scope.phrase != '' && $scope.phrase != undefined){
+                    // $scope.citySelected = false;
+                    CitySearchService.getCities($scope.phrase, $scope.map.center.latitude, $scope.map.center.longitude)
                         .then(function (cities) {
                             $scope.cities = cities;
                         });
                 }
             }, true);
 
+            $scope.focus = function(){
+                if($scope.show){
+                    $timeout(function(){
+                        $scope.show = false;
+                    }, 200);
+                } else {
+                    $scope.show = true;
+                }
+            };
+
             $scope.selectCity = function(cityName, cityId){
-                $scope.phrase.value = cityName;
+                $scope.phrase = cityName;
                 $scope.citySelected = true;
                 $scope.cityIdSelected = cityId;
                 console.log(cityId);

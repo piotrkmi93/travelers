@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('TripModule')
-        .controller('TripFormController', ['$scope', 'TripService', '$interval', 'CitySearchService', 'PlaceService', function($scope, TripService, $interval, CitySearchService, PlaceService){
+        .controller('TripFormController', ['$scope', 'TripService', '$interval', 'CitySearchService', 'PlaceService', '$timeout', 'UserFriendsService', function($scope, TripService, $interval, CitySearchService, PlaceService, $timeout, UserFriendsService){
 
             // variables
             $scope.phrases = {
@@ -16,6 +16,10 @@
             $scope.places = [];
             $scope.users = [];
             $scope.cities = [];
+            $scope.placesShow = false;
+            $scope.citiesShow = false;
+            $scope.usersShow = false;
+            var user_id = undefined;
 
             $scope.trip = {
                 name: undefined,
@@ -56,7 +60,8 @@
                 },
                 end_map: undefined,
 
-                places: []
+                places: [],
+                users: []
             };
 
             $scope.slugExists = undefined;
@@ -99,16 +104,32 @@
             };
 
             $scope.selectPlace = function(name, id){
-                $scope.phrases.place = name;
-                $scope.placeSelected = true;
                 $scope.trip.places.push({
                     id: id,
                     name: name,
-                    position: $scope.trip.places.length,
                     date: undefined,
                     start: undefined,
                     end: undefined
                 });
+
+                $scope.phrases.city = undefined;
+                $scope.phrases.place = undefined;
+                $scope.citySelected = undefined;
+                $scope.placeSelected = undefined;
+                $scope.cities = [];
+                $scope.places = [];
+            };
+
+            $scope.selectUser = function(first_name, last_name, thumb_url, id){
+                $scope.trip.users.push({
+                    id: id,
+                    first_name: first_name,
+                    last_name: last_name,
+                    thumb_url: thumb_url
+                });
+
+                $scope.phrases.user = undefined;
+                $scope.users = [];
             };
 
             // watchers
@@ -117,7 +138,6 @@
                 return $scope.phrases.city;
             }, function(n,o){
                 if($scope.phrases.city){
-                    $scope.citySelected = false;
                     CitySearchService.getCities($scope.phrases.city, $scope.trip.start_marker.coords.latitude, $scope.trip.start_marker.coords.longitude)
                         .then(function(cities){
                             $scope.cities = cities;
@@ -129,11 +149,40 @@
                 return $scope.phrases.place;
             },function(n,o){
                 if($scope.phrases.place && $scope.citySelected){
-                    $scope.placeSelected = false;
                     PlaceService.getByPhraseAndCityId($scope.phrases.place,  $scope.citySelected.id)
                         .then(function(data){
                             $scope.places = data.places;
-                        });
+                        }).finally(function(){
+                            angular.forEach($scope.trip.places, function(tripPlace){
+                                angular.forEach($scope.places, function(place){
+                                    if(place.id == tripPlace.id){
+                                        place.disabled = true;
+                                    }
+                                });
+                            });
+                    }).finally(function(){
+                        console.log($scope.places);
+                    });
+                }
+            });
+
+            $scope.$watch(function(){
+                return $scope.phrases.user;
+            }, function(){
+                if($scope.phrases.user && $scope.phrases.user != ''){
+                    UserFriendsService.getFriendsByPhrase(user_id, $scope.phrases.user)
+                        .then(function (friends) {
+                            $scope.users = friends;
+                        }).finally(function(){
+                            angular.forEach($scope.trip.users, function(user){
+                                angular.forEach($scope.users, function(friend){
+                                    if(user.id == friend.id){
+                                        friend.disabled = true;
+                                    }
+                                });
+                            });
+                            console.log($scope.users);
+                    });
                 }
             });
 
@@ -197,8 +246,39 @@
 
             // init
 
-            $scope.init = function(){
+            $scope.init = function(uid){
                 setUserGeolocation();
-            }
+                user_id = uid;
+            };
+
+            $scope.cityFocus = function(){
+                if($scope.citiesShow){
+                    $timeout(function(){
+                        $scope.citiesShow = !$scope.citiesShow;
+                    }, 200);
+                } else {
+                    $scope.citiesShow = !$scope.citiesShow;
+                }
+            };
+
+            $scope.placeFocus = function(){
+                if($scope.placesShow){
+                    $timeout(function(){
+                        $scope.placesShow = !$scope.placesShow;
+                    }, 200);
+                } else {
+                    $scope.placesShow = !$scope.placesShow;
+                }
+            };
+
+            $scope.userFocus = function(){
+                if($scope.usersShow){
+                    $timeout(function(){
+                        $scope.usersShow = !$scope.usersShow;
+                    }, 200);
+                } else {
+                    $scope.usersShow = !$scope.usersShow;
+                }
+            };
         }]);
 })();

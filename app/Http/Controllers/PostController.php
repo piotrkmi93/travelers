@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CommentLikeNotificationRepositoryInterface;
+use App\Repositories\CommentLikeRepositoryInterface;
+use App\Repositories\CommentNotificationRepositoryInterface;
+use App\Repositories\CommentRepositoryInterface;
 use App\Repositories\Eloquent\FriendsPairRepository;
 use App\Repositories\LikeNotificationRepositoryInterface;
 use App\Repositories\LikeRepositoryInterface;
@@ -29,7 +33,11 @@ class PostController extends Controller
             $notificationRepository,
             $likeNotificationRepository,
             $postLikeNotificationRepository,
-            $postCommentRepository;
+            $postCommentRepository,
+            $commentRepository,
+            $commentLikeRepository,
+            $commentLikeNotificationRepository,
+            $commentNotificationRepository;
 
     /**
      * PostController constructor.
@@ -40,6 +48,13 @@ class PostController extends Controller
      * @param LikeRepositoryInterface $likeRepository
      * @param PostLikeRepositoryInterface $postLikeRepository
      * @param NotificationRepositoryInterface $notificationRepository
+     * @param LikeNotificationRepositoryInterface $likeNotificationRepository
+     * @param PostLikeNotificationRepositoryInterface $postLikeNotificationRepository
+     * @param PostCommentRepositoryInterface $postCommentRepository
+     * @param CommentRepositoryInterface $commentRepository
+     * @param CommentLikeRepositoryInterface $commentLikeRepository
+     * @param CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository
+     * @param CommentNotificationRepositoryInterface $commentNotificationRepository
      */
     public function __construct(PostRepositoryInterface $postRepository,
                                 PhotoRepositoryInterface $photoRepository,
@@ -50,7 +65,11 @@ class PostController extends Controller
                                 NotificationRepositoryInterface $notificationRepository,
                                 LikeNotificationRepositoryInterface $likeNotificationRepository,
                                 PostLikeNotificationRepositoryInterface $postLikeNotificationRepository,
-                                PostCommentRepositoryInterface $postCommentRepository) {
+                                PostCommentRepositoryInterface $postCommentRepository,
+                                CommentRepositoryInterface $commentRepository,
+                                CommentLikeRepositoryInterface $commentLikeRepository,
+                                CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository,
+                                CommentNotificationRepositoryInterface $commentNotificationRepository) {
         $this -> postRepository = $postRepository;
         $this -> photoRepository = $photoRepository;
         $this -> userRepository = $userRepository;
@@ -61,6 +80,11 @@ class PostController extends Controller
         $this -> likeNotificationRepository = $likeNotificationRepository;
         $this -> postLikeNotificationRepository = $postLikeNotificationRepository;
         $this -> postCommentRepository = $postCommentRepository;
+        $this -> commentRepository = $commentRepository;
+
+        $this -> commentLikeRepository = $commentLikeRepository;
+        $this -> commentLikeNotificationRepository = $commentLikeNotificationRepository;
+        $this -> commentNotificationRepository = $commentNotificationRepository;
     }
 
     /**
@@ -158,14 +182,47 @@ class PostController extends Controller
         $post = $this -> postRepository -> getById($post_id);
         if ($post -> photo_id) $this -> photoRepository -> delete($post -> photo_id);
 
-        $postLikes = $this -> postLikeRepository -> getAllByPostId($post_id);
+        $postLikes = $this -> postLikeRepository -> getAllByPostId($post_id); // wszystkie lajki posta
         foreach ($postLikes as $postLike){
-            $like_id = $postLike -> like_id;
-            $this -> likeRepository -> delete($like_id);
-            $this -> postLikeRepository -> delete($like_id);
+            $this -> likeRepository -> delete($postLike -> like_id); // usuń lajk posta
+            $this -> postLikeRepository -> delete($postLike->id); // usuń lajk
         }
 
-        // usuwanie komentarzy
+        $postLikeNotifications = $this -> postLikeNotificationRepository -> getByPostId($post_id); // notyfikacje o lajku posta
+        foreach ($postLikeNotifications as $postLikeNotification){
+            $likeNotification = $this -> likeNotificationRepository -> get($postLikeNotification -> like_notification_id); // notyfikacja o lajku
+            $this -> notificationRepository -> delete($likeNotification -> notification_id); // usuń notyfikację
+            $this -> likeNotificationRepository -> delete($likeNotification -> id); // usuń notyfikację o lajku
+            $this -> postLikeNotificationRepository -> delete($postLikeNotification -> id); // usuń notyfikację o lajku posta
+        }
+
+        $postComments = $this -> postCommentRepository -> getByPostId($post_id); // wszystkie komentarze posta
+        foreach ($postComments as $postComment){
+            $comment_id = $this -> commentRepository -> getById($postComment -> comment_id) -> id;
+
+            $commentLikes = $this -> commentLikeRepository -> getByCommentId($comment_id); // wszystkie lajki tego komentarza
+            foreach ($commentLikes as $commentLike){
+                $this -> likeRepository -> delete($commentLike -> like_id); // usuń lajka
+                $this -> commentLikeRepository -> delete($commentLike->id); // usuń lajka komentarza
+            }
+
+            $commentLikeNotifications = $this -> commentLikeNotificationRepository -> getByCommentId($comment_id); // notyfikacje odnośnie lajków tego komentarza
+            foreach ($commentLikeNotifications as $commentLikeNotification){
+                $likeNotification = $this -> likeNotificationRepository -> get($commentLikeNotification->like_notification_id); // notyfikacja polubienia
+                $this -> notificationRepository -> delete($likeNotification -> notification_id); // usuń notyfikację
+                $this -> likeNotificationRepository -> delete($likeNotification -> id); // usuń notyfikację polubienia
+                $this -> commentLikeNotificationRepository -> delete($commentLikeNotification->id); // usuń notyfikację polubienia komentarza
+            }
+
+            $commentNotifications = $this -> commentNotificationRepository -> getByCommentId($comment_id); // notyfikacje odnośnie komentowania
+            foreach ($commentNotifications as $commentNotification){
+                $this -> notificationRepository -> delete($commentNotification -> notification_id);
+                $this -> commentNotificationRepository -> delete($commentNotification -> id);
+            }
+
+            $this -> commentRepository -> delete($comment_id);
+            $this -> postCommentRepository -> delete($postComment -> id);
+        }
 
         return response() -> json($this -> postRepository -> delete($post_id));
     }

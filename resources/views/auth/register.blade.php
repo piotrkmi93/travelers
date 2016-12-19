@@ -63,9 +63,13 @@
                             <label for="city" class="col-md-4 control-label">Miasto</label>
 
                             <div class="col-md-6">
-                                <input autocomplete="off" type="text" id="city" class="form-control" name="city" value="{{ old('city') }}" ng-model="phrase.value">
 
-                                <div ng-if="!citySelected" id="city-select">
+                                {{--<input autocomplete="off" type="text" id="city" class="form-control" name="city" value="{{ old('city') }}" ng-model="phrase.value">--}}
+
+                                <input class="form-control" type="text" autocomplete="off" id="city" placeholder="Wyszukaj miasto" ng-model="phrase" name="city" ng-focus="focus()" ng-blur="focus()">
+
+                                {{--<div ng-if="!citySelected" id="city-select">--}}
+                                <div ng-if="show && cities.length" id="city-select">
                                    <ul>
                                     <li ng-click="selectCity(city.name, city.id)" ng-repeat="city in cities" style="cursor:pointer"><% city.name %> <small><% city.distance %>km stąd</small></li>
                                    </ul>

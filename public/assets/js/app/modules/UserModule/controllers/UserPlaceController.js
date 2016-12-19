@@ -9,12 +9,24 @@
 
             $scope.places = [];
 
-            PlaceService.getUserPlaces($scope.user_id).then(function(data){
-                if (data.hasOwnProperty('places')){
-                    console.log(data.places);
-                    $scope.places = data.places;
-                }
-            });
+            getPlaces();
+
+            function getPlaces(){
+                PlaceService.getUserPlaces($scope.user_id).then(function(data){
+                    if (data.hasOwnProperty('places')){
+                        $scope.places = data.places;
+                    }
+                });
+            }
+
+            $scope.delete = function(place_id){
+                PlaceService.delete(place_id)
+                    .then(function(data){
+                        if(data.success){
+                            getPlaces();
+                        }
+                    });
+            };
 
         }]);
 })();

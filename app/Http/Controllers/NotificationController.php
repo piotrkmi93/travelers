@@ -12,6 +12,10 @@ use App\Repositories\LikeNotificationRepositoryInterface;
 use App\Repositories\LikeRepositoryInterface;
 use App\Repositories\NotificationRepositoryInterface;
 use App\Repositories\PhotoRepositoryInterface;
+use App\Repositories\PlaceCommentRepositoryInterface;
+use App\Repositories\PlaceLikeNotificationRepositoryInterface;
+use App\Repositories\PlaceLikeRepositoryInterface;
+use App\Repositories\PlaceRepositoryInterface;
 use App\Repositories\PostCommentRepositoryInterface;
 use App\Repositories\PostLikeNotificationRepositoryInterface;
 use App\Repositories\PostLikeRepositoryInterface;
@@ -31,15 +35,20 @@ class NotificationController extends Controller
             $userRepository,
             $photoRepository,
             $postRepository,
+            $placeRepository,
 
             $likeRepository,
             $postLikeRepository,
+            $placeLikeRepository,
 
             $commentRepository,
             $commentLikeRepository,
             $commentLikeNotificationRepository,
             $commentNotificationRepository,
-            $postCommentRepository;
+            $placeLikeNotificationRepository,
+
+            $postCommentRepository,
+            $placeCommentRepository;
 
     /**
      * NotificationController constructor.
@@ -47,46 +56,69 @@ class NotificationController extends Controller
      * @param InvitationNotificationRepositoryInterface $invitationNotificationRepository
      * @param LikeNotificationRepositoryInterface $likeNotificationRepository
      * @param FriendsPairRepositoryInterface $friendsPairRepository
+     * @param PostLikeNotificationRepositoryInterface $postLikeNotificationRepository
+     * @param PlaceLikeRepositoryInterface $placeLikeRepository
      * @param UserRepositoryInterface $userRepository
      * @param PhotoRepositoryInterface $photoRepository
+     * @param PostRepositoryInterface $postRepository
+     * @param PlaceRepositoryInterface $placeRepository
      * @param LikeRepositoryInterface $likeRepository
      * @param PostLikeRepositoryInterface $postLikeRepository
+     * @param CommentRepositoryInterface $commentRepository
+     * @param CommentLikeRepositoryInterface $commentLikeRepository
+     * @param CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository
+     * @param CommentNotificationRepositoryInterface $commentNotificationRepository
+     * @param PlaceLikeNotificationRepositoryInterface $placeLikeNotificationRepository
+     * @param PostCommentRepositoryInterface $postCommentRepository
+     * @param PlaceCommentRepositoryInterface $placeCommentRepository
      */
     public function __construct(NotificationRepositoryInterface             $notificationRepository,
                                 InvitationNotificationRepositoryInterface   $invitationNotificationRepository,
                                 LikeNotificationRepositoryInterface         $likeNotificationRepository,
                                 FriendsPairRepositoryInterface              $friendsPairRepository,
                                 PostLikeNotificationRepositoryInterface     $postLikeNotificationRepository,
+                                PlaceLikeRepositoryInterface                $placeLikeRepository,
                                 UserRepositoryInterface                     $userRepository,
                                 PhotoRepositoryInterface                    $photoRepository,
                                 PostRepositoryInterface                     $postRepository,
+                                PlaceRepositoryInterface                    $placeRepository,
                                 LikeRepositoryInterface                     $likeRepository,
                                 PostLikeRepositoryInterface                 $postLikeRepository,
                                 CommentRepositoryInterface                  $commentRepository,
                                 CommentLikeRepositoryInterface              $commentLikeRepository,
                                 CommentLikeNotificationRepositoryInterface  $commentLikeNotificationRepository,
                                 CommentNotificationRepositoryInterface      $commentNotificationRepository,
-                                PostCommentRepositoryInterface              $postCommentRepository){
+                                PlaceLikeNotificationRepositoryInterface    $placeLikeNotificationRepository,
+                                PostCommentRepositoryInterface              $postCommentRepository,
+                                PlaceCommentRepositoryInterface             $placeCommentRepository){
 
         $this -> notificationRepository             = $notificationRepository;
         $this -> invitationNotificationRepository   = $invitationNotificationRepository;
         $this -> likeNotificationRepository         = $likeNotificationRepository;
         $this -> friendsPairRepository              = $friendsPairRepository;
         $this -> postLikeNotificationRepository     = $postLikeNotificationRepository;
+        $this -> placeLikeRepository                = $placeLikeRepository;
         $this -> userRepository                     = $userRepository;
         $this -> photoRepository                    = $photoRepository;
         $this -> postRepository                     = $postRepository;
+        $this -> placeRepository                    = $placeRepository;
         $this -> likeRepository                     = $likeRepository;
         $this -> postLikeRepository                 = $postLikeRepository;
 
-        $this -> commentRepository = $commentRepository;
-        $this -> commentLikeRepository = $commentLikeRepository;
-        $this -> commentLikeNotificationRepository = $commentLikeNotificationRepository;
-        $this -> commentNotificationRepository = $commentNotificationRepository;
-        $this -> postCommentRepository = $postCommentRepository;
+        $this -> commentRepository                  = $commentRepository;
+        $this -> commentLikeRepository              = $commentLikeRepository;
+        $this -> commentLikeNotificationRepository  = $commentLikeNotificationRepository;
+        $this -> commentNotificationRepository      = $commentNotificationRepository;
+        $this -> placeLikeNotificationRepository    = $placeLikeNotificationRepository;
+
+        $this -> postCommentRepository              = $postCommentRepository;
+        $this -> placeCommentRepository             = $placeCommentRepository;
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getNotifications(Request $request) {
         $notifications = $this -> notificationRepository -> getNotifications($request -> user_id, $request -> last_id ? $request -> last_id : null);
         $notificationsCount = $notifications -> count();
@@ -141,6 +173,14 @@ class NotificationController extends Controller
                                     $text = $this -> commentRepository -> getById($commentLike->comment_id)->text;
                                     $item['comment_text'] = strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text;
                                     break;
+
+                                case 'place':
+                                    $placeLike = $this -> placeLikeNotificationRepository -> getByLikeNotificationId($likeNotification->id);
+                                    $item['place_id'] = $placeLike -> place_id;
+                                    $place = $this -> placeRepository -> getById($placeLike -> place_id);
+                                    $item['name'] = $place -> name;
+                                    $item['url'] = asset('places/' . $place -> slug);
+                                    break;
                             }
                         } else {
                             $this -> likeNotificationRepository -> delete($likeNotification->id);
@@ -154,10 +194,21 @@ class NotificationController extends Controller
                         if($comment){
                             $sender = $this -> userRepository -> getById($comment->author_user_id);
                             $text = $comment -> text;
-                            $item['comment_text'] = strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text;;
+                            $item['comment_text'] = str_replace('<br>', '', strlen($text) > 50 ? substr($text, 0, 50) . '...' : $text);
                             $item['type'] = $comment->type . '-' . $notification->type;
-                            $postComment = $this -> postCommentRepository -> getByCommentId($comment->id);
-                            $item['post_id'] = $postComment -> post_id;
+
+                            if($comment->type == 'post') {
+                                $postComment = $this -> postCommentRepository -> getByCommentId($comment->id);
+                                $item['post_id'] = $postComment -> post_id;
+                            }
+
+                            if($comment->type == 'place') {
+                                $placeComment = $this -> placeCommentRepository -> getByCommentId($comment->id);
+                                $place = $this -> placeRepository -> getById($placeComment -> place_id);
+                                $item['place_id'] = $place -> id;
+                                $item['name'] = $place -> name;
+                                $item['url'] = asset('places/' . $place -> slug);
+                            }
                         } else {
                             $this -> commentNotificationRepository -> delete($commentNotification->id);
                             $this -> notificationRepository -> delete($notification->id);
@@ -166,6 +217,7 @@ class NotificationController extends Controller
                 }
 
                 if ($sender){
+                    $item['senderUrl'] = asset('user/' . $sender->username . '#/board');
                     $item['senderName'] = $sender->first_name . ' ' . $sender->last_name;
                     $item['senderId'] = $sender->id;
                     $item['senderUsername'] = $sender->username;
@@ -181,15 +233,27 @@ class NotificationController extends Controller
         return response() -> json($return);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteNotification(Request $request){
         $notification_id = $request -> notification_id;
         $type = $request -> type;
 
         switch($type){
+
+            // comments
             case 'post-comment':
                 $commentNotification = $this -> commentNotificationRepository -> getByNotificationId($notification_id);
                 $this -> commentNotificationRepository ->delete($commentNotification->id);
                 $this -> notificationRepository -> delete($commentNotification->notification_id);
+                break;
+
+            case 'place-comment':
+                $commentNotification = $this -> commentNotificationRepository -> getByNotificationId($notification_id);
+                $this -> commentNotificationRepository -> delete( $commentNotification -> id);
+                $this -> notificationRepository -> delete($commentNotification -> notification_id);
                 break;
 
             // likes
@@ -206,9 +270,14 @@ class NotificationController extends Controller
                 $this ->likeNotificationRepository->delete($find->like_notification_id);
                 $this -> commentLikeNotificationRepository -> delete($find->comment_like_notification_id);
                 break;
+
+            case 'place-like':
+                $find = $this -> placeLikeNotificationRepository -> find($notification_id);
+                $this -> notificationRepository -> delete($find -> notification_id);
+                $this -> likeNotificationRepository -> delete($find -> like_notification_id);
+                $this -> placeLikeNotificationRepository -> delete($find -> place_like_notification_id);
+                break;
         }
-
-
 
         return response()->json(true);
     }

@@ -28,4 +28,11 @@ class LikeNotificationRepository implements LikeNotificationRepositoryInterface 
     public function getByNotificationId($notification_id){
         return $this -> model -> where('notification_id', '=', $notification_id) -> first();
     }
+
+    public function get($id)
+    {
+        return $this -> model -> find($id);
+    }
+
+
 }

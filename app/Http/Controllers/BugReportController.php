@@ -32,13 +32,11 @@ class BugReportController extends Controller
         foreach ($bugReports as &$bugReport){
             $user = $this -> userRepository -> getById($bugReport['user_id']);
             $bugReport['user_name'] = $user -> first_name . ' ' . $user -> last_name;
-            $bugReport['avatar'] = asset($this -> photoRepository -> getById($user -> avatar_photo_id) -> thumb_url);
+            $bugReport['avatar'] = $user -> avatar_photo_id ? asset($this -> photoRepository -> getById($user -> avatar_photo_id) -> thumb_url) : asset('images/avatar_min_' . ($user->sex) . '.png');
             $bugReport['created_at'] = (new Carbon($bugReport['created_at']))->toDateString() . ' o ' . (new Carbon($bugReport['created_at']))->toTimeString();
             $bugReport['updated_at'] = (new Carbon($bugReport['updated_at']))->toDateString() . ' o ' . (new Carbon($bugReport['updated_at']))->toTimeString();
             $bugReport['user_link'] = asset('user/' . $user -> username . '#/board');
         }
-
-//        dd($bugReports);
 
         return view('bug_reports', compact('bugReports'));
     }

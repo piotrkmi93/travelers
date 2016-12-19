@@ -7,4 +7,5 @@ interface PlaceLikeNotificationRepositoryInterface {
     public function delete($id);
     public function getByLikeNotificationId($like_notification_id);
     public function find($notification_id);
+    public function getByPlaceId($place_id);
 }

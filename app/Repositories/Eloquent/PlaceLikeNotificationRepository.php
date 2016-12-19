@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 use App\PlaceLikeNotification;
 use App\Repositories\PlaceLikeNotificationRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class PlaceLikeNotificationRepository implements PlaceLikeNotificationRepositoryInterface {
 
@@ -29,6 +30,11 @@ class PlaceLikeNotificationRepository implements PlaceLikeNotificationRepository
 
     public function find($notification_id){
         return DB::select("SELECT a.id AS 'notification_id', b.id AS 'like_notification_id', c.id AS 'place_like_notification_id' FROM `notifications` a INNER JOIN `like_notifications` b ON a.id = b.notification_id INNER JOIN `place_like_notifications` c ON b.id = c.like_notification_id WHERE a.id = ". $notification_id)[0];
+    }
+
+    public function getByPlaceId($place_id)
+    {
+        return $this -> model -> wherePlaceId($place_id) -> get();
     }
 
 

@@ -56,9 +56,9 @@
 
                             <div class="form-group">
                                 <label for="city">Miasto:</label>
-                                <input autocomplete="off" type="text" id="city" class="form-control" name="city" ng-model="phrase.value">
+                                <input autocomplete="off" type="text" id="city" class="form-control" name="city" ng-model="phrase" ng-focus="focus()" ng-blur="focus()">
 
-                                <div ng-if="!citySelected" id="city-select">
+                                <div ng-if="show && cities.length" id="city-select">
                                     <ul>
                                         <li ng-click="selectCity(city.name, city.id)" ng-repeat="city in cities" style="cursor:pointer"><% city.name %> <small><% city.distance %>km stąd</small></li>
                                     </ul>

@@ -22,4 +22,11 @@ class GalleryRepository implements GalleryRepositoryInterface {
     public function delete($id){
         return $this -> model -> find($id) -> delete();
     }
+
+    public function get($id)
+    {
+        return $this -> model -> find($id);
+    }
+
+
 }

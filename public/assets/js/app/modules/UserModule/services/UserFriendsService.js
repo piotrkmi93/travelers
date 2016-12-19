@@ -12,6 +12,16 @@
                         .then(function(response){
                             return response.data.friends;
                         });
+                },
+
+                getFriendsByPhrase: function(user_id, phrase){
+                    return $http.post(SERVER.url + 'trips/search_friends', {
+                        user_id: user_id,
+                        phrase: phrase
+                    })
+                        .then(function(response){
+                            return response.data.friends;
+                        });
                 }
             };
         }]);

@@ -2,42 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f63fbd7-6b6f-416c-8423-bbbea66fdc6c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/UML.mdj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/TripModule.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripController.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripFormController.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/services/TripService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/chunks/searchbox.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/trips/form.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/trips/index.blade.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/praca inżynierska.mdj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/views/chunks/searchModal.blade.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Helpers/ViewHelper.php" afterPath="$PROJECT_DIR$/app/Helpers/ViewHelper.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/BugReportController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/BugReportController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/NotificationController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/NotificationController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PlaceController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PlaceController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/SearchEngineController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchEngineController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/TripController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/TripController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/CommentLikeNotificationRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/CommentLikeNotificationRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/CommentLikeRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/CommentLikeRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/CommentNotificationRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/CommentNotificationRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/CommentLikeNotificationRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/CommentLikeNotificationRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/CommentLikeRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/CommentLikeRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/CommentNotificationRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/CommentNotificationRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/FriendsPairRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/FriendsPairRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/GalleryRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/GalleryRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/LikeNotificationRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/LikeNotificationRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceCommentRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceCommentRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceLikeNotificationRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceLikeNotificationRepository.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/TripPlaceRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/TripPlaceRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/TripRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/TripRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/UserRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/UserRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/PlaceRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/PlaceRepositoryInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/TripRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/TripRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/PostLikeNotificationRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/PostLikeNotificationRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/FriendsPairRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/FriendsPairRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/GalleryRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/GalleryRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/LikeNotificationRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/LikeNotificationRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/PlaceCommentRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/PlaceCommentRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/PlaceLikeNotificationRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/PlaceLikeNotificationRepositoryInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/PostLikeNotificationRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Repositories/PostLikeNotificationRepositoryInterface.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/css/main.css" afterPath="$PROJECT_DIR$/public/assets/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/app.js" afterPath="$PROJECT_DIR$/public/assets/js/app/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/NotificationModule/services/NotificationService.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/NotificationModule/services/NotificationService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/services/PlaceService.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/services/PlaceService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/RegisterModule/controllers/RegisterController.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/RegisterModule/controllers/RegisterController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/controllers/SearchEngineController.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/controllers/SearchEngineController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/services/SearchEngineService.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/services/SearchEngineService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserNavbarController.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserNavbarController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripFormController.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripFormController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserPlaceController.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserPlaceController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/services/UserFriendsService.js" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/services/UserFriendsService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/views/places.html" afterPath="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/views/places.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/chunks/navbar.blade.php" afterPath="$PROJECT_DIR$/resources/views/chunks/navbar.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/chunks/notificationsModal.blade.php" afterPath="$PROJECT_DIR$/resources/views/chunks/notificationsModal.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/chunks/searchbox.blade.php" afterPath="$PROJECT_DIR$/resources/views/chunks/searchbox.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/places/form.blade.php" afterPath="$PROJECT_DIR$/resources/views/places/form.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/places/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/places/index.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/trips/form.blade.php" afterPath="$PROJECT_DIR$/resources/views/trips/form.blade.php" />
     </list>
     <ignored path="travelers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,92 +67,43 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="96" column="84" lean-forward="false" selection-start-line="96" selection-start-column="84" selection-end-line="96" selection-end-column="84" />
+            <state relative-caret-position="655">
+              <caret line="96" column="64" lean-forward="false" selection-start-line="96" selection-start-column="64" selection-end-line="96" selection-end-column="64" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlaceController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PlaceController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlaceController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="209" column="117" lean-forward="false" selection-start-line="209" selection-start-column="117" selection-end-line="209" selection-end-column="117" />
-              <folding>
-                <element signature="e#40#85#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="form.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/trips/form.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="37" column="65" lean-forward="false" selection-start-line="37" selection-start-column="65" selection-end-line="37" selection-end-column="65" />
-              <folding>
-                <element signature="e#3948#3970#0#HTML" expanded="true" />
-                <element signature="e#4606#4628#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/css/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="858">
-              <caret line="615" column="11" lean-forward="false" selection-start-line="615" selection-start-column="11" selection-end-line="615" selection-end-column="11" />
+            <state relative-caret-position="995">
+              <caret line="224" column="75" lean-forward="false" selection-start-line="224" selection-start-column="75" selection-end-line="224" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TripFormController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripFormController.js">
+      <file leaf-file-name="UserPlaceController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserPlaceController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="82" column="24" lean-forward="true" selection-start-line="82" selection-start-column="24" selection-end-line="82" selection-end-column="24" />
+            <state relative-caret-position="374">
+              <caret line="22" column="44" lean-forward="false" selection-start-line="22" selection-start-column="44" selection-end-line="27" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TripService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/TripModule/services/TripService.js">
+      <file leaf-file-name="PlaceFormController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="49" lean-forward="false" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-              <folding>
-                <marker date="1481397724203" expanded="true" signature="202:430" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TripController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="25" lean-forward="false" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+            <state relative-caret-position="102">
+              <caret line="90" column="26" lean-forward="false" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TripController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TripController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-              <folding>
-                <element signature="e#40#85#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -172,6 +128,11 @@
       <find>accomodation</find>
       <find>dt</find>
       <find>options</find>
+      <find>city-select</find>
+      <find>user-selec</find>
+      <find>place-select</find>
+      <find>trip-user</find>
+      <find>galleryRepository</find>
     </findStrings>
   </component>
   <component name="FrameworkCommandLineHistory">
@@ -185,57 +146,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/TripUser.php" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/BugReportModule/BugReportModule.js" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/BugReportModule/services/BugReportService.js" />
-        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/TripCommentRepository.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/TripUserRepository.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/TripCommentRepositoryInterface.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/BugReportRepositoryInterface.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/TripPlaceRepositoryInterface.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/TripUserRepositoryInterface.php" />
-        <option value="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/BugReportRepository.php" />
-        <option value="$PROJECT_DIR$/app/BugReport.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/BugReportController.php" />
-        <option value="$PROJECT_DIR$/resources/views/bug_reports.blade.php" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/BugReportModule/controllers/BugReportController.js" />
-        <option value="$PROJECT_DIR$/resources/views/chunks/bug_report.blade.php" />
-        <option value="$PROJECT_DIR$/public/assets/vendor/typehead.js" />
-        <option value="$PROJECT_DIR$/resources/views/chunks/search_bar.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/chunks/searchModal.blade.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/UserRepositoryInterface.php" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/SearchEngineModule.js" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/services/SearchEngineService.js" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/RegisterModule/controllers/RegisterController.js" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js" />
-        <option value="$PROJECT_DIR$/app/Helpers/ViewHelper.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/UserRepository.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/SearchEngineController.php" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/controllers/SearchEngineController.js" />
-        <option value="$PROJECT_DIR$/resources/views/chunks/notificationsModal.blade.php" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserNavbarController.js" />
         <option value="$PROJECT_DIR$/resources/views/places/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/chunks/navbar.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/chunks/searchbox.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/TripModule.js" />
         <option value="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripController.js" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/app/Repositories/Eloquent/TripRepository.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TripController.php" />
         <option value="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/services/TripService.js" />
         <option value="$PROJECT_DIR$/public/assets/js/app/app.js" />
-        <option value="$PROJECT_DIR$/resources/views/places/form.blade.php" />
-        <option value="$PROJECT_DIR$/public/assets/css/main.css" />
         <option value="$PROJECT_DIR$/app/Repositories/TripRepositoryInterface.php" />
         <option value="$PROJECT_DIR$/app/Repositories/PlaceRepositoryInterface.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceRepository.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/PlaceController.php" />
-        <option value="$PROJECT_DIR$/app/Http/routes.php" />
-        <option value="$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/services/PlaceService.js" />
         <option value="$PROJECT_DIR$/app/Repositories/Eloquent/TripPlaceRepository.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/BugReportController.php" />
+        <option value="$PROJECT_DIR$/resources/views/chunks/searchbox.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/auth/register.blade.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/app/modules/RegisterModule/controllers/RegisterController.js" />
+        <option value="$PROJECT_DIR$/app/Repositories/FriendsPairRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/FriendsPairRepository.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TripController.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/services/UserFriendsService.js" />
+        <option value="$PROJECT_DIR$/public/assets/css/main.css" />
         <option value="$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripFormController.js" />
         <option value="$PROJECT_DIR$/resources/views/trips/form.blade.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/PlaceCommentRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceCommentRepository.php" />
+        <option value="$PROJECT_DIR$/resources/views/chunks/notificationsModal.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/NotificationController.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/CommentLikeRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/CommentLikeRepository.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/CommentLikeNotificationRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/CommentLikeNotificationRepository.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/LikeNotificationRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/LikeNotificationRepository.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/CommentNotificationRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/CommentNotificationRepository.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/PostLikeNotificationRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/PostLikeNotificationRepository.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/PlaceLikeNotificationRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceLikeNotificationRepository.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PostController.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/GalleryRepositoryInterface.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/GalleryRepository.php" />
+        <option value="$PROJECT_DIR$/app/Http/routes.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/services/PlaceService.js" />
+        <option value="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/views/places.html" />
+        <option value="$PROJECT_DIR$/resources/views/places/form.blade.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js" />
+        <option value="$PROJECT_DIR$/app/Repositories/Eloquent/PlaceRepository.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserPlaceController.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PlaceController.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/app/modules/NotificationModule/services/NotificationService.js" />
       </list>
     </option>
   </component>
@@ -323,10 +284,8 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -343,7 +302,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -621,7 +579,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="TripModule" />
+              <option name="myItemId" value="NotificationModule" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -655,117 +613,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="TripModule" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Travelers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Travelers" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripModule" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Travelers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Travelers" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CityModule" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Travelers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Travelers" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CityModule" />
+              <option name="myItemId" value="NotificationModule" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -959,13 +807,14 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../daniel" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -1081,18 +930,22 @@
       <workItem from="1481201245310" duration="13702000" />
       <workItem from="1481274945336" duration="612000" />
       <workItem from="1481368704122" duration="29980000" />
+      <workItem from="1481456093009" duration="34000" />
+      <workItem from="1481570564691" duration="762000" />
+      <workItem from="1481622809584" duration="8000" />
+      <workItem from="1482151592803" duration="21781000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="285554000" />
+    <option name="totallyTimeSpent" value="308139000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.253125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25208333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1134,265 +987,11 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/PostModule/directives/post/post.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="36" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BugReportController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="677">
-          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="e#40#90#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/BugReportRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="46" column="29" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
-          <folding>
-            <element signature="e#136#154#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/bug_reports.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="34" column="57" lean-forward="false" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/BugReportModule/controllers/BugReportController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/vendor/typeahead.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="2450" column="3" lean-forward="false" selection-start-line="2450" selection-start-column="3" selection-end-line="2450" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/chunks/bug_report.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="130" lean-forward="false" selection-start-line="23" selection-start-column="130" selection-end-line="23" selection-end-column="130" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/UserRepositoryInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/SearchEngineModule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="45" lean-forward="false" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/chunks/searchModal.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="98" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Helpers/ViewHelper.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="18" column="56" lean-forward="false" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
+          <caret line="18" column="89" lean-forward="false" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="89" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/services/SearchEngineService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="74" lean-forward="false" selection-start-line="7" selection-start-column="74" selection-end-line="7" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/views/places.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="18" selection-end-column="100" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/UserRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="790">
-          <caret line="73" column="56" lean-forward="false" selection-start-line="73" selection-start-column="56" selection-end-line="73" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SearchEngineController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="751">
-          <caret line="55" column="30" lean-forward="false" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
-          <folding>
-            <element signature="e#40#85#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/controllers/SearchEngineController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="24" lean-forward="false" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/NotificationModule/NotificationModule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/NotificationModule/services/NotificationService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/NotificationController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="109" column="46" lean-forward="true" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserFriendsController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/services/UserFriendsService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserNavbarController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="112" column="19" lean-forward="true" selection-start-line="112" selection-start-column="19" selection-end-line="112" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/FriendsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-663">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/places/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="44" lean-forward="true" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/trips/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/chunks/notificationsModal.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="96" lean-forward="false" selection-start-line="18" selection-start-column="79" selection-end-line="18" selection-end-column="96" />
-          <folding>
-            <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/services/UserService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/chunks/navbar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="26" column="54" lean-forward="false" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/chunks/searchbox.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="109" lean-forward="false" selection-start-line="2" selection-start-column="109" selection-end-line="2" selection-end-column="109" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="132" column="87" lean-forward="true" selection-start-line="132" selection-start-column="87" selection-end-line="132" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TripController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="e#40#85#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1400,24 +999,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="49" lean-forward="false" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-          <folding>
-            <marker date="1481397724203" expanded="true" signature="202:430" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/TripModule/TripModule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="5" lean-forward="true" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="19" lean-forward="false" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1430,130 +1011,413 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js">
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/SearchEngineModule/controllers/SearchEngineController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="74" column="17" lean-forward="false" selection-start-line="54" selection-start-column="16" selection-end-line="74" selection-end-column="17" />
+        <state relative-caret-position="119">
+          <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="34" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/places/form.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/services/UserService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="639">
-          <caret line="153" column="55" lean-forward="true" selection-start-line="153" selection-start-column="55" selection-end-line="153" selection-end-column="55" />
+        <state relative-caret-position="-628">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/FriendsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-824">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/UserRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="791">
+          <caret line="73" column="56" lean-forward="false" selection-start-line="73" selection-start-column="56" selection-end-line="73" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/FriendsPairRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="58" lean-forward="false" selection-start-line="11" selection-start-column="58" selection-end-line="11" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TripController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="38" lean-forward="false" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="38" />
           <folding>
-            <element signature="e#2094#2113#0#HTML" expanded="true" />
+            <element signature="e#40#92#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/auth/register.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/services/UserFriendsService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="65" column="57" lean-forward="true" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="57" />
+        <state relative-caret-position="289">
+          <caret line="17" column="72" lean-forward="false" selection-start-line="17" selection-start-column="72" selection-end-line="17" selection-end-column="72" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/TripRepositoryInterface.php">
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/FriendsPairRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="18" column="42" lean-forward="false" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/TripRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="88" column="7" lean-forward="true" selection-start-line="88" selection-start-column="7" selection-end-line="88" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/PlaceRepositoryInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="58" lean-forward="false" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/PlaceRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="131" column="92" lean-forward="false" selection-start-line="131" selection-start-column="92" selection-end-line="131" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="96" column="84" lean-forward="false" selection-start-line="96" selection-start-column="84" selection-end-line="96" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/RegisterModule/controllers/RegisterController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="38" column="83" lean-forward="true" selection-start-line="38" selection-start-column="83" selection-end-line="38" selection-end-column="83" />
-          <folding />
+        <state relative-caret-position="876">
+          <caret line="69" column="1" lean-forward="true" selection-start-line="69" selection-start-column="1" selection-end-line="69" selection-end-column="1" />
+          <folding>
+            <marker date="1482156067179" expanded="true" signature="1851:2029" ph="SELECT * FRO... friends_pairs" />
+            <marker date="1482156067179" expanded="true" signature="2198:2330" ph="SELECT from_... friends_pairs" />
+            <marker date="1482156067179" expanded="true" signature="2427:2434" ph="SELECT from_... friends_pairs" />
+            <marker date="1482156067179" expanded="true" signature="2427:2643" ph="SELECT b.id,... friends_pairs" />
+            <marker date="1482156067179" expanded="true" signature="2427:2789" ph="SELECT b.id,... friends_pairs" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="858">
-          <caret line="615" column="11" lean-forward="false" selection-start-line="615" selection-start-column="11" selection-end-line="615" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlaceController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="209" column="117" lean-forward="false" selection-start-line="209" selection-start-column="117" selection-end-line="209" selection-end-column="117" />
-          <folding>
-            <element signature="e#40#85#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/TripPlaceRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="83" column="80" lean-forward="false" selection-start-line="83" selection-start-column="80" selection-end-line="83" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripFormController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="82" column="24" lean-forward="true" selection-start-line="82" selection-start-column="24" selection-end-line="82" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/services/PlaceService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="49" lean-forward="false" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
+        <state relative-caret-position="643">
+          <caret line="638" column="10" lean-forward="false" selection-start-line="638" selection-start-column="1" selection-end-line="638" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/trips/form.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="37" column="65" lean-forward="false" selection-start-line="37" selection-start-column="65" selection-end-line="37" selection-end-column="65" />
+        <state relative-caret-position="607">
+          <caret line="129" column="87" lean-forward="false" selection-start-line="129" selection-start-column="87" selection-end-line="129" selection-end-column="87" />
           <folding>
-            <element signature="e#3948#3970#0#HTML" expanded="true" />
-            <element signature="e#4606#4628#0#HTML" expanded="true" />
+            <element signature="e#6211#6233#0#HTML" expanded="false" />
+            <element signature="e#8136#8157#0#HTML" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/chunks/searchbox.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="10" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="54" column="34" lean-forward="false" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/TripModule/controllers/TripFormController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="165" column="17" lean-forward="true" selection-start-line="165" selection-start-column="17" selection-end-line="165" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/PlaceCommentRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="48" lean-forward="false" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/chunks/notificationsModal.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="38" lean-forward="false" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+          <folding>
+            <element signature="n#style#0;n#a#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#a#1;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/PostRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/PostCommentRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/PostLikeRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding>
+            <marker date="1474826854480" expanded="true" signature="1230:1388" ph="SELECT a.id likes" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/NotificationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="162" column="41" lean-forward="false" selection-start-line="162" selection-start-column="41" selection-end-line="162" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/PlaceCommentRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="35" column="69" lean-forward="false" selection-start-line="35" selection-start-column="69" selection-end-line="35" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/CommentLikeRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="48" lean-forward="false" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/CommentLikeRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="46" column="77" lean-forward="false" selection-start-line="46" selection-start-column="77" selection-end-line="46" selection-end-column="77" />
+          <folding>
+            <marker date="1482170071958" expanded="true" signature="1157:1324" ph="SELECT a.id likes" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/CommentLikeNotificationRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="48" lean-forward="false" selection-start-line="10" selection-start-column="48" selection-end-line="10" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/LikeNotificationRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/LikeNotificationRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="33" column="43" lean-forward="false" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/CommentNotificationRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="48" lean-forward="false" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/CommentNotificationRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="32" column="70" lean-forward="false" selection-start-line="32" selection-start-column="70" selection-end-line="32" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/CommentLikeNotificationRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="41" column="67" lean-forward="false" selection-start-line="41" selection-start-column="67" selection-end-line="41" selection-end-column="67" />
+          <folding>
+            <marker date="1482170329052" expanded="true" signature="1202:1480" ph="SELECT a.id notifications" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/PostLikeNotificationRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="42" lean-forward="false" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/PostLikeNotificationRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="36" column="64" lean-forward="false" selection-start-line="36" selection-start-column="64" selection-end-line="36" selection-end-column="64" />
+          <folding>
+            <marker date="1482171455900" expanded="true" signature="1038:1310" ph="SELECT a.id notifications" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CommentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="141" column="8" lean-forward="true" selection-start-line="141" selection-start-column="8" selection-end-line="153" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/PlaceLikeNotificationRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/PlaceLikeNotificationRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="36" column="66" lean-forward="false" selection-start-line="36" selection-start-column="66" selection-end-line="36" selection-end-column="66" />
+          <folding>
+            <marker date="1482172281889" expanded="true" signature="1052:1326" ph="SELECT a.id notifications" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PostController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="689">
+          <caret line="216" column="12" lean-forward="false" selection-start-line="216" selection-start-column="12" selection-end-line="220" selection-end-column="13" />
+          <folding>
+            <element signature="e#40#104#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/GalleryRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/GalleryRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="27" column="43" lean-forward="false" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/services/PlaceService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="45" lean-forward="false" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/controllers/PlaceController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/views/places.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="30" lean-forward="true" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/auth/register.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="68" column="197" lean-forward="true" selection-start-line="68" selection-start-column="161" selection-end-line="68" selection-end-column="197" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="655">
+          <caret line="96" column="64" lean-forward="false" selection-start-line="96" selection-start-column="64" selection-end-line="96" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/RegisterModule/controllers/RegisterController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="49" column="12" lean-forward="false" selection-start-line="49" selection-start-column="12" selection-end-line="57" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/places/form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="58" column="129" lean-forward="false" selection-start-line="58" selection-start-column="129" selection-end-line="58" selection-end-column="129" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/PlaceModule/controllers/PlaceFormController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="90" column="26" lean-forward="false" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Eloquent/PlaceRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="109" column="46" lean-forward="false" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/UserModule/controllers/UserPlaceController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="44" lean-forward="false" selection-start-line="22" selection-start-column="44" selection-end-line="27" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/app/modules/NotificationModule/services/NotificationService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="49" lean-forward="false" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlaceController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="995">
+          <caret line="224" column="75" lean-forward="false" selection-start-line="224" selection-start-column="75" selection-end-line="224" selection-end-column="75" />
+          <folding />
         </state>
       </provider>
     </entry>

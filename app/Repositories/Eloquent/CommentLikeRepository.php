@@ -41,4 +41,11 @@ class CommentLikeRepository implements CommentLikeRepositoryInterface {
     public function find($user_id, $comment_id){
         return DB::select("SELECT a.id AS 'like_id', b.id AS 'comment_like_id' FROM `likes` a INNER JOIN `comment_likes` b ON a.id = b.like_id WHERE a.user_id = ". $user_id ." AND b.comment_id =". $comment_id);
     }
+
+    public function getByCommentId($comment_id)
+    {
+        return $this -> model -> where('comment_id', '=', $comment_id) -> get();
+    }
+
+
 }

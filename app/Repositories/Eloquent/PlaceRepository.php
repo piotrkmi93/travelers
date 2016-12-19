@@ -107,7 +107,7 @@ class PlaceRepository implements PlaceRepositoryInterface {
      * @return mixed
      */
     public function getByAuthorId($author_user_id){
-        return $this -> model -> select('slug', 'name', 'short_description', 'place_type') -> where('author_user_id', '=', $author_user_id) -> get();
+        return $this -> model -> select('id', 'slug', 'name', 'short_description', 'place_type') -> where('author_user_id', '=', $author_user_id) -> get();
     }
 
     /**

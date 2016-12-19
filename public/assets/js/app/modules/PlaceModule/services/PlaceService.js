@@ -29,6 +29,14 @@
                         .then(function(response){
                             return response.data;
                         })
+                },
+
+                delete: function(place_id){
+                    return $http.post(SERVER.url + 'places/delete', {
+                        place_id: place_id
+                    }).then(function(response){
+                        return response.data;
+                    });
                 }
 
             };
