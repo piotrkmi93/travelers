@@ -109,6 +109,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('trips/add', 'TripController@form');
     Route::get('trips/edit/{slug}', 'TripController@form');
+    Route::post('trips/create', 'TripController@create');
     Route::post('trips/exists', 'TripController@exists');
     Route::post('trips/search_friends', 'TripController@getFriendsByPhrase');
 });

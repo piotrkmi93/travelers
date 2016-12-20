@@ -90,13 +90,6 @@
                                 <h3>Wycieczki</h3>
                             {{--</a>--}}
                         </div>
-
-
-                        {{--<a href="#/information"><h5><i class="fa fa-info-circle" aria-hidden="true"></i> Informacje</h5></a>--}}
-                        {{--<a href="#/gallery"><h5><i class="fa fa-picture-o" aria-hidden="true"></i> Galeria</h5></a>--}}
-                        {{--<a href="#/friends"><h5><i class="fa fa-users" aria-hidden="true"></i> Znajomi</h5></a>--}}
-                        {{--<h5><i class="fa fa-map" aria-hidden="true"></i> Wycieczki</h5>--}}
-                        {{--<h5><i class="fa fa-map-marker" aria-hidden="true"></i> Miejsca</h5>--}}
                     </div>
                 </div>
             </div>
@@ -107,5 +100,28 @@
         </div>
     </div>
 
+<script>
 
+//    (function(){
+//        'use strict';
+//
+//        jQuery.expr.filters.offscreen = function(el) {
+//            return (
+//                (el.offsetLeft + el.offsetWidth) < 0
+//                || (el.offsetTop + el.offsetHeight) < 0
+//                || (el.offsetLeft > window.innerWidth || el.offsetTop > window.innerHeight)
+//            );
+//        };
+//
+//        $(document).scroll(function(e){
+//            if ($(".panel-user").offset().top + $(".panel-user").height() - $(window).scrollTop() < 20){
+//                $(".user-sidebar").css('position', 'fixed').css('top', '72px');
+//            } else {
+//                $(".user-sidebar").css('position', 'absolute').css('top', 'auto');
+//            }
+//        });
+//
+//    })();
+
+</script>
 @endsection

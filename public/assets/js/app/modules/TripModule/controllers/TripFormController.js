@@ -22,13 +22,20 @@
             var user_id = undefined;
 
             $scope.trip = {
+
+                errors: {
+                    date: false
+                },
+
                 name: undefined,
                 slug: undefined,
+                description: 'Opisz wycieczkę...',
 
-                start_time: undefined,
                 start_date: undefined,
-                end_time: undefined,
                 end_date: undefined,
+
+                start_address: undefined,
+                end_address: undefined,
 
                 start_marker: {
                     id: 0,
@@ -61,11 +68,12 @@
                 end_map: undefined,
 
                 places: [],
-                users: []
+                users: [],
+
+                same_address: true
             };
 
             $scope.slugExists = undefined;
-            $scope.sameAddress = true;
 
             // functions
 
@@ -89,10 +97,12 @@
             }
 
             $scope.isSlugExists = function(){
-                TripService.exists($scope.trip.slug)
-                    .then(function(data){
-                        $scope.slugExists = data.exists;
-                    });
+                if($scope.trip.slug && $scope.trip.slug != ''){
+                    TripService.exists($scope.trip.slug)
+                        .then(function(data){
+                            $scope.slugExists = data.exists;
+                        });
+                };
             };
 
             $scope.selectCity = function(name, id){
@@ -107,9 +117,8 @@
                 $scope.trip.places.push({
                     id: id,
                     name: name,
-                    date: undefined,
-                    start: undefined,
-                    end: undefined
+                    start: new Date( $scope.trip.start_date.getUTCFullYear(), $scope.trip.start_date.getUTCMonth(), $scope.trip.start_date.getUTCDate(), $scope.trip.start_date.getUTCHours() ),
+                    end: new Date( $scope.trip.start_date.getUTCFullYear(), $scope.trip.start_date.getUTCMonth(), $scope.trip.start_date.getUTCDate(), $scope.trip.start_date.getUTCHours()+1 )
                 });
 
                 $scope.phrases.city = undefined;
@@ -133,6 +142,18 @@
             };
 
             // watchers
+
+            $scope.$watch(function(){
+                return $scope.trip.start_date;
+            }, function(){
+                $scope.trip.errors.date = $scope.trip.start_date > $scope.trip.end_date;
+            });
+
+            $scope.$watch(function(){
+                return $scope.trip.end_date;
+            }, function(){
+                $scope.trip.errors.date = $scope.trip.start_date > $scope.trip.end_date;
+            });
 
             $scope.$watch(function(){
                 return $scope.phrases.city;
@@ -160,8 +181,6 @@
                                     }
                                 });
                             });
-                    }).finally(function(){
-                        console.log($scope.places);
                     });
                 }
             });
@@ -181,7 +200,6 @@
                                     }
                                 });
                             });
-                            console.log($scope.users);
                     });
                 }
             });
@@ -249,6 +267,11 @@
             $scope.init = function(uid){
                 setUserGeolocation();
                 user_id = uid;
+                $scope.trip.user_id = uid;
+
+                var date = new Date();
+                $scope.trip.start_date = new Date( date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 12, 0, 0, 0 );
+                $scope.trip.end_date = new Date( date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()+1, 12, 0, 0, 0 );
             };
 
             $scope.cityFocus = function(){
@@ -280,5 +303,32 @@
                     $scope.usersShow = !$scope.usersShow;
                 }
             };
+
+            $scope.submit = function(){
+                console.log($scope.trip);
+
+                TripService.create($scope.trip).then(function(data){
+                    console.log(data);
+                });
+            };
+
+            $scope.unselectUser = function(id){
+                for(var i = 0; i < $scope.trip.users.length; ++i){
+                    if(id == $scope.trip.users[i].id){
+                        $scope.trip.users.splice(i, 1);
+                        break;
+                    }
+                }
+            };
+
+            $scope.unselectPlace = function(id){
+                for(var i = 0; i < $scope.trip.places.length; ++i){
+                    if(id == $scope.trip.places[i].id){
+                        $scope.trip.places.splice(i, 1);
+                        break;
+                    }
+                }
+            };
+
         }]);
 })();

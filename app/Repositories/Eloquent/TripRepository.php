@@ -91,8 +91,8 @@ class TripRepository implements TripRepositoryInterface
     {
         if(isset($data['user_id'])) $trip -> user_id = $data['user_id'];
         if(isset($data['name'])) $trip -> name = $data['name'];
-        if(isset($data['slug'])) $trip -> slug = $data['slug'];
         if(isset($data['description'])) $trip -> description = $data['description'];
+        if(isset($data['slug'])) $trip -> slug = $data['slug'];
         if(isset($data['start_time'])) $trip -> start_time = $data['start_time'];
         if(isset($data['start_address'])) $trip -> start_address = $data['start_address'];
         if(isset($data['start_latitude'])) $trip -> start_latitude = $data['start_latitude'];

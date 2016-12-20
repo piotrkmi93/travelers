@@ -12,15 +12,14 @@
         );
     };
 
-
     $(document).scroll(function(e){
-        if ($(".panel-user").offset().top + $(".panel-user").height() - $(window).scrollTop() < 20){
-            $(".user-sidebar").css('position', 'fixed').css('top', '72px');
-        } else {
-            $(".user-sidebar").css('position', 'absolute').css('top', 'auto');
+        if($(".panel-user").length){
+            if ($(".panel-user").offset().top + $(".panel-user").height() - $(window).scrollTop() < 20){
+                $(".user-sidebar").css('position', 'fixed').css('top', '72px');
+            } else {
+                $(".user-sidebar").css('position', 'absolute').css('top', 'auto');
+            }
         }
     });
-
-
 
 })();

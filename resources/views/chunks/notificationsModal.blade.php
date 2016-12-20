@@ -21,6 +21,12 @@
                                     <a style="color:red;cursor:pointer;" ng-click="deleteFromFriends({{Auth::user()->id}}, notification.senderId)">Odrzuć zaproszenie</a>
                                 </div>
 
+                                <div ng-if="notification.type == 'trip-invitation'">
+                                    <a href="<% notification.senderUrl %>"><strong><% notification.senderName %></strong></a> zaprosił(a) Cię na wycieczkę <a href="#"><strong><% notification.name %></strong></a>!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
+                                    <a style="color:green;cursor:pointer;">Przyjmij zaproszenie</a> |
+                                    <a style="color:red;cursor:pointer;">Odrzuć zaproszenie</a>
+                                </div>
+
                                 <div ng-if="notification.type == 'post-like'">
                                     <a href="<% notification.senderUrl %>"><strong><% notification.senderName %></strong></a> polubił(a) Twój post!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
                                     <span ng-bind-html="trustAsHtml(notification.post_text)"></span> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>

@@ -4,7 +4,7 @@
     <div class="container" ng-controller="TripFormController" ng-init="init({{ Auth::user()->id}})" id="trip-form">
         <form>
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
 
@@ -20,7 +20,7 @@
                                 @if(isset($trip))
                                     <button type="submit" class="btn btn-lg btn-primary"><i class="fa fa-check" aria-hidden="true"></i> Edytuj</button>
                                 @else
-                                    <button type="submit" class="btn btn-lg btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj</button>
+                                    <button ng-click="submit()" type="submit" class="btn btn-lg btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj</button>
                                 @endif
                                 <a href="{{ url('/') }}" class="btn btn-lg btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Anuluj</a>
                             </div>
@@ -31,7 +31,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-5 col-md-offset-1">
+                <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-body">
 
@@ -54,7 +54,8 @@
 
                             <div class="col-sm-12">
                                 <label for="description">Opis:</label>
-                                <textarea name="description" id="description" class="form-control" required>@if(isset($trip)){{ $trip -> description }}@else Opisz wycieczkę...@endif</textarea>
+                                <textarea name="description" id="description" class="form-control" ng-model="trip.description" required></textarea>
+                                {{--@if(isset($trip)){{ $trip -> description }}@else Opisz wycieczkę...@endif--}}
                             </div>
 
                         </div>
@@ -68,19 +69,23 @@
                             <div class="panel panel-default" ng-repeat="place in trip.places">
                                 <div class="panel-body">
                                     <div class="col-sm-12">
-                                        <h3><% place.name %></h3>
+                                        <h3 style="margin:0;"><i class="fa fa-map-marker"></i> <% place.name %><i class="fa fa-times pull-right" style="color: red; cursor:pointer;" ng-click="unselectPlace(place.id)"></i></h3>
                                     </div>
 
-                                    <div class="col-sm-4">
-                                        <label>Data odwiedzin</label>
-                                        <input class="form-control" type="date" ng-model="place.date">
+                                    <div class="col-sm-3">
+                                        <label><i class="fa fa-calendar-o"></i> Od dnia:</label>
+                                        <input class="form-control" type="date" ng-model="place.start">
                                     </div>
-                                    <div class="col-sm-4">
-                                        <label>Godzina rozpoczęcia odwiedzin</label>
+                                    <div class="col-sm-3">
+                                        <label><i class="fa fa-clock-o"></i> Od godziny:</label>
                                         <input class="form-control" type="time" ng-model="place.start">
                                     </div>
-                                    <div class="col-sm-4">
-                                        <label>Godzina zakończenia odwiedzin</label>
+                                    <div class="col-sm-3">
+                                        <label><i class="fa fa-calendar-o"></i> Do dnia:</label>
+                                        <input class="form-control" type="date" ng-model="place.end">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label><i class="fa fa-clock-o"></i> Do godziny:</label>
                                         <input class="form-control" type="time" ng-model="place.end">
                                     </div>
                                 </div>
@@ -121,19 +126,9 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <div ng-if="trip.users.length">
-                                <h4>Zaproszeni użytkownicy</h4>
-
-                                <div ng-repeat="user in trip.users">
-                                    <img src="<% user.thumb_url %>" class="min-avatar">
-                                    <strong><% user.first_name %> <% user.last_name %></strong>
-                                    <i class="fa fa-times pull-right" style="color: red;"></i>
-                                </div>
-                            </div>
-
                             <h4>Zaproś uczestników wycieczki</h4>
 
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <label>Użytkownik:</label>
 
                                 <input placeholder="Wyszukaj użytkownika" class="form-control" type="text" maxlength="255" ng-model="phrases.user" autocomplete="off" ng-focus="userFocus()" ng-blur="userFocus()">
@@ -149,35 +144,45 @@
                                 </div>
                             </div>
 
+                            <div ng-if="trip.users.length" class="col-sm-6">
+                                <h4>Zaproszeni użytkownicy</h4>
+
+                                <div ng-repeat="user in trip.users">
+                                    <img src="<% user.thumb_url %>" class="min-avatar">
+                                    <strong><% user.first_name %> <% user.last_name %></strong>
+                                    <i class="fa fa-times pull-right" style="color: red; cursor:pointer;" ng-click="unselectUser(user.id)"></i>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-body">
 
                             <h4>Czas i miejsce rozpoczęcia oraz zakończenia wycieczki</h4>
 
                             <div class="col-sm-6">
-                                <label for="start_date">Data rozpoczęcia wycieczki:</label>
-                                <input id="start_date" class="form-control" type="date" name="start_date" value="<% trip.start_date %>">
+                                <label for="start_date">Data rozpoczęcia wycieczki: <small ng-if="trip.errors.date" style="color:red;"><br>Data rozpoczęcia jest większa od daty zakończenia</small></label>
+                                <input id="start_date" class="form-control" type="date" name="start_date" ng-model="trip.start_date">
                                 <label for="start_time">Godzina:</label>
-                                <input id="start_time" class="form-control" type="time" name="start_time" value="<% trip.start_time %>">
+                                <input id="start_time" class="form-control" type="time" name="start_time" ng-model="trip.start_date">
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="start_date">Data zakończenia wycieczki:</label>
-                                <input id="start_date" class="form-control" type="date" name="start_date" value="<% trip.start_date %>">
-                                <label for="start_time">Godzina:</label>
-                                <input id="start_time" class="form-control" type="time" name="start_time" value="<% trip.start_time %>">
+                                <label for="end_date">Data zakończenia wycieczki: <small ng-if="trip.errors.date" style="color:red;"><br>Data zakończenia jest mniejsza od daty rozpoczęcia</small></label>
+                                <input id="end_date" class="form-control" type="date" name="end_date" ng-model="trip.end_date">
+                                <label for="end_time">Godzina:</label>
+                                <input id="end_time" class="form-control" type="time" name="end_time" ng-model="trip.end_date">
                             </div>
 
 
                             <div class="col-sm-12">
                                 <label for="start_address">Miejsce rozpoczęcia wycieczki:</label>
-                                <input id="start_address" name="start_address" type="text" maxlength="255" class="form-control" placeholder="Wpisz adres rozpoczęcia wycieczki...">
+                                <input ng-model="trip.start_address" id="start_address" name="start_address" type="text" maxlength="255" class="form-control" placeholder="Wpisz adres rozpoczęcia wycieczki...">
                             </div>
                             <div class="col-sm-6">
                                 <label for="start_latitude">Szerokość geograficzna:</label>
@@ -196,10 +201,10 @@
                             </div>
 
 
-                            <div ng-if="!sameAddress">
+                            <div ng-if="!trip.same_address">
                                 <div class="col-sm-12">
                                     <label for="end_address">Miejsce zakończenia wycieczki:</label>
-                                    <input id="end_address" name="end_address" type="text" maxlength="255" class="form-control" placeholder="Wpisz adres zakończenia wycieczki...">
+                                    <input ng-model="trip.end_address" id="end_address" name="end_address" type="text" maxlength="255" class="form-control" placeholder="Wpisz adres zakończenia wycieczki...">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="end_latitude">Szerokość geograficzna:</label>
@@ -221,7 +226,7 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <div class="checkbox">
-                                        <label><input type="checkbox" ng-model="sameAddress"> Takie samo miejsce zakończenia wycieczki</label>
+                                        <label><input type="checkbox" ng-model="trip.same_address"> Takie samo miejsce zakończenia wycieczki</label>
                                     </div>
                                 </div>
                             </div>

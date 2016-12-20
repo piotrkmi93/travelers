@@ -31,6 +31,7 @@ use App\Repositories\Eloquent\PostLikeNotificationRepository;
 use App\Repositories\Eloquent\PostLikeRepository;
 use App\Repositories\Eloquent\PostRepository;
 use App\Repositories\Eloquent\TripCommentRepository;
+use App\Repositories\Eloquent\TripInvitationNotificationRepository;
 use App\Repositories\Eloquent\TripPlaceRepository;
 use App\Repositories\Eloquent\TripRepository;
 use App\Repositories\Eloquent\TripUserRepository;
@@ -52,6 +53,7 @@ use App\Repositories\PostLikeNotificationRepositoryInterface;
 use App\Repositories\PostLikeRepositoryInterface;
 use App\Repositories\PostRepositoryInterface;
 use App\Repositories\TripCommentRepositoryInterface;
+use App\Repositories\TripInvitationNotificationRepositoryInterface;
 use App\Repositories\TripPlaceRepositoryInterface;
 use App\Repositories\TripRepositoryInterface;
 use App\Repositories\TripUserRepositoryInterface;
@@ -118,6 +120,7 @@ class AppServiceProvider extends ServiceProvider
         $this -> app -> singleton(TripPlaceRepositoryInterface::class, TripPlaceRepository::class);
         $this -> app -> singleton(TripUserRepositoryInterface::class, TripUserRepository::class);
         $this -> app -> singleton(TripCommentRepositoryInterface::class, TripCommentRepository::class);
+        $this -> app -> singleton(TripInvitationNotificationRepositoryInterface::class, TripInvitationNotificationRepository::class);
 
         // bug reports
         $this -> app -> singleton(BugReportRepositoryInterface::class, BugReportRepository::class);
