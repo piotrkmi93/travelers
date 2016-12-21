@@ -9,7 +9,7 @@
 
     <div class="row" ng-repeat="friend in friends">
         <div class="col-md-12">
-            <a href="{{asset('user')}}<% '/' + friend.username %>">
+            <a href="{{asset('user')}}<% '/' + friend.username %>#/board">
                 <img src="<% friend.avatar_thumb %>" class="min-avatar pull-left" style="margin-right: 10px;">
                 <h4 class="pull-left"><% friend.name %></h4>
                 <small class="pull-right"><i class="fa fa-circle" ng-class="{'user-active': friend.is_active}" aria-hidden="true"></i></small>

@@ -11,6 +11,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\TripRepositoryInterface;
 use App\Trip;
+use Illuminate\Support\Facades\DB;
 
 class TripRepository implements TripRepositoryInterface
 {
@@ -103,4 +104,11 @@ class TripRepository implements TripRepositoryInterface
         if(isset($data['end_longitude'])) $trip -> end_longitude = $data['end_longitude'];
         return $trip -> save() ? $trip : null;
     }
+
+    public function getByPhrase($phrase)
+    {
+        return $this -> model -> where('name', 'like', "%$phrase%") -> get();
+    }
+
+
 }

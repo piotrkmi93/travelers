@@ -50,7 +50,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/user/' . Auth::user()->username ) . '#/board' }}"><i class="fa fa-btn fa-user"></i>Twój profil</a></li>
-                                <li><a><i class="fa fa-btn fa-cog"></i>Ustawienia konta</a></li>
+                                <li><a href="{{ url('/options') }}"><i class="fa fa-btn fa-cog"></i>Ustawienia konta</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Wyloguj</a></li>
                             </ul>
                         </li>

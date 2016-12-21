@@ -53,7 +53,7 @@
             function getPlaceComments(){
                 CommentService.getPlaceComments($scope.user_id, $scope.place_id)
                     .then(function(comments){
-                        console.log(comments);
+                        // console.log(comments);
                         $scope.comments = comments;
                     });
             }

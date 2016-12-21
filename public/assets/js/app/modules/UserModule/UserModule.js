@@ -35,6 +35,11 @@
                     controller: 'UserPlaceController'
                 })
 
+                .when('/trips', {
+                    templateUrl: SERVER.url + 'assets/js/app/modules/UserModule/views/trips.html',
+                    controller: 'UserTripController'
+                })
+
                 .otherwise({redirectTo: '/board'});
         }]);
 })();

@@ -62,6 +62,26 @@
                         return response.data;
                     });
                 },
+
+                addTripComment: function(user_id, trip_id, text){
+                    return $http.post(SERVER.url + 'add_comment', {
+                        user_id: user_id,
+                        trip_id: trip_id,
+                        text: text,
+                        type: 'trip'
+                    }).then(function(response){
+                        return response.data;
+                    });
+                },
+
+                getTripComments: function(user_id, trip_id){
+                    return $http.post(SERVER.url + 'get_trip_comments', {
+                        user_id: user_id,
+                        trip_id: trip_id
+                    }).then(function(response){
+                        return response.data;
+                    });
+                }
             };
         }]);
 })();

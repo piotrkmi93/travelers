@@ -6,6 +6,7 @@
 
             $scope.users = [];
             $scope.places = [];
+            $scope.trips = [];
             $scope.phrase = undefined;
             $scope.show = false;
             var user_id = undefined;
@@ -17,6 +18,7 @@
                     SearchEngineService.search(user_id, $scope.phrase).then(function(data){
                         $scope.users = data.users;
                         $scope.places = data.places;
+                        $scope.trips = data.trips;
                     });
                 }
             });
@@ -33,8 +35,11 @@
                 } else {
                     $scope.show = !$scope.show;
                 }
+            };
 
-            }
+            $scope.date = function(date){
+                return new Date(date);
+            };
 
         }]);
 })();

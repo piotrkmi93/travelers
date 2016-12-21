@@ -35,6 +35,18 @@
                 </small>
             </div>
 
+            <h4 ng-if="trips.length"><hr>Wycieczki: <small>(<% trips.length %>)</small>:</h4>
+            <div class="search-result-place" ng-repeat="trip in trips">
+                <div class="search-result-place-symbol">
+                    <i class="fa fa-map"></i>
+                </div>
+                <a href="<% trip.link %>"><strong><% trip.name %></strong></a>
+                <br>
+                <small>
+                    <span><i class="fa fa-calendar"></i> <% date(trip.start) | date:'fullDate' %> - <i class="fa fa-calendar"></i> <% date(trip.end) | date:'fullDate' %></span>
+                </small>
+            </div>
+
         </div>
     </div>
 </form>

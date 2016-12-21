@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 use App\User;
 use App\Repositories\UserRepositoryInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserRepository implements UserRepositoryInterface {
@@ -73,6 +74,18 @@ class UserRepository implements UserRepositoryInterface {
             -> orWhere('last_name' , 'like', "%$phrase%")
             -> orWhere('username' , 'like', "%$phrase%")
             -> get();
+    }
+
+    public function passwordCorrect($id, $password)
+    {
+        return Hash::check($password, $this -> model -> find($id) -> password);
+    }
+
+    public function updatePassword($id, $password)
+    {
+        $user = $this -> model -> find($id);
+        $user -> password = $password;
+        return $user -> save();
     }
 
 

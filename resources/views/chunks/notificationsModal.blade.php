@@ -22,9 +22,9 @@
                                 </div>
 
                                 <div ng-if="notification.type == 'trip-invitation'">
-                                    <a href="<% notification.senderUrl %>"><strong><% notification.senderName %></strong></a> zaprosił(a) Cię na wycieczkę <a href="#"><strong><% notification.name %></strong></a>!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
-                                    <a style="color:green;cursor:pointer;">Przyjmij zaproszenie</a> |
-                                    <a style="color:red;cursor:pointer;">Odrzuć zaproszenie</a>
+                                    <a href="<% notification.senderUrl %>"><strong><% notification.senderName %></strong></a> zaprosił(a) Cię na wycieczkę <a href="<% notification.url %>"><strong><% notification.name %></strong></a>!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
+                                    <a style="color:green;cursor:pointer;" ng-click="acceptTripInvitation(notification.trip_user_id)">Przyjmij zaproszenie</a> |
+                                    <a style="color:red;cursor:pointer;" ng-click="declineTripInvitation(notification.trip_user_id)">Odrzuć zaproszenie</a>
                                 </div>
 
                                 <div ng-if="notification.type == 'post-like'">
@@ -49,6 +49,11 @@
 
                                 <div ng-if="notification.type == 'place-comment'">
                                     <a href="<% notification.senderUrl %>"><strong><% notification.senderName %></strong></a> skomentował(a) miejsce <a href="<% notification.url %>"><strong><% notification.name %></strong></a>!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
+                                    <span ng-bind-html="trustAsHtml(notification.comment_text)"></span> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>
+                                </div>
+
+                                <div ng-if="notification.type == 'trip-comment'">
+                                    <a href="<% notification.senderUrl %>"><strong><% notification.senderName %></strong></a> skomentował(a) wycieczkę <a href="<% notification.url %>"><strong><% notification.name %></strong></a>!<small class="pull-right"><% notification.date | date:'fullDate' %> o <% notification.time %></small><br>
                                     <span ng-bind-html="trustAsHtml(notification.comment_text)"></span> | <a style="color:green;cursor:pointer;" ng-click="deleteNotification(notification.id, notification.type)">Usuń powiadomienie</a>
                                 </div>
 

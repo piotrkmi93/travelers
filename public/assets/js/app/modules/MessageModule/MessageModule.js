@@ -7,13 +7,19 @@
     angular.module('MessageModule', [])
 
         .config(['$routeProvider', function($routeProvider){
-            $routeProvider.when('/:username', {
-                templateUrl: 'assets/js/app/modules/MessageModule/views/conversation.html',
-                controller: 'ConversationController'
-            })
+            $routeProvider
+
+                .when('/', {
+                    template: '<h3>Proszę wybrać rozmówcę</h3>'
+                })
+
+                .when('/:username', {
+                    templateUrl: 'assets/js/app/modules/MessageModule/views/conversation.html',
+                    controller: 'ConversationController'
+                })
 
                 .otherwise({
-                    template: '<h3>Proszę wybrać rozmówcę</h3>'
+                    redirectTo: '/'
                 });
         }]);
 })();

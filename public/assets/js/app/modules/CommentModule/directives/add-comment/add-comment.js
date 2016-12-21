@@ -13,6 +13,7 @@
                     userid: '=',
                     postid: '=',
                     placeid: '=',
+                    tripid: '=',
                     type: '@type'
                 },
                 link: function(scope){
@@ -35,6 +36,15 @@
                                 if(success){
                                     scope.text = '';
                                     scope.$emit('place-comment-added');
+                                }
+                            });
+                        }
+
+                        if (scope.type == 'trip' && scope.text != ''){
+                            CommentService.addTripComment(scope.user.id, scope.tripid, scope.text).then(function(success){
+                                if(success){
+                                    scope.text = '';
+                                    scope.$emit('trip-comment-added');
                                 }
                             });
                         }

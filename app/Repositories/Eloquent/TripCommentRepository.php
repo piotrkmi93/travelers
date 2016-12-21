@@ -35,7 +35,7 @@ class TripCommentRepository implements TripCommentRepositoryInterface
         $tripComment = $this -> model -> newInstance();
         $tripComment -> trip_id = $trip_id;
         $tripComment -> comment_id = $comment_id;
-        return $tripComment -> save() ? $tripComment : null;
+        return $tripComment -> save() ? $tripComment -> id : null;
     }
 
     /**
@@ -54,6 +54,15 @@ class TripCommentRepository implements TripCommentRepositoryInterface
     public function getByTripId($trip_id)
     {
         return $this -> model -> whereTripId($trip_id) -> get();
+    }
+
+    /**
+     * @param int $comment_id
+     * @return TripComment|null
+     */
+    public function getByCommentId($comment_id)
+    {
+        return $this -> model -> whereCommentId($comment_id) -> first();
     }
 
 

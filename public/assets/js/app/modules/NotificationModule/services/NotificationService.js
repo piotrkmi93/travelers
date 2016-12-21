@@ -12,7 +12,7 @@
                         user_id: user_id,
                         last_id: last_id
                     }).then(function (response) {
-                        console.log(response.data);
+                        // console.log(response.data);
                         return response.data;
                     });
                 },

@@ -329,21 +329,33 @@ video#bgvid {
     /*background: url(polina.jpg) no-repeat;*/
     background-size: cover;
 }
-#main-page-logo-box{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/*#main-page-logo-box{*/
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+/*}*/
 
 #main-page-logo-box>img{
+    transition: 1s ease all;
+    cursor: pointer;
+
+    height: 60%;
+
     display: block;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    right: 50%;
+    transform: translate(50%, -50%);
 
     -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.75);
+}
+
+#main-page-logo-box>img.minimized {
+    right: 60px;
+    top: 120px;
+    height: 100px;
 }
 
 #logo-mini{
@@ -648,4 +660,37 @@ video#bgvid {
     width: 100%;
     height: 100%;
     background-color: rgba(33,33,33,.3);
+}
+
+.trip-users a{
+    margin: 0 2px;
+    position: relative;
+}
+
+.trip-users a > img {
+    border-radius: 50%;
+}
+
+.trip-users a > i{
+    position: absolute;
+    z-index: 1;
+    bottom: -12px;
+    right: 0;
+    background-color: #FFF;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    text-align: center;
+}
+
+.trip-users a > i.fa.fa-question {
+    color: gold;
+}
+
+.trip-users a > i.fa.fa-check{
+    color: forestgreen;
+}
+
+.trip-place-info i {
+    margin-left: 10px;
 }

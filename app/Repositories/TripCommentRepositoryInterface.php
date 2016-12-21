@@ -14,4 +14,5 @@ interface TripCommentRepositoryInterface
     public function create($trip_id, $comment_id);
     public function delete($id);
     public function getByTripId($trip_id);
+    public function getByCommentId($comment_id);
 }

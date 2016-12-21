@@ -13,6 +13,8 @@ use App\Repositories\PlaceCommentRepositoryInterface;
 use App\Repositories\PlaceRepositoryInterface;
 use App\Repositories\PostCommentRepositoryInterface;
 use App\Repositories\PostRepositoryInterface;
+use App\Repositories\TripCommentRepositoryInterface;
+use App\Repositories\TripRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,7 +34,9 @@ class CommentController extends Controller
             $postRepository,
             $userRepository,
             $placeCommentRepository,
-            $placeRepository;
+            $placeRepository,
+            $tripCommentRepository,
+            $tripRepository;
 
     /**
      * CommentController constructor.
@@ -45,6 +49,11 @@ class CommentController extends Controller
      * @param LikeNotificationRepositoryInterface $likeNotificationRepository
      * @param CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository
      * @param PostRepositoryInterface $postRepository
+     * @param UserRepositoryInterface $userRepository
+     * @param PlaceCommentRepositoryInterface $placeCommentRepository
+     * @param PlaceRepositoryInterface $placeRepository
+     * @param TripCommentRepositoryInterface $tripCommentRepository
+     * @param TripRepositoryInterface $tripRepository
      */
     public function __construct(CommentRepositoryInterface $commentRepository,
                                 PostCommentRepositoryInterface $postCommentRepository,
@@ -57,7 +66,9 @@ class CommentController extends Controller
                                 PostRepositoryInterface $postRepository,
                                 UserRepositoryInterface $userRepository,
                                 PlaceCommentRepositoryInterface $placeCommentRepository,
-                                PlaceRepositoryInterface $placeRepository){
+                                PlaceRepositoryInterface $placeRepository,
+                                TripCommentRepositoryInterface $tripCommentRepository,
+                                TripRepositoryInterface $tripRepository){
         $this -> commentRepository = $commentRepository;
         $this -> postCommentRepository = $postCommentRepository;
         $this -> notificationRepository = $notificationRepository;
@@ -70,6 +81,8 @@ class CommentController extends Controller
         $this -> userRepository = $userRepository;
         $this -> placeCommentRepository = $placeCommentRepository;
         $this -> placeRepository = $placeRepository;
+        $this -> tripCommentRepository = $tripCommentRepository;
+        $this -> tripRepository = $tripRepository;
     }
 
     /**
@@ -105,6 +118,19 @@ class CommentController extends Controller
 
                 if ($place -> author_user_id != $user_id){
                     $notification_id = $this -> notificationRepository -> create($place -> author_user_id, 'comment');
+                    $comment_notification_id = $this -> commentNotificationRepository -> create($comment_id, $notification_id);
+                }
+
+                break;
+
+            case 'trip':
+                $trip_id = $request -> trip_id;
+
+                $trip_comment_id = $this -> tripCommentRepository -> create($trip_id, $comment_id);
+                $trip = $this -> tripRepository -> get($trip_id);
+
+                if($trip -> user_id != $user_id){
+                    $notification_id = $this -> notificationRepository -> create($trip -> user_id, 'comment');
                     $comment_notification_id = $this -> commentNotificationRepository -> create($comment_id, $notification_id);
                 }
 
@@ -228,6 +254,28 @@ class CommentController extends Controller
                 'likes_count' => $this -> commentLikeRepository -> count($comment->id),
                 'liked' => $this -> commentLikeRepository -> exists($user_id, $comment->id),
             ));
+        }
+
+        return response() -> json($comments);
+    }
+
+    public function getTripComments(Request $request){
+        $trip_id = $request -> trip_id;
+        $user_id = $request -> user_id;
+        $trip_comments = $this -> tripCommentRepository -> getByTripId($trip_id);
+        $comments = [];
+        foreach($trip_comments as $trip_comment){
+            $comment = $this -> commentRepository -> getById($trip_comment -> comment_id);
+            $comments[] = [
+                'id' => $comment -> id,
+                'text' => $comment -> text,
+                'user' =>  $this->userRepository -> getUserBasicsById($comment->author_user_id),
+                'date' => Carbon::parse($comment -> created_at) -> toDateString(),
+                'time' => Carbon::parse($comment -> created_at) -> format('H:i'),
+
+                'likes_count' => $this -> commentLikeRepository -> count($comment->id),
+                'liked' => $this -> commentLikeRepository -> exists($user_id, $comment->id),
+            ];
         }
 
         return response() -> json($comments);

@@ -17,6 +17,27 @@
                         .then(function(response){
                             return response.data;
                         });
+                },
+
+                accept: function(trip_user_id){
+                    return $http.post(SERVER.url + 'trips/accept', {trip_user_id:trip_user_id})
+                        .then(function(response){
+                            return response.data;
+                        });
+                },
+
+                decline: function(trip_user_id){
+                    return $http.post(SERVER.url + 'trips/decline', {trip_user_id:trip_user_id})
+                        .then(function(response){
+                            return response.data;
+                        });
+                },
+
+                getUserTrips: function(user_id){
+                    return $http.post(SERVER.url + 'trips/get_user_trips', {user_id:user_id})
+                        .then(function(response){
+                            return response.data;
+                        });
                 }
 
             };

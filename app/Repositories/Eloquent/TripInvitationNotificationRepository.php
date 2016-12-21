@@ -65,7 +65,7 @@ class TripInvitationNotificationRepository implements TripInvitationNotification
      */
     public function getByTripUserId($trip_user_id)
     {
-        return $this -> model -> whereTripUserId($trip_user_id) -> get();
+        return $this -> model -> whereTripUserId($trip_user_id) -> first();
     }
 
     /**

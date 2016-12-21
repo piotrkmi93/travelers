@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\CityRepositoryInterface;
+use App\Repositories\Eloquent\TripRepository;
 use App\Repositories\FriendsPairRepositoryInterface;
 use App\Repositories\PlaceLikeRepositoryInterface;
 use App\Repositories\PlaceRepositoryInterface;
@@ -14,23 +15,26 @@ use App\Http\Requests;
 
 class SearchEngineController extends Controller
 {
-    private $userRepository, $friendPairRepository, $placeRepository, $placeLikeRepository, $cityRepository;
+    private $userRepository, $friendPairRepository, $placeRepository, $placeLikeRepository, $cityRepository, $tripRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository, FriendsPairRepositoryInterface $friendsPairRepository, PlaceRepositoryInterface $placeRepository, PlaceLikeRepositoryInterface $placeLikeRepository, CityRepositoryInterface $cityRepository)
+    public function __construct(UserRepositoryInterface $userRepository, FriendsPairRepositoryInterface $friendsPairRepository, PlaceRepositoryInterface $placeRepository, PlaceLikeRepositoryInterface $placeLikeRepository, CityRepositoryInterface $cityRepository, TripRepository $tripRepository)
     {
         $this -> userRepository = $userRepository;
         $this -> friendPairRepository = $friendsPairRepository;
         $this -> placeRepository = $placeRepository;
         $this -> placeLikeRepository = $placeLikeRepository;
         $this -> cityRepository = $cityRepository;
+        $this -> tripRepository = $tripRepository;
     }
 
     public function search($user_id, $phrase)
     {
         $users = $this -> userRepository -> searchByPhrase($phrase);
         $places = $this -> placeRepository -> getByPhrase($phrase);
+        $trips = $this -> tripRepository -> getByPhrase($phrase);
         $users_response = [];
         $places_response = [];
+        $trips_response = [];
 
         foreach ($users as $user)
         {
@@ -57,6 +61,16 @@ class SearchEngineController extends Controller
             ];
         }
 
-        return response() -> json(['users' => $users_response, 'places' => $places_response]);
+        foreach($trips as $trip)
+        {
+            $trips_response[] = [
+                'name' => $trip -> name,
+                'link' => asset('trips/' . $trip->slug),
+                'start' => $trip -> start_time,
+                'end' => $trip -> end_time,
+            ];
+        }
+
+        return response() -> json(['users' => $users_response, 'places' => $places_response, 'trips' => $trips_response]);
     }
 }

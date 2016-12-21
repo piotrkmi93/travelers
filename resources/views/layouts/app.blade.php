@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
 
     <link rel="stylesheet" href="{{asset('assets/vendor/angular/ngGallery.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/720kb-tooltips/angular-tooltips.min.css')}}">
+
 </head>
 <body id="app-layout" ng-app="app">
     @include('chunks.navbar')
@@ -65,11 +67,15 @@
     <script src="{{asset('assets/vendor/angular/angular-wysiwyg.js')}}"></script>
     <script src="{{asset('assets/vendor/scrollglue.js')}}"></script>
     <script src="{{asset('assets/vendor/angular/ngGallery.js')}}"></script>
+    <script src="{{asset('assets/vendor/720kb-tooltips/angular-tooltips.min.js')}}"></script>
 
 
     {{-- Angular Application --}}
     <script src="{{asset('assets/js/app/app.js')}}"></script>
     <script src="{{asset('assets/js/app/config.js')}}"></script>
+
+    <script src="{{asset('assets/js/app/modules/HomeModule/HomeModule.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/HomeModule/controllers/HomeController.js')}}"></script>
 
     <script src="{{asset('assets/js/app/modules/CityModule/CityModule.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/CityModule/services/CitySearchService.js')}}"></script>
@@ -86,6 +92,7 @@
     <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserBoardController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserGalleryController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserPlaceController.js')}}"></script>
+    <script src="{{asset('assets/js/app/modules/UserModule/controllers/UserTripController.js')}}"></script>
     <script src="{{asset('assets/js/app/modules/UserModule/services/UserService.js')}}"></script>
 
     <script src="{{asset('assets/js/app/modules/NotificationModule/NotificationModule.js')}}"></script>

@@ -20,6 +20,7 @@ use App\Repositories\PostCommentRepositoryInterface;
 use App\Repositories\PostLikeNotificationRepositoryInterface;
 use App\Repositories\PostLikeRepositoryInterface;
 use App\Repositories\PostRepositoryInterface;
+use App\Repositories\TripCommentRepositoryInterface;
 use App\Repositories\TripInvitationNotificationRepositoryInterface;
 use App\Repositories\TripRepositoryInterface;
 use App\Repositories\TripUserRepositoryInterface;
@@ -55,7 +56,8 @@ class NotificationController extends Controller
 
             $tripInvitationNotificationRepository,
             $tripUserRepository,
-            $tripRepository;
+            $tripRepository,
+            $tripCommentRepository;
 
     /**
      * NotificationController constructor.
@@ -81,6 +83,7 @@ class NotificationController extends Controller
      * @param TripInvitationNotificationRepositoryInterface $tripInvitationNotificationRepository
      * @param TripUserRepositoryInterface $tripUserRepository
      * @param TripRepositoryInterface $tripRepository
+     * @param TripCommentRepositoryInterface $tripCommentRepository
      */
     public function __construct(NotificationRepositoryInterface                 $notificationRepository,
                                 InvitationNotificationRepositoryInterface       $invitationNotificationRepository,
@@ -103,7 +106,8 @@ class NotificationController extends Controller
                                 PlaceCommentRepositoryInterface                 $placeCommentRepository,
                                 TripInvitationNotificationRepositoryInterface   $tripInvitationNotificationRepository,
                                 TripUserRepositoryInterface                     $tripUserRepository,
-                                TripRepositoryInterface                         $tripRepository){
+                                TripRepositoryInterface                         $tripRepository,
+                                TripCommentRepositoryInterface                  $tripCommentRepository){
 
         $this -> notificationRepository                 = $notificationRepository;
         $this -> invitationNotificationRepository       = $invitationNotificationRepository;
@@ -130,6 +134,7 @@ class NotificationController extends Controller
         $this -> tripInvitationNotificationRepository   = $tripInvitationNotificationRepository;
         $this -> tripUserRepository                     = $tripUserRepository;
         $this -> tripRepository                         = $tripRepository;
+        $this -> tripCommentRepository                  = $tripCommentRepository;
     }
 
     /**
@@ -167,11 +172,11 @@ class NotificationController extends Controller
                             $item['type'] = $notification -> type;
                             $item['name'] = $trip -> name;
                             $item['trip_user_id'] = $tripUser -> id;
+                            $item['url'] = asset('trips/' . $trip -> slug);
                         } else {
                             $this -> tripInvitationNotificationRepository -> delete($tripInvitationNotification->id);
                             $this -> notificationRepository -> delete($notification->id);
                         }
-//                        dd($sender);
                         break;
 
                     case 'invitation':
@@ -243,6 +248,15 @@ class NotificationController extends Controller
                                 $item['name'] = $place -> name;
                                 $item['url'] = asset('places/' . $place -> slug);
                             }
+
+                            if($comment->type == 'trip'){
+                                $tripComment = $this -> tripCommentRepository -> getByCommentId($comment->id);
+                                $trip = $this -> tripRepository -> get($tripComment -> trip_id);
+                                $item['trip_id'] = $trip -> id;
+                                $item['name'] = $trip -> name;
+                                $item['url'] = asset('trips/' . $trip -> slug);
+                            }
+
                         } else {
                             $this -> commentNotificationRepository -> delete($commentNotification->id);
                             $this -> notificationRepository -> delete($notification->id);
@@ -287,6 +301,12 @@ class NotificationController extends Controller
             case 'place-comment':
                 $commentNotification = $this -> commentNotificationRepository -> getByNotificationId($notification_id);
                 $this -> commentNotificationRepository -> delete( $commentNotification -> id);
+                $this -> notificationRepository -> delete($commentNotification -> notification_id);
+                break;
+
+            case 'trip-comment':
+                $commentNotification = $this -> commentNotificationRepository -> getByNotificationId($notification_id);
+                $this -> commentNotificationRepository -> delete($commentNotification->id);
                 $this -> notificationRepository -> delete($commentNotification -> notification_id);
                 break;
 

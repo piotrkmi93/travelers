@@ -11,7 +11,9 @@
         'luegg.directives',
         'uiGmapgoogle-maps',
         'jkuri.gallery',
+        '720kb.tooltips',
 
+        'HomeModule',
         'CityModule',
         'RegisterModule',
         'UserModule',

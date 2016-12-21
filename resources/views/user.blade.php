@@ -85,10 +85,10 @@
                         </div>
 
                         <div class="user-sidebar-item">
-                            {{--<a href="#/board">--}}
+                            <a href="#/trips">
                                 <h1><i class="fa fa-map" aria-hidden="true"></i></h1>
                                 <h3>Wycieczki</h3>
-                            {{--</a>--}}
+                            </a>
                         </div>
                     </div>
                 </div>

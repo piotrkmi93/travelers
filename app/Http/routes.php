@@ -109,8 +109,18 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('trips/add', 'TripController@form');
     Route::get('trips/edit/{slug}', 'TripController@form');
+    Route::get('trips/{slug}', 'TripController@index');
     Route::post('trips/create', 'TripController@create');
     Route::post('trips/exists', 'TripController@exists');
     Route::post('trips/search_friends', 'TripController@getFriendsByPhrase');
+    Route::post('get_trip_comments', 'CommentController@getTripComments');
+    Route::post('trips/accept', 'TripController@accept');
+    Route::post('trips/decline', 'TripController@decline');
+    Route::post('trips/get_user_trips', 'TripController@getUserTrips');
+
+    /*********** Options ***********/
+
+    Route::get('options', 'OptionsController@index');
+    Route::post('options/change_password', 'OptionsController@changePassword');
 });
 

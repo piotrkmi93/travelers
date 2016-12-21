@@ -8,8 +8,8 @@
                     <li ng-repeat="place in places" class="list-group-item">
 
 
-                        <div class="btn-group pull-right">
-                            <a href="<% place.edit_url %>" ng-if="place.is_owner" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edytuj</a>
+                        <div class="btn-group pull-right" ng-if="place.is_owner">
+                            <a href="<% place.edit_url %>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edytuj</a>
                             <button ng-click="delete(place.id)" type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Usuń</button>
                         </div>
 

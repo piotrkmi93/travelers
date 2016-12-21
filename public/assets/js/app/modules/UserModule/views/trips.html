@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>Wycieczki</h2>
+
+                <ul class="list-group">
+                    <li ng-repeat="trip in trips" class="list-group-item">
+
+                        <div class="btn-group pull-right" ng-if="trip.is_owner">
+                            <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edytuj</a>
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Usuń</button>
+                        </div>
+
+                        <a href="<% trip.link %>">
+                            <h3>
+                                <i class="fa fa-map"></i>
+                                <% trip.name %>
+                            </h3>
+                            <p><i class="fa fa-calendar"></i> <% date(trip.start) | date:'fullDate' %> - <i class="fa fa-calendar"></i> <% date(trip.end) | date:'fullDate' %></p>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

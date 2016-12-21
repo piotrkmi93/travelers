@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('UserModule')
-        .controller('UserNavbarController', ['$scope', '$rootScope', '$interval', 'UserService', 'NotificationService', 'SERVER', '$timeout', 'MessageService', '$sce', function ($scope, $rootScope, $interval, UserService, NotificationService, SERVER, $timeout, MessageService, $sce) {
+        .controller('UserNavbarController', ['$scope', '$rootScope', '$interval', 'UserService', 'NotificationService', 'SERVER', '$timeout', 'MessageService', 'TripService', '$sce', function ($scope, $rootScope, $interval, UserService, NotificationService, SERVER, $timeout, MessageService, TripService, $sce) {
             $scope.notificationsCount = 0;
             $scope.newMessagesCount = 0;
             $scope.notifications = [];
@@ -135,6 +135,26 @@
                 UserService.deleteFromFriends(toUserId, fromUserId)
                     .then(function(success) {
                         if (success) {
+                            refreshNotifications();
+                        }
+                    });
+            };
+
+            // trips
+
+            $scope.acceptTripInvitation = function(trip_user_id){
+                TripService.accept(trip_user_id)
+                    .then(function(data){
+                        if(data.success){
+                            refreshNotifications();
+                        }
+                    });
+            };
+
+            $scope.declineTripInvitation = function(trip_user_id){
+                TripService.decline(trip_user_id)
+                    .then(function(data){
+                        if(data.success){
                             refreshNotifications();
                         }
                     });

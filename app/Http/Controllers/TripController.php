@@ -10,15 +10,19 @@ use App\Repositories\FriendsPairRepositoryInterface;
 use App\Repositories\LikeNotificationRepositoryInterface;
 use App\Repositories\LikeRepositoryInterface;
 use App\Repositories\NotificationRepositoryInterface;
+use App\Repositories\PhotoRepositoryInterface;
+use App\Repositories\PlaceRepositoryInterface;
 use App\Repositories\TripCommentRepositoryInterface;
 use App\Repositories\TripInvitationNotificationRepositoryInterface;
 use App\Repositories\TripPlaceRepositoryInterface;
 use App\Repositories\TripRepositoryInterface;
 use App\Repositories\TripUserRepositoryInterface;
+use App\Repositories\UserRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class TripController extends Controller
 {
@@ -34,7 +38,10 @@ class TripController extends Controller
             $commentLikeNotificationRepository,
             $likeNotificationRepository,
             $notificationRepository,
-            $tripInvitationNotificationRepository;
+            $tripInvitationNotificationRepository,
+            $placeRepository,
+            $userRepository,
+            $photoRepository;
 
     /**
      * TripController constructor.
@@ -51,6 +58,9 @@ class TripController extends Controller
      * @param LikeNotificationRepositoryInterface $likeNotificationRepository
      * @param NotificationRepositoryInterface $notificationRepository
      * @param TripInvitationNotificationRepositoryInterface $tripInvitationNotificationRepository
+     * @param PlaceRepositoryInterface $placeRepository
+     * @param UserRepositoryInterface $userRepository
+     * @param PhotoRepositoryInterface $photoRepository
      */
     public function __construct(TripRepositoryInterface $tripRepository,
                                 FriendsPairRepositoryInterface $friendsPairRepository,
@@ -64,7 +74,10 @@ class TripController extends Controller
                                 CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository,
                                 LikeNotificationRepositoryInterface $likeNotificationRepository,
                                 NotificationRepositoryInterface $notificationRepository,
-                                TripInvitationNotificationRepositoryInterface $tripInvitationNotificationRepository)
+                                TripInvitationNotificationRepositoryInterface $tripInvitationNotificationRepository,
+                                PlaceRepositoryInterface $placeRepository,
+                                UserRepositoryInterface $userRepository,
+                                PhotoRepositoryInterface $photoRepository)
     {
         $this -> tripRepository = $tripRepository;
         $this -> friendsPairRepository = $friendsPairRepository;
@@ -79,6 +92,71 @@ class TripController extends Controller
         $this -> likeNotificationRepository = $likeNotificationRepository;
         $this -> notificationRepository = $notificationRepository;
         $this -> tripInvitationNotificationRepository = $tripInvitationNotificationRepository;
+        $this -> placeRepository = $placeRepository;
+        $this -> userRepository = $userRepository;
+        $this -> photoRepository = $photoRepository;
+    }
+
+    public function index($slug)
+    {
+        if(!isset($slug))
+        {
+            return back();
+        }
+
+        $trip = $this -> tripRepository -> getBySlug($slug);
+
+        if(!isset($trip))
+        {
+            return back();
+        }
+
+        $tripUsers = $this -> tripUserRepository -> getByTripId($trip -> id);
+        $users = [];
+        foreach ($tripUsers as $tripUser)
+        {
+            $user = $this -> userRepository -> getById($tripUser -> user_id);
+            $users[] = [
+                'id' => $user -> id,
+                'name' => $user -> first_name . ' ' . $user -> last_name,
+                'url' => asset('user/' . $user -> username . '#/board'),
+                'avatar' => asset($this -> photoRepository -> getById($user -> avatar_photo_id) -> thumb_url),
+                'status' => $tripUser -> status,
+            ];
+        }
+//        $users = json_encode($users);
+
+        $tripPlaces = $this -> tripPlaceRepository -> getByTripId($trip -> id);
+        $places = [];
+        $places[] = [
+            'start'     => $trip -> start_time,
+            'name'      => $trip -> start_address,
+            'latitude'  => $trip -> start_latitude,
+            'longitude' => $trip -> start_longitude,
+        ];
+        foreach ($tripPlaces as $tripPlace)
+        {
+            $place = $this -> placeRepository -> getById($tripPlace->place_id);
+            $places[] = [
+                'id'                => $place -> id,
+                'start'             => $tripPlace -> start,
+                'end'               => $tripPlace -> end,
+                'name'              => $place -> name,
+                'url'               => asset('places/' . $place -> slug),
+                'short_description' => $place -> short_description,
+                'latitude'          => $place -> latitude,
+                'longitude'         => $place -> longitude,
+            ];
+        }
+        $places[] = [
+            'start'     => $trip -> end_time,
+            'name'      => $trip -> end_address,
+            'latitude'  => $trip -> end_latitude,
+            'longitude' => $trip -> end_longitude,
+        ];
+//        $places = json_encode($places);
+
+        return view('trips.index', compact('trip', 'users', 'places'));
     }
 
     /**
@@ -144,7 +222,6 @@ class TripController extends Controller
     public function create(Request $request)
     {
         $data = $request -> all();
-//        dd($data);
 
         $trip = $this -> tripRepository -> create([
             'name' => $data['name'],
@@ -206,6 +283,11 @@ class TripController extends Controller
     {
         $trip_user_id = $request -> trip_user_id;
         $trip = $this -> tripUserRepository -> update($trip_user_id, ['status' => 1]);
+
+        $tripInvitationNotification = $this -> tripInvitationNotificationRepository -> getByTripUserId($trip_user_id);
+        $this -> notificationRepository -> delete($tripInvitationNotification -> notification_id);
+        $this -> tripInvitationNotificationRepository -> delete($tripInvitationNotification -> id);
+
         return response() -> json(['success' => isset($trip)]);
     }
 
@@ -218,6 +300,36 @@ class TripController extends Controller
     public function decline(Request $request)
     {
         $trip_user_id = $request -> trip_user_id;
+
+        $tripInvitationNotification = $this -> tripInvitationNotificationRepository -> getByTripUserId($trip_user_id);
+        $this -> notificationRepository -> delete($tripInvitationNotification -> notification_id);
+        $this -> tripInvitationNotificationRepository -> delete($tripInvitationNotification -> id);
+
         return response() -> json(['success' => $this -> tripUserRepository -> delete($trip_user_id)]);
+    }
+
+    /**
+     * Zwraca wycieczki stworzone przez użytkownika
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserTrips(Request $request)
+    {
+        $trips = $this -> tripRepository -> getByUserId($request -> user_id);
+
+        $trips_response = [];
+        foreach ($trips as $trip)
+        {
+            $trips_response[] = [
+                'name' => $trip -> name,
+                'link' => asset('trips/' . $trip->slug),
+                'start' => $trip -> start_time,
+                'end' => $trip -> end_time,
+                'is_owner' => Auth::user()->id == $request -> user_id,
+            ];
+        }
+
+        return response() -> json(['trips' => $trips_response]);
     }
 }

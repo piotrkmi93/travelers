@@ -17,4 +17,5 @@ interface TripRepositoryInterface
     public function get($id);
     public function getBySlug($slug);
     public function getByUserId($user_id);
+    public function getByPhrase($phrase);
 }

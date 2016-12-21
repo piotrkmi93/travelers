@@ -13,4 +13,6 @@ interface UserRepositoryInterface {
     public function extendActiveTimestamp($id);
     public function isActive($id);
     public function searchByPhrase($phrase);
+    public function passwordCorrect($id, $password);
+    public function updatePassword($id, $password);
 }
