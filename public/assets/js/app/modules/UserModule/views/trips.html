@@ -8,8 +8,8 @@
                     <li ng-repeat="trip in trips" class="list-group-item">
 
                         <div class="btn-group pull-right" ng-if="trip.is_owner">
-                            <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edytuj</a>
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Usuń</button>
+                            <a href="<% trip.edit_link %>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edytuj</a>
+                            <button ng-click="delete(trip.id)" type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Usuń</button>
                         </div>
 
                         <a href="<% trip.link %>">

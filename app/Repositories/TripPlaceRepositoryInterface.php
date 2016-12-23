@@ -16,4 +16,5 @@ interface TripPlaceRepositoryInterface
     public function delete($id);
     public function get($id);
     public function getByTripId($trip_id);
+    public function getByPlaceId($place_id);
 }

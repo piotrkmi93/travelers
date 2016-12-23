@@ -18,6 +18,7 @@ use App\Repositories\TripPlaceRepositoryInterface;
 use App\Repositories\TripRepositoryInterface;
 use App\Repositories\TripUserRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
+use App\Trip;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -124,7 +125,6 @@ class TripController extends Controller
                 'status' => $tripUser -> status,
             ];
         }
-//        $users = json_encode($users);
 
         $tripPlaces = $this -> tripPlaceRepository -> getByTripId($trip -> id);
         $places = [];
@@ -133,6 +133,7 @@ class TripController extends Controller
             'name'      => $trip -> start_address,
             'latitude'  => $trip -> start_latitude,
             'longitude' => $trip -> start_longitude,
+            'position'  => 1,
         ];
         foreach ($tripPlaces as $tripPlace)
         {
@@ -146,6 +147,7 @@ class TripController extends Controller
                 'short_description' => $place -> short_description,
                 'latitude'          => $place -> latitude,
                 'longitude'         => $place -> longitude,
+                'position'  => 2,
             ];
         }
         $places[] = [
@@ -153,6 +155,7 @@ class TripController extends Controller
             'name'      => $trip -> end_address,
             'latitude'  => $trip -> end_latitude,
             'longitude' => $trip -> end_longitude,
+            'position'  => 3,
         ];
 //        $places = json_encode($places);
 
@@ -172,7 +175,81 @@ class TripController extends Controller
             return view('trips.form');
         }
 
-        return null;
+        $trip = $this -> tripRepository -> getBySlug($slug);
+
+        if(Auth::user()->id != $trip->user_id){
+            return back();
+        }
+
+        $tripPlaces = $this -> tripPlaceRepository -> getByTripId($trip -> id);
+        $tripUsers = $this -> tripUserRepository -> getByTripId($trip -> id);
+
+        $sameAddress = $this -> sameAddress($trip);
+
+        $tripJSON = [
+            'id' => $trip -> id,
+            'errors' => false,
+            'name' => $trip -> name,
+            'description' => $trip -> description,
+            'start_date' => $trip -> start_time,
+            'end_date' => $trip -> end_time,
+            'start_address' => $trip -> start_address,
+            'end_address' => $sameAddress ? null : $trip -> end_address,
+            'start_marker' => [
+                'coords' => [
+                    'latitude' => (int)$trip -> start_latitude,
+                    'longitude' => (int)$trip -> start_longitude,
+                ],
+            ],
+            'end_marker' => $sameAddress ? null : [
+                'coords' => [
+                    'latitude' => (double)$trip -> end_latitude,
+                    'longitude' => (double)$trip -> end_longitude,
+                ],
+            ],
+            'same_address' => $sameAddress,
+
+            'places' => [],
+            'users' => [],
+        ];
+
+        foreach ($tripPlaces as $tripPlace)
+        {
+            $place = $this -> placeRepository -> getById($tripPlace -> place_id);
+            $tripJSON['places'][] = [
+                'id' => $place -> id,
+                'name' => $place -> name,
+                'start' => $tripPlace -> start,
+                'end' => $tripPlace -> end,
+            ];
+        }
+
+        foreach ($tripUsers as $tripUser)
+        {
+            $user = $this -> userRepository -> getById($tripUser -> user_id);
+            $tripJSON['users'][] = [
+                'id' => $user -> id,
+                'first_name' => $user -> first_name,
+                'last_name' => $user -> last_name,
+                'thumb_url' => $user -> avatar_photo_id ? asset($this -> photoRepository -> getById($user -> avatar_photo_id) -> thumb_url) : asset('images/avatar_min_' . $user -> sex . '.png'),
+                'deletable' => false,
+            ];
+        }
+
+        $tripJSON = json_encode($tripJSON);
+
+        return view('trips.form', compact('trip', 'tripJSON'));
+    }
+
+    /**
+     * Zwraca prawdę jeźli adresy początku i końca wycieczki są takie same
+     *
+     * @param Trip $trip
+     * @return bool
+     */
+    private function sameAddress(Trip $trip)
+    {
+        return $trip -> start_latitude == $trip -> end_latitude && $trip -> start_longitude == $trip -> end_longitude && $trip -> start_address == $trip -> end_address;
     }
 
     /**
@@ -227,6 +304,7 @@ class TripController extends Controller
             'name' => $data['name'],
             'description' => $data['description'],
             'slug' => $data['slug'],
+            'user_id' => $data['user_id'],
 
             'start_time' => new Carbon($data['start_date']),
 
@@ -322,8 +400,10 @@ class TripController extends Controller
         foreach ($trips as $trip)
         {
             $trips_response[] = [
+                'id' => $trip -> id,
                 'name' => $trip -> name,
                 'link' => asset('trips/' . $trip->slug),
+                'edit_link' => asset('trips/edit/' . $trip->slug),
                 'start' => $trip -> start_time,
                 'end' => $trip -> end_time,
                 'is_owner' => Auth::user()->id == $request -> user_id,
@@ -331,5 +411,119 @@ class TripController extends Controller
         }
 
         return response() -> json(['trips' => $trips_response]);
+    }
+
+    public function update(Request $request)
+    {
+        $data = $request -> all();
+
+        $trip = $this -> tripRepository -> update($data['id'], [
+            'description' => $data['description'],
+
+            'start_time' => new Carbon($data['start_date']),
+
+            'start_address' => $data['start_address'],
+            'start_latitude' => $data['start_marker']['coords']['latitude'],
+            'start_longitude' => $data['start_marker']['coords']['longitude'],
+
+            'end_time' => new Carbon($data['end_date']),
+
+            'end_address' => ($data['same_address'] ? $data['start_address'] : $data['end_address']),
+            'end_latitude' => ($data['same_address'] ? $data['start_marker']['coords']['latitude'] : $data['end_marker']['coords']['latitude']),
+            'end_longitude' => ($data['same_address'] ? $data['start_marker']['coords']['longitude'] : $data['end_marker']['coords']['longitude']),
+        ]);
+
+        if( isset($trip) ) {
+
+            $tripPlaces = $this -> tripPlaceRepository -> getByTripId($trip->id);
+            foreach ($tripPlaces as $tripPlace){
+                $this -> tripPlaceRepository -> delete($tripPlace->id);
+            }
+
+            foreach ($data['places'] as $place) {
+                $this -> tripPlaceRepository -> create([
+                    'trip_id' => $trip -> id,
+                    'place_id' => $place['id'],
+                    'start' => $place['start'],
+                    'end' => $place['end'],
+                ]);
+            }
+
+            foreach($data['users'] as $user){
+
+                if($user['deletable']){
+                    $tripUser = $this -> tripUserRepository -> create([
+                        'trip_id' => $trip -> id,
+                        'user_id' => $user['id'],
+                    ]);
+
+                    $notification_id = $this -> notificationRepository -> create($user['id'], 'trip-invitation');
+                    $this -> tripInvitationNotificationRepository -> create($tripUser->id, $notification_id);
+                }
+
+            }
+        }
+
+        return response() -> json([
+            'success' => isset($trip)
+        ]);
+    }
+
+    /**
+     * Usuwa wycieczkę i wszystkie jej elementy
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(Request $request)
+    {
+        $trip = $this -> tripRepository -> get($request -> id); // wycieczka
+
+        $tripUsers = $this -> tripUserRepository -> getByTripId($trip -> id); // uczestnicy wycieczki
+        foreach ($tripUsers as $tripUser) {
+            $tripInvitationNotification = $this -> tripInvitationNotificationRepository -> getByTripUserId($tripUser -> id); // zaproszenie na wycieczkę
+            if(isset($tripInvitationNotification)){
+                $this -> notificationRepository -> delete($tripInvitationNotification -> notification_id);
+                $this -> tripInvitationNotificationRepository -> delete($tripInvitationNotification -> id);
+            }
+            $this -> tripUserRepository -> delete($tripUser -> id);
+        }
+
+        $tripPlaces = $this -> tripPlaceRepository -> getByTripId($trip -> id);
+        foreach ($tripPlaces as $tripPlace) {
+            $this -> tripPlaceRepository -> delete($tripPlace -> id);
+        }
+
+        $tripComments = $this -> tripCommentRepository -> getByTripId($trip -> id);
+        foreach ($tripComments as $tripComment) {
+            $comment = $this -> commentRepository -> getById($tripComment -> comment_id);
+
+            $this -> tripCommentRepository -> delete($this -> tripCommentRepository -> getByCommentId($comment -> id) -> id);
+
+            $commentLikes = $this -> commentLikeRepository -> getByCommentId($comment -> id); // wszystkie lajki tego komentarza
+            foreach ($commentLikes as $commentLike){
+                $this -> likeRepository -> delete($commentLike -> like_id); // usuń lajka
+                $this -> commentLikeRepository -> delete($commentLike->id); // usuń lajka komentarza
+            }
+
+            $commentLikeNotifications = $this -> commentLikeNotificationRepository -> getByCommentId($comment -> id); // notyfikacje odnośnie lajków tego komentarza
+            foreach ($commentLikeNotifications as $commentLikeNotification){
+                $likeNotification = $this -> likeNotificationRepository -> get($commentLikeNotification->like_notification_id); // notyfikacja polubienia
+                $this -> notificationRepository -> delete($likeNotification -> notification_id); // usuń notyfikację
+                $this -> likeNotificationRepository -> delete($likeNotification -> id); // usuń notyfikację polubienia
+                $this -> commentLikeNotificationRepository -> delete($commentLikeNotification->id); // usuń notyfikację polubienia komentarza
+            }
+
+            $commentNotifications = $this -> commentNotificationRepository -> getByCommentId($comment -> id); // notyfikacje odnośnie komentowania
+            foreach ($commentNotifications as $commentNotification){
+                $this -> notificationRepository -> delete($commentNotification -> notification_id);
+                $this -> commentNotificationRepository -> delete($commentNotification -> id);
+            }
+
+            $this -> commentRepository -> delete($comment->id);
+            $this -> tripCommentRepository -> delete($tripComment -> id);
+        }
+
+        return response() -> json(['success' => $this -> tripRepository -> delete($trip -> id)]);
     }
 }

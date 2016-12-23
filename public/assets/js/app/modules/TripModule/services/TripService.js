@@ -9,7 +9,21 @@
                     return $http.post(SERVER.url + 'trips/create', data)
                         .then(function(response){
                             return response.data;
-                        })
+                        });
+                },
+
+                update: function(data){
+                    return $http.post(SERVER.url + 'trips/update', data)
+                        .then(function(response){
+                            return response.data;
+                        });
+                },
+
+                delete: function(id){
+                    return $http.post(SERVER.url + 'trips/delete', {id:id})
+                        .then(function(response){
+                            return response.data;
+                        });
                 },
 
                 exists: function(slug){

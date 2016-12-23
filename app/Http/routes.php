@@ -111,12 +111,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('trips/edit/{slug}', 'TripController@form');
     Route::get('trips/{slug}', 'TripController@index');
     Route::post('trips/create', 'TripController@create');
+    Route::post('trips/update', 'TripController@update');
     Route::post('trips/exists', 'TripController@exists');
     Route::post('trips/search_friends', 'TripController@getFriendsByPhrase');
     Route::post('get_trip_comments', 'CommentController@getTripComments');
     Route::post('trips/accept', 'TripController@accept');
     Route::post('trips/decline', 'TripController@decline');
     Route::post('trips/get_user_trips', 'TripController@getUserTrips');
+    Route::post('trips/delete', 'TripController@delete');
 
     /*********** Options ***********/
 

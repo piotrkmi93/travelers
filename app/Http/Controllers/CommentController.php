@@ -157,6 +157,11 @@ class CommentController extends Controller
                 $place_comment_id = $this -> placeCommentRepository -> getByCommentId($comment_id) -> id;
                 $this -> placeCommentRepository -> delete($place_comment_id);
                 break;
+
+            case 'trip':
+                $trip_comment_id = $this -> tripCommentRepository -> getByCommentId($comment_id) -> id;
+                $this -> tripCommentRepository -> delete($trip_comment_id);
+                break;
         }
 
         $commentLikes = $this -> commentLikeRepository -> getByCommentId($comment_id); // wszystkie lajki tego komentarza

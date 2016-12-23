@@ -26,7 +26,7 @@
                     <div class="panel-body">
                         <h4>Punkty Wycieczki</h4>
 
-                        <div class="panel panel-default" ng-repeat="place in places | orderBy:'start'">
+                        <div class="panel panel-default" ng-repeat="place in places | orderBy:['position', 'start']">
                             <div class="panel-body">
                                 <h3 style="margin:0;">
                                     <i ng-class="{'fa-dot-circle-o':$middle, 'fa-flag-o':$first, 'fa-flag-checkered':$last}" class="fa"></i>

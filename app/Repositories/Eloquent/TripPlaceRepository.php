@@ -74,6 +74,16 @@ class TripPlaceRepository implements TripPlaceRepositoryInterface
     }
 
     /**
+     * @param int $place_id
+     * @return mixed
+     */
+    public function getByPlaceId($place_id)
+    {
+        return $this -> model -> wherePlaceId($place_id) -> get();
+    }
+
+
+    /**
      * @param TripPlace $tripPlace
      * @param array $data
      * @return TripPlace|null

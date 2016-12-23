@@ -12,6 +12,7 @@
         'uiGmapgoogle-maps',
         'jkuri.gallery',
         '720kb.tooltips',
+        'ngAnimate',
 
         'HomeModule',
         'CityModule',

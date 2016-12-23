@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('TripModule')
-        .controller('TripFormController', ['$scope', 'TripService', '$interval', 'CitySearchService', 'PlaceService', '$timeout', 'UserFriendsService', function($scope, TripService, $interval, CitySearchService, PlaceService, $timeout, UserFriendsService){
+        .controller('TripFormController', ['$scope', 'TripService', '$interval', 'CitySearchService', 'PlaceService', '$timeout', 'UserFriendsService', 'SERVER', function($scope, TripService, $interval, CitySearchService, PlaceService, $timeout, UserFriendsService, SERVER){
 
             // variables
             $scope.phrases = {
@@ -102,7 +102,7 @@
                         .then(function(data){
                             $scope.slugExists = data.exists;
                         });
-                };
+                }
             };
 
             $scope.selectCity = function(name, id){
@@ -134,7 +134,8 @@
                     id: id,
                     first_name: first_name,
                     last_name: last_name,
-                    thumb_url: thumb_url
+                    thumb_url: thumb_url,
+                    deletable: true
                 });
 
                 $scope.phrases.user = undefined;
@@ -264,7 +265,7 @@
 
             // init
 
-            $scope.init = function(uid){
+            $scope.init = function(uid, trip){
                 setUserGeolocation();
                 user_id = uid;
                 $scope.trip.user_id = uid;
@@ -272,6 +273,94 @@
                 var date = new Date();
                 $scope.trip.start_date = new Date( date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 12, 0, 0, 0 );
                 $scope.trip.end_date = new Date( date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()+1, 12, 0, 0, 0 );
+
+                $scope.trip = {
+
+                    id: trip.id,
+
+                    errors: {
+                        date: trip.errors
+                    },
+
+                    name: trip.name,
+                    slug: trip.slug,
+                    description: trip.description,
+
+                    start_date: new Date(trip.start_date),
+                    end_date: new Date(trip.end_date),
+
+                    start_address: trip.start_address,
+                    end_address: trip.end_address,
+
+                    start_marker: {
+                        id: 0,
+                        coords: {
+                            latitude: trip.start_marker.coords.latitude,
+                            longitude: trip.start_marker.coords.longitude
+                        },
+                        options: { draggable: true },
+                        events: {
+                            dragend: function (marker, eventName, args) {
+                                var lat = marker.getPosition().lat();
+                                var lon = marker.getPosition().lng();
+
+                                $scope.trip.start_marker.options = {
+                                    draggable: true,
+                                    labelAnchor: "100 0",
+                                    labelClass: "marker-labels"
+                                };
+                            }
+                        }
+                    },
+                    end_marker: trip.same_address?undefined:{
+                            id: 1,
+                            coords: {
+                                latitude: trip.end_marker.coords.latitude,
+                                longitude: trip.end_marker.coords.longitude
+                            },
+                            options: { draggable: true },
+                            events: {
+                                dragend: function (marker, eventName, args) {
+                                    var lat = marker.getPosition().lat();
+                                    var lon = marker.getPosition().lng();
+
+                                    $scope.trip.start_marker.options = {
+                                        draggable: true,
+                                        labelAnchor: "100 0",
+                                        labelClass: "marker-labels"
+                                    };
+                                }
+                            }
+                        },
+                    start_map: {
+                        center: {
+                            latitude: trip.start_marker.coords.latitude,
+                            longitude: trip.start_marker.coords.longitude
+                        },
+                        zoom: 10
+                    },
+                    end_map: trip.same_address?undefined:{
+                            center: {
+                                latitude: trip.end_marker.coords.latitude,
+                                longitude: trip.end_marker.coords.longitude
+                            },
+                            zoom: 10
+                        },
+
+                    places: [],
+                    users: trip.users,
+
+                    same_address: trip.same_address
+                };
+
+                angular.forEach(trip.places, function(place){
+                    $scope.trip.places.push({
+                        start:  new Date(place.start),
+                        end: new Date(place.end),
+                        id: place.id,
+                        name: place.name
+                    });
+                })
             };
 
             $scope.cityFocus = function(){
@@ -304,14 +393,6 @@
                 }
             };
 
-            $scope.submit = function(){
-                console.log($scope.trip);
-
-                TripService.create($scope.trip).then(function(data){
-                    console.log(data);
-                });
-            };
-
             $scope.unselectUser = function(id){
                 for(var i = 0; i < $scope.trip.users.length; ++i){
                     if(id == $scope.trip.users[i].id){
@@ -328,6 +409,54 @@
                         break;
                     }
                 }
+            };
+
+            $scope.submit = function(){
+
+                if( $scope.trip.name && $scope.trip.name != '' &&
+                    $scope.trip.slug && $scope.trip.slug != '' &&
+                    $scope.trip.description && $scope.trip.description != '' &&
+                    $scope.trip.start_date && $scope.trip.start_date != '' &&
+                    $scope.trip.end_date && $scope.trip.end_date != '' &&
+                    $scope.trip.start_address && $scope.trip.start_address != '' &&
+                    $scope.trip.start_marker.coords.latitude && $scope.trip.start_marker.coords.longitude &&
+                    $scope.trip.places.length && $scope.trip.users.length &&
+                    ($scope.trip.same_address ? true : ( $scope.trip.end_address && $scope.trip.end_address != '' &&
+                    $scope.trip.end_marker.coords.latitude && $scope.trip.end_marker.coords.longitude ))){
+
+                        TripService.create($scope.trip).then(function(data){
+                            if(data.success){
+                                window.location.href = SERVER.url + 'trips/' + $scope.trip.slug;
+                            }
+                        });
+                } else {
+                    alert('Brakuje niektórych informacji');
+                }
+            };
+
+            $scope.update = function(){
+
+                if( $scope.trip.id &&
+                    $scope.trip.name && $scope.trip.name != '' &&
+                    $scope.trip.slug && $scope.trip.slug != '' &&
+                    $scope.trip.description && $scope.trip.description != '' &&
+                    $scope.trip.start_date && $scope.trip.start_date != '' &&
+                    $scope.trip.end_date && $scope.trip.end_date != '' &&
+                    $scope.trip.start_address && $scope.trip.start_address != '' &&
+                    $scope.trip.start_marker.coords.latitude && $scope.trip.start_marker.coords.longitude &&
+                    $scope.trip.places.length && $scope.trip.users.length &&
+                    ($scope.trip.same_address ? true : ( $scope.trip.end_address && $scope.trip.end_address != '' &&
+                    $scope.trip.end_marker.coords.latitude && $scope.trip.end_marker.coords.longitude ))){
+
+                        TripService.update($scope.trip).then(function(data){
+                            if(data.success){
+                                window.location.href = SERVER.url + 'trips/' + $scope.trip.slug;
+                            }
+                        });
+                } else {
+                    alert('Brakuje niektórych informacji');
+                }
+
             };
 
         }]);

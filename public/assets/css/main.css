@@ -694,3 +694,17 @@ video#bgvid {
 .trip-place-info i {
     margin-left: 10px;
 }
+
+.places-selected{
+    position: relative;
+}
+
+.place-selected{
+    position: absolute;
+    top:0;
+    -webkit-transition: .7s ease all;
+    -moz-transition: .7s ease all;
+    -ms-transition: .7s ease all;
+    -o-transition: .7s ease all;
+    transition: .7s ease all;
+}

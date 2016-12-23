@@ -17,6 +17,7 @@ use App\Repositories\PlaceLikeNotificationRepositoryInterface;
 use App\Repositories\PlaceLikeRepositoryInterface;
 use App\Repositories\PlaceRepositoryInterface;
 use App\Repositories\PostRepositoryInterface;
+use App\Repositories\TripPlaceRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use Faker\Provider\File;
 use Illuminate\Http\Request;
@@ -41,7 +42,8 @@ class PlaceController extends Controller
             $commentRepository,
             $commentLikeRepository,
             $commentLikeNotificationRepository,
-            $commentNotificationRepository;
+            $commentNotificationRepository,
+            $tripPlaceRepository;
 
     /**
      * PlaceController constructor.
@@ -61,6 +63,7 @@ class PlaceController extends Controller
      * @param CommentLikeRepositoryInterface $commentLikeRepository
      * @param CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository
      * @param CommentNotificationRepositoryInterface $commentNotificationRepository
+     * @param TripPlaceRepositoryInterface $tripPlaceRepository
      */
     public function __construct(PlaceRepositoryInterface $placeRepository,
                                 PhotoRepositoryInterface $photoRepository,
@@ -77,7 +80,8 @@ class PlaceController extends Controller
                                 CommentRepositoryInterface $commentRepository,
                                 CommentLikeRepositoryInterface $commentLikeRepository,
                                 CommentLikeNotificationRepositoryInterface $commentLikeNotificationRepository,
-                                CommentNotificationRepositoryInterface $commentNotificationRepository){
+                                CommentNotificationRepositoryInterface $commentNotificationRepository,
+                                TripPlaceRepositoryInterface $tripPlaceRepository){
 
         $this -> placeRepository = $placeRepository;
         $this -> photoRepository = $photoRepository;
@@ -95,6 +99,7 @@ class PlaceController extends Controller
         $this -> commentLikeRepository = $commentLikeRepository;
         $this -> commentLikeNotificationRepository = $commentLikeNotificationRepository;
         $this -> commentNotificationRepository = $commentNotificationRepository;
+        $this -> tripPlaceRepository = $tripPlaceRepository;
     }
 
     /**
@@ -186,7 +191,7 @@ class PlaceController extends Controller
             $place = $this -> placeRepository -> create($name, $slug, $short_description, $long_description, $gallery_id, $phone, $address, $email, $latitude, $longitude, $place_type, $user_id, $city_id);
         }
 
-        if (isset($request->images) && count($request->images) > 0) {
+        if (isset($request->images) && count($request->images) > 0 && $request->images[0] != null) {
             foreach ($request->images as $image) {
                 $this->photoRepository->add($image, $place->gallery_id, 'normal');
             }
@@ -206,6 +211,8 @@ class PlaceController extends Controller
         $places = $this -> placeRepository -> getByAuthorId($user_id) -> toArray();
 
         foreach($places as &$place){
+            $place['deletable'] = empty($this -> tripPlaceRepository -> getByPlaceId($place['id']));
+
             $place['url'] = asset('places/' . $place['slug']);
             $place['is_owner'] = $user_id == Auth::user() -> id;
             if($place['is_owner']) $place['edit_url'] = asset('places/edit/' . $place['slug']);

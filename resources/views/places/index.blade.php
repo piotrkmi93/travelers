@@ -18,7 +18,7 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
+                <div class="panel panel-default" ng-if="images.length">
                     <div class="panel-body">
                         <h3>Galeria</h3>
                         <hr>

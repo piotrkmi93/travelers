@@ -98,12 +98,11 @@
 
             $scope.placeFormInit = function(images, latitude, longitude, city_name, city_id){
 
-                console.log(JSON.parse(images));
-
-                $scope.selectCity(city_name, city_id);
+                if(city_name && city_id){
+                    $scope.selectCity(city_name, city_id);
+                }
 
                 if(images){
-                    console.log(images);
                     $scope.images = JSON.parse(images);
                 }
 

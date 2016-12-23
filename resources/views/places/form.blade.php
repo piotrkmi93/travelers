@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" ng-controller="PlaceFormController" @if(isset($place)) ng-init="placeFormInit({{"'".$images."'"}}, {{ $place->latitude }}, {{ $place->longitude }}, {{ "'".$city->name."'" }}, {{ $city->id }})" @else ng-init="placeFormInit(undefined,undefined,undefined)" @endif>
+    <div class="container" ng-controller="PlaceFormController" @if(isset($place)) ng-init="placeFormInit({{"'".$images."'"}}, {{ $place->latitude }}, {{ $place->longitude }}, {{ "'".$city->name."'" }}, {{ $city->id }})" @else ng-init="placeFormInit(undefined,undefined,undefined, undefined, undefined)" @endif>
         <form method="POST" enctype="multipart/form-data" action="{{ url('places/save') }}">
 
             <div class="row">
@@ -56,7 +56,7 @@
 
                             <div class="form-group">
                                 <label for="city">Miasto:</label>
-                                <input autocomplete="off" type="text" id="city" class="form-control" name="city" ng-model="phrase" ng-focus="focus()" ng-blur="focus()">
+                                <input autocomplete="off" type="text" id="city" class="form-control" name="city" ng-model="phrase" ng-focus="focus()" ng-blur="focus()" required>
 
                                 <div ng-if="show && cities.length" id="city-select">
                                     <ul>

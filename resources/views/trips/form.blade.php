@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" ng-controller="TripFormController" ng-init="init({{ Auth::user()->id}})" id="trip-form">
+    <div class="container" ng-controller="TripFormController" ng-init="init({{ Auth::user()->id}}, {{ isset($tripJSON)?$tripJSON:'undefined' }})" id="trip-form">
         <form>
             <div class="row">
                 <div class="col-md-12">
@@ -10,7 +10,7 @@
 
                             <h4 class="pull-left">
                                 @if(isset($trip))
-                                    Edycja wycieczki "{{ $trip -> name }}
+                                    Edycja wycieczki "{{ $trip -> name }}"
                                 @else
                                     Dodawanie wycieczki
                                 @endif
@@ -18,7 +18,7 @@
 
                             <div class="btn-group pull-right">
                                 @if(isset($trip))
-                                    <button type="submit" class="btn btn-lg btn-primary"><i class="fa fa-check" aria-hidden="true"></i> Edytuj</button>
+                                    <button ng-click="update()" type="submit" class="btn btn-lg btn-primary"><i class="fa fa-check" aria-hidden="true"></i> Edytuj</button>
                                 @else
                                     <button ng-click="submit()" type="submit" class="btn btn-lg btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj</button>
                                 @endif
@@ -66,27 +66,29 @@
 
                             <h4 ng-if="trip.places.length">Wybrane punkty wycieczki</h4>
 
-                            <div class="panel panel-default" ng-repeat="place in trip.places">
-                                <div class="panel-body">
-                                    <div class="col-sm-12">
-                                        <h3 style="margin:0;"><i class="fa fa-map-marker"></i> <% place.name %><i class="fa fa-times pull-right" style="color: red; cursor:pointer;" ng-click="unselectPlace(place.id)"></i></h3>
-                                    </div>
+                            <div class="places-selected" ng-style="{height: ((trip.places.length * 140) + 'px')}">
+                                <div ng-style="{top: (($index * 140) + 'px')}" class="panel panel-default place-selected" ng-repeat="place in trip.places | orderBy:'start'">
+                                    <div class="panel-body">
+                                        <div class="col-sm-12">
+                                            <h3 style="margin:0;"><i class="fa fa-map-marker"></i> <% place.name %><i class="fa fa-times pull-right" style="color: red; cursor:pointer;" ng-click="unselectPlace(place.id)"></i></h3>
+                                        </div>
 
-                                    <div class="col-sm-3">
-                                        <label><i class="fa fa-calendar-o"></i> Od dnia:</label>
-                                        <input class="form-control" type="date" ng-model="place.start">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label><i class="fa fa-clock-o"></i> Od godziny:</label>
-                                        <input class="form-control" type="time" ng-model="place.start">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label><i class="fa fa-calendar-o"></i> Do dnia:</label>
-                                        <input class="form-control" type="date" ng-model="place.end">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label><i class="fa fa-clock-o"></i> Do godziny:</label>
-                                        <input class="form-control" type="time" ng-model="place.end">
+                                        <div class="col-sm-3">
+                                            <label><i class="fa fa-calendar-o"></i> Od dnia:</label>
+                                            <input class="form-control" type="date" ng-model="place.start">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label><i class="fa fa-clock-o"></i> Od godziny:</label>
+                                            <input class="form-control" type="time" ng-model="place.start">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label><i class="fa fa-calendar-o"></i> Do dnia:</label>
+                                            <input class="form-control" type="date" ng-model="place.end">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label><i class="fa fa-clock-o"></i> Do godziny:</label>
+                                            <input class="form-control" type="time" ng-model="place.end">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -112,8 +114,8 @@
 
                                 <div ng-if="placesShow && places.length" id="place-select">
                                     <ul>
-                                        <li>
-                                            <span ng-click="selectPlace(place.name, place.id)" ng-repeat="place in places" style="cursor:pointer"><% place.name %></span>
+                                        <li ng-repeat="place in places">
+                                            <strong ng-click="selectPlace(place.name, place.id)" style="cursor:pointer"><% place.name %></strong>
                                             <div ng-if="place.disabled" class="trip-place-search-disabled"></div>
                                         </li>
                                     </ul>
@@ -150,7 +152,7 @@
                                 <div ng-repeat="user in trip.users">
                                     <img src="<% user.thumb_url %>" class="min-avatar">
                                     <strong><% user.first_name %> <% user.last_name %></strong>
-                                    <i class="fa fa-times pull-right" style="color: red; cursor:pointer;" ng-click="unselectUser(user.id)"></i>
+                                    <i ng-if="user.deletable" class="fa fa-times pull-right" style="color: red; cursor:pointer;" ng-click="unselectUser(user.id)"></i>
                                 </div>
                             </div>
 
