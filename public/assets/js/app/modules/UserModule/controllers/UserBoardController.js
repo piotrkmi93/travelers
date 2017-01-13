@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('UserModule')
-        .controller('UserBoardController', ['$scope', 'PostService', function($scope, PostService){
+        .controller('UserBoardController', ['$scope', 'PostService', '$interval', '$rootScope', function($scope, PostService, $interval, $rootScope){
             $scope.posts = [];
             $scope.loadingMorePosts = false;
             var offset = 0;
@@ -13,7 +13,7 @@
 
             function getUserPosts(){
                 $scope.loadingMorePosts = true;
-                PostService.getUserPosts($scope.user_id, offset).then(function(posts){
+                PostService.getUserPosts($scope.user_id, offset, $rootScope.yourId).then(function(posts){
                     if (posts.length < 10) isMorePostsToLoad = false;
                     $scope.posts = $scope.posts.concat(posts);
                     offset += 10;
@@ -40,8 +40,17 @@
                 getUserPosts();
             });
 
-            getUserPosts();
-
-            console.log($scope);
+			$scope.userBoardInit = function(){
+				var interval = $interval(function(){
+				
+					if($rootScope.yourId){
+						$interval.cancel(interval);
+					}
+					
+				},100);
+				
+				
+			}
+            
         }]);
-})();
+})(); 

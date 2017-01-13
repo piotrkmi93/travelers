@@ -43,7 +43,7 @@ class SearchEngineController extends Controller
                 'link' => asset('user/' . $user -> username . '#/board'),
                 'avatar' => asset(getThumb($user -> avatar_photo_id)),
                 'is_friend' => $this -> friendPairRepository -> checkIsUserYourFriend($user_id, $user->id),
-                'city' => $this -> cityRepository -> getById($user -> city_id) -> name,
+                'city' => $user -> city_id ? $this -> cityRepository -> getById($user -> city_id) -> name : null,
                 'is_you' => $user->id == $user_id,
                 'is_active' => (new Carbon()) < (new Carbon($user -> active_to)),
                 'sex' => $user -> sex,

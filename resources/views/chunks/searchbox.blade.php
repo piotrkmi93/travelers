@@ -1,7 +1,7 @@
 <form class="navbar-form navbar-left" ng-controller="SearchEngineController" ng-init="init({{ Auth::user()->id }})">
     <div class="form-group">
 
-        <input id="search-input" type="text" class="form-control" placeholder="Wyszukaj ludzi oraz miejsca..." ng-model="phrase" ng-focus="focus()" ng-blur="focus()">
+        <input id="search-input" type="text" class="form-control" placeholder="Wyszukaj ludzi, miejsca oraz wycieczki..." ng-model="phrase" ng-focus="focus()" ng-blur="focus()">
 
         <div id="search-result" ng-show="show && phrase.length">
 

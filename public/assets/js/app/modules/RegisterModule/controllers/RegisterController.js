@@ -10,8 +10,9 @@
             $scope.userGeolocation = undefined;
 
             function setUserGeolocation(){
+				var increment = 0;
                 var interval = $interval(function () {
-                    if (navigator.geolocation) {
+                    if (increment < 10 && navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function(position){
                             $interval.cancel(interval);
                             $scope.$apply(function(){
@@ -22,11 +23,13 @@
 
                             });
                         });
+						increment++;
                     } else {
                         $interval.cancel(interval);
-                        console.log('Twoja przeglądarka nie obsługuje funckji udostepniania geolokalizacji');
+                        //alert('Twoja przeglądarka nie obsługuje funckji udostepniania geolokalizacji');
+						$scope.userGeolocation = false;
                     }
-                }, 100);
+                }, 1000);
             }
 
 

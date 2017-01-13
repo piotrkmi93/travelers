@@ -65,6 +65,7 @@ class FriendsPairRepository implements FriendsPairRepositoryInterface {
     }
 
     public function getFriendsByPhrase($user_id, $phrase){
-        return DB::select("SELECT b.id, b.first_name, b.last_name, c.thumb_url from friends_pairs a JOIN users b ON ((a.from_user_id = b.id AND a.to_user_id = $user_id) OR (a.to_user_id = b.id AND a.from_user_id = 3)) AND (b.first_name LIKE '%".$phrase."%' OR b.last_name LIKE '%".$phrase."%' OR b.username LIKE '%".$phrase."%') JOIN photos c ON c.id = b.avatar_photo_id WHERE a.status = 1;");
+        return DB::select("SELECT b.id, b.first_name, b.last_name, b.avatar_photo_id, b.sex from friends_pairs a JOIN users b ON ((a.from_user_id = b.id AND a.to_user_id = $user_id) OR (a.to_user_id = b.id AND a.from_user_id = $user_id)) AND (b.first_name LIKE '%".$phrase."%' OR b.last_name LIKE '%".$phrase."%' OR b.username LIKE '%".$phrase."%')");
+		// , c.thumb_url JOIN photos c ON c.id = b.avatar_photo_id WHERE a.status = 1
     }
 }

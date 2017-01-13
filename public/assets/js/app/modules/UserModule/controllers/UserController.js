@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('UserModule')
-        .controller('UserController', ['$scope', '$interval', 'UserService', 'NotificationService', function($scope, $interval, UserService, NotificationService){
+        .controller('UserController', ['$scope', '$interval', 'UserService', 'NotificationService', '$rootScope', function($scope, $interval, UserService, NotificationService, $rootScope){
 
             $scope.yourId = null;
             $scope.userId = null;
@@ -56,6 +56,7 @@
             };
 
             $scope.otherUserInit = function(yourId, userId) {
+				$rootScope.yourId = yourId;
                 $scope.yourId = yourId;
                 $scope.userId = userId;
                 checkIsUserYourFriend(yourId, userId);

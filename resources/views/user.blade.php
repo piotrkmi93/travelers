@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container" >
-        <div class="row" @if ( isCurrentUser($user->id) ) ng-controller="CurrentUserController" @else ng-controller="UserController" ng-init="otherUserInit({{Auth::user()->id}}, {{$user->id}})" @endif>
+        <div class="row" @if ( isCurrentUser($user->id) ) ng-controller="CurrentUserController" ng-init="currentUserInit({{Auth::user()->id}})" @else ng-controller="UserController" ng-init="otherUserInit({{Auth::user()->id}}, {{$user->id}})" @endif>
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-body text-center panel-content panel-user">

@@ -56,7 +56,7 @@
 
                             <div class="form-group">
                                 <label for="city">Miasto:</label>
-                                <input autocomplete="off" type="text" id="city" class="form-control" name="city" ng-model="phrase" ng-focus="focus()" ng-blur="focus()" required>
+                                <input placeholder="Zacznij wpisywać nazwę miasta, a następnie wybierz z listy klikając na nie..." autocomplete="off" type="text" id="city" class="form-control" name="city" ng-model="phrase" ng-focus="focus()" ng-blur="focus()" required>
 
                                 <div ng-if="show && cities.length" id="city-select">
                                     <ul>
@@ -77,12 +77,12 @@
 
                             <div class="form-group">
                                 <label for="short_description">Krótki opis:</label>
-                                <textarea name="short_description" id="short_description" class="form-control" required>@if(isset($place)){{ $place -> short_description }}@else Opis widoczny w wyszukiwarce...@endif</textarea>
+                                <textarea name="short_description" id="short_description" class="form-control" placeholder="Opis widoczny w wyszukiwarce..." required>@if(isset($place)){{ $place -> short_description }} @endif</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="long_description">Pełny opis:</label>
-                                <textarea name="long_description" id="long_description" class="form-control" required>@if(isset($place)){{ $place -> long_description }}@else Pełny opis...@endif</textarea>
+                                <textarea name="long_description" id="long_description" class="form-control" placeholder="Pełny opis..." required>@if(isset($place)){{ $place -> long_description }}@endif</textarea>
                             </div>
 
                         </div>

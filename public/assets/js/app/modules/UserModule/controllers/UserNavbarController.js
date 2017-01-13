@@ -13,7 +13,7 @@
             var userId = 0;
             var lastNotificationId = 0;
             var lastMessageId = 0;
-            var isLoadingNotifications = false;
+            $scope.isLoadingNotifications = false;
             var isLoadingMessages = false;
 
             $scope.openNotificationsModal = function(){
@@ -21,7 +21,7 @@
             };
 
             function getNotifications(){
-                isLoadingNotifications = true;
+                $scope.isLoadingNotifications = true;
                 return NotificationService.getNotifications(userId, lastNotificationId)
                     .then(function(data){
                         angular.forEach(data.notifications, function(notification){
@@ -35,7 +35,7 @@
                         $scope.notifications = $scope.notifications.concat(data.notifications);
                         $scope.notificationsCount += data.notificationsCount;
                         lastNotificationId = data.lastId;
-                        isLoadingNotifications = false;
+                        $scope.isLoadingNotifications = false;
                     });
             }
 
@@ -98,7 +98,7 @@
                 var oldNotificationsCount = $scope.notificationsCount;
                 var oldMessagesCount = $scope.newMessagesCount;
 
-                if (!isLoadingNotifications) getNotifications().then(function(){
+                if (!$scope.isLoadingNotifications) getNotifications().then(function(){
                     if (oldNotificationsCount < $scope.notificationsCount){
                         var notificationSound = new Audio(SERVER.url+'sounds/notification.mp3');
                         notificationSound.play();

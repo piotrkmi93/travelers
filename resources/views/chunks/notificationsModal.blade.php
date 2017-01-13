@@ -6,6 +6,7 @@
                 <h4 class="modal-title" id="myModalLabel">Powiadomienia</h4>
             </div>
             <div class="modal-body notification-modal-body">
+			
                 <div class="panel panel-default" ng-repeat="notification in notifications">
                     <div class="panel-body">
 
@@ -62,6 +63,15 @@
 
                     </div>
                 </div>
+				
+				<div ng-if="isLoadingNotifications === true  && notifications.length === 0" class="text-center">
+					<h3><i class="fa fa-cog spinning"></i> Pobieranie powiadomień</h3>
+				</div>
+				
+				<div ng-if="isLoadingNotifications === false && notifications.length === 0" class="text-center">
+					<h3><i class="fa fa-info"></i> Brak powiadomień</h3>
+				</div>
+				
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>

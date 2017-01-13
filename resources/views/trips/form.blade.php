@@ -54,8 +54,7 @@
 
                             <div class="col-sm-12">
                                 <label for="description">Opis:</label>
-                                <textarea name="description" id="description" class="form-control" ng-model="trip.description" required></textarea>
-                                {{--@if(isset($trip)){{ $trip -> description }}@else Opisz wycieczkę...@endif--}}
+                                <textarea placeholder="Opisz wycieckę..." name="description" id="description" class="form-control" ng-model="trip.description" required>@if(isset($trip)){{ $trip -> description }}@endif</textarea>
                             </div>
 
                         </div>

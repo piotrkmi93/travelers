@@ -87,6 +87,14 @@ class UserRepository implements UserRepositoryInterface {
         $user -> password = $password;
         return $user -> save();
     }
+	
+	public function updateFirstAndLastName($id, $first_name, $last_name)
+	{
+		$user = $this -> model -> find($id);
+		if(isset($first_name)) $user -> first_name = $first_name;
+		if(isset($last_name)) $user -> last_name = $last_name;
+		return $user -> save();
+	}
 
 
 }

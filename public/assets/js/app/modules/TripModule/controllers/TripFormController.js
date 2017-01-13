@@ -29,7 +29,7 @@
 
                 name: undefined,
                 slug: undefined,
-                description: 'Opisz wycieczkę...',
+                description: undefined,
 
                 start_date: undefined,
                 end_date: undefined,

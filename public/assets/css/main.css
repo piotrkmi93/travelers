@@ -475,7 +475,6 @@ video#bgvid {
     -moz-border-radius:50%;
     border-radius:50%;
 
-    height: 100%;
     margin: -16px 10px 0px 10px;
 }
 
@@ -707,4 +706,8 @@ video#bgvid {
     -ms-transition: .7s ease all;
     -o-transition: .7s ease all;
     transition: .7s ease all;
+}
+
+.post-body-section a {
+	margin: 0;
 }

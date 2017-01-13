@@ -69,7 +69,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('is_user_active', 'UserController@isUserActive');
     Route::post('are_users_active', 'UserController@areUsersActive');
 
-    Route::post('get_updated_comment_statistics', 'CosmmentController@getUpdatedCommentStatistics');
+    Route::post('get_updated_comment_statistics', 'CommentController@getUpdatedCommentStatistics');
 
     /*********** Messanger ***********/
 
@@ -124,5 +124,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('options', 'OptionsController@index');
     Route::post('options/change_password', 'OptionsController@changePassword');
+    Route::post('options/change_names', 'OptionsController@changeFirstAndLastName');
 });
 

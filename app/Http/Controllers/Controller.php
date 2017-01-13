@@ -23,6 +23,9 @@ class Controller extends BaseController
     }
 
     /**
+	 * Niewykorzystana metoda, miała ona zastąpić przypisywanie miejsca do miasta, dzięki czemu można byłoby wpisywać miasto a następnie wybierać w jakim
+	 * promieniu ma szukać miejsc.
+	 *
      * @param $x1
      * @param $y1
      * @param $x2

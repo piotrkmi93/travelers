@@ -46,6 +46,49 @@
                     </div>
                 </div>
             </div>
+			
+			
         </div>
+		
+		<div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h1>Zmiana danych osobowych</h1>
+
+                        @if(isset($fln_success) && isset($fln_info))
+                            @if($fln_success)
+                                <div class="alert alert-success">
+                                    <i class="fa fa-check"></i> {{ $fln_info }}.
+                                </div>
+                            @else
+                                <div class="alert alert-danger">
+                                    <i class="fa fa-times"></i> {{ $fln_info }}.
+                                </div>
+                            @endif
+                        @endif
+
+                        <form method="POST" action="{{ url('options/change_names') }}">
+
+                            {{ csrf_field() }}
+							 
+							<div class="col-md-6 form-group">
+								<label>Imię</label>
+								<input class="form-control" type="text" name="first_name" placeholder="Wpisz swoje imię..." value="{{Auth::user()->first_name}}" required>
+							</div>
+							
+							<div class="col-md-6 form-group">
+								<label>Nazwisko</label>
+								<input class="form-control" type="text" name="last_name" placeholder="Wpisz swoje nazwisko..." value="{{Auth::user()->last_name}}" required>
+							</div>
+							
+						
+							<button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Zmień dane</button>
+							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 @endsection

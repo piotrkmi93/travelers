@@ -6,7 +6,7 @@
             <div class="col-md-6 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h1><i class="fa fa-map-marker"></i> {{ $place -> name }}<small class="pull-right"><a ng-click="likeThis()" class="like" ng-class="{'like-liked': liked}"><i class="fa fa-heart"></i> Lubię to!</a> <small ng-if="likes">(<% likes %>)</small></small></h1>
+                        <h1><i class="fa @if($place->place_type=='attraction') fa-university @elseif($place->place_type=='accommodation') fa-bed @endif"></i> {{ $place -> name }}<small class="pull-right"><a ng-click="likeThis()" class="like" ng-class="{'like-liked': liked}"><i class="fa fa-heart"></i> Lubię to!</a> <small ng-if="likes">(<% likes %>)</small></small></h1>
                         <h4><i class="fa fa-map-marker"></i> {{ $city -> name }}</h4>
                         <h4><a href="{{ asset('user/'.$user->username.'#/board') }}"><i class="fa fa-user"></i> {{ $user -> first_name }} {{ $user -> last_name }}</a></h4>
                         <hr>

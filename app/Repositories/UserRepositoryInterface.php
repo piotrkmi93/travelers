@@ -15,4 +15,5 @@ interface UserRepositoryInterface {
     public function searchByPhrase($phrase);
     public function passwordCorrect($id, $password);
     public function updatePassword($id, $password);
+	public function updateFirstAndLastName($id, $first_name, $last_name);
 }

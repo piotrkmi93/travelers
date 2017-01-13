@@ -1,12 +1,14 @@
-<add-post ng-if="current_user_id == user_id" user-id="<% user_id %>"></add-post>
+<div ng-init="userBoardInit()">
+	<add-post ng-if="current_user_id == user_id" user-id="<% user_id %>"></add-post>
 
-<div infinite-scroll="loadMorePosts()">
-    <!--<post userid="user_id" post="post" isowner="user_id == post.author_user_id" ng-repeat="post in posts"></post>-->
-    <post userid="current_user_id" post="post" isowner="current_user_id == post.author_user_id" ng-repeat="post in posts"></post>
+	<div infinite-scroll="loadMorePosts()">
+		<!--<post userid="user_id" post="post" isowner="user_id == post.author_user_id" ng-repeat="post in posts"></post>-->
+		<post userid="current_user_id" post="post" isowner="current_user_id == post.author_user_id" ng-repeat="post in posts"></post>
+	</div>
+
+	<div ng-if="loadingMorePosts" style="text-align: center">
+		<h1 class="animated infinite pulse"><i class="fa fa-download" aria-hidden="true"></i> Pobieranie postów...</h1>
+	</div>
+
+	<div style="text-align: center;"><hr><p>Posty się skończyły :(</p></div>	
 </div>
-
-<div ng-if="loadingMorePosts" style="text-align: center">
-    <h1 class="animated infinite pulse"><i class="fa fa-download" aria-hidden="true"></i> Pobieranie postów...</h1>
-</div>
-
-<div style="text-align: center;"><hr><p>Posty się skończyły :(</p></div>

@@ -113,6 +113,9 @@ class TripController extends Controller
         }
 
         $tripUsers = $this -> tripUserRepository -> getByTripId($trip -> id);
+		
+		$userCreator = $this -> userRepository -> getById($trip -> user_id);
+		
         $users = [];
         foreach ($tripUsers as $tripUser)
         {
@@ -121,8 +124,8 @@ class TripController extends Controller
                 'id' => $user -> id,
                 'name' => $user -> first_name . ' ' . $user -> last_name,
                 'url' => asset('user/' . $user -> username . '#/board'),
-                'avatar' => asset($this -> photoRepository -> getById($user -> avatar_photo_id) -> thumb_url),
-                'status' => $tripUser -> status,
+                'avatar' => $user -> avatar_photo_id ? asset($this -> photoRepository -> getById($user -> avatar_photo_id) -> thumb_url) : asset('images/avatar_min_' . $user -> sex . '.png'),
+                'status' => $tripUser -> status == 1,
             ];
         }
 
@@ -159,7 +162,7 @@ class TripController extends Controller
         ];
 //        $places = json_encode($places);
 
-        return view('trips.index', compact('trip', 'users', 'places'));
+        return view('trips.index', compact('trip', 'users', 'places', 'userCreator'));
     }
 
     /**
@@ -280,13 +283,19 @@ class TripController extends Controller
         $user_id = $request -> user_id;
         $phrase = $request -> phrase;
 
+		$responseFriends = [];
         $friends = $this -> friendsPairRepository -> getFriendsByPhrase($user_id, $phrase);
 
         foreach ($friends as &$friend)
-            $friend -> thumb_url = asset($friend -> thumb_url);
+			$responseFriends[] = [
+				'id' => $friend -> id,
+				'first_name' => $friend -> first_name,
+				'last_name' => $friend -> last_name,
+				'thumb_url' => $friend -> avatar_photo_id ? asset($this -> photoRepository -> getById($friend -> avatar_photo_id) -> thumb_url) : asset('images/avatar_min_' . $friend->sex . '.png'),
+			];
 
         return response() -> json([
-            'friends' => $friends
+            'friends' => $responseFriends
         ]);
     }
 

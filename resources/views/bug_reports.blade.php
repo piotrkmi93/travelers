@@ -31,7 +31,7 @@
                                                 <div class="post-body-section">
                                                     <p>{{ $bugReport['description'] }}</p>
 
-                                                    @if($bugReport['is_repaired'])<strong style="color:green"><i class="fa fa-check"></i> Naprawione</strong>@endif
+                                                    @if($bugReport['is_repaired'])<strong style="color:green"><i class="fa fa-check"></i> Naprawione <small>({{ $bugReport['updated_at'] }})</small></strong>@endif
                                                     @if(!$bugReport['is_repaired'])<strong style="color:red"><i class="fa fa-times"></i> Nienaprawione</strong>@endif
                                                 </div>
                                             </div>

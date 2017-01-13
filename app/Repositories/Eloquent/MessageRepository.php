@@ -30,10 +30,11 @@ class MessageRepository implements MessageRepositoryInterface
     }
 
     public function getConversation($user_one_id, $user_two_id, $offset){
-        return DB::select("SELECT * FROM `messages` 
-                    WHERE (from_user_id = $user_one_id AND to_user_id = $user_two_id) 
-                    OR (from_user_id = $user_two_id AND to_user_id = $user_one_id) 
-                    ORDER BY created_at DESC LIMIT 20 OFFSET $offset");
+        return DB::select("SELECT a.*, b.username AS 'url' FROM `messages` a
+					JOIN `users` b ON a.from_user_id = b.id
+                    WHERE (a.from_user_id = $user_one_id AND a.to_user_id = $user_two_id) 
+                    OR (a.from_user_id = $user_two_id AND a.to_user_id = $user_one_id) 
+                    ORDER BY a.created_at DESC LIMIT 20 OFFSET $offset");
     } /* LIMIT 10 OFFSET $offset */
 
     public function getUnread($to_user_id, $last_id){

@@ -64,6 +64,9 @@ class MessageController extends Controller
         $offset = $request -> offset;
 
         $messages = $this -> messageRepository -> getConversation($user_one_id, $user_two_id, $offset);
+		foreach($messages as &$message){
+			$message -> url = asset('user/' . $message -> url . '#/board');
+		}
 
         return response() -> json(array(
             'messages' => $messages,

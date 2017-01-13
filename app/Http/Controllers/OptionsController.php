@@ -54,4 +54,10 @@ class OptionsController extends Controller
 
         return view('options', ['success' => true, 'info' => 'Hasło zostało zaktualizowane']);
     }
+	
+	public function changeFirstAndLastName(Request $request)
+	{
+		$this -> userRepository -> updateFirstAndLastName(Auth::user()->id, $request->first_name, $request->last_name);
+		return view('options', ['fln_success' => true, 'fln_info' => 'Dane zostały zaktualizowane']);
+	}
 }

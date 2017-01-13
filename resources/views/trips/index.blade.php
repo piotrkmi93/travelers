@@ -8,7 +8,7 @@
                     <div class="panel-body">
 
                         <h1><i class="fa fa-map"></i> {{ $trip -> name }}</h1>
-                        <h4><a href="{{ $users[count($users)-1]['url'] }}"><i class="fa fa-user"></i> {{ $users[count($users)-1]['name'] }}</a></h4>
+                        <h4><a href="{{ asset('user/' . $userCreator->username . '#/board') }}"><i class="fa fa-user"></i> {{ $userCreator->first_name }} {{ $userCreator->last_name }}</a></h4>
                         <hr>
                         <p>{{ $trip -> description }}</p>
                     </div>

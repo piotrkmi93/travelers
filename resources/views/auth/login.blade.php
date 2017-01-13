@@ -3,7 +3,7 @@
 @section('content')
     <style>
         body {
-            background-image: url('../../images/login_background.jpg');
+            background-image: url({{asset('images/login_background.jpg')}});
         }
     </style>
 <div class="container" id="login-section">

@@ -9,7 +9,7 @@
             $scope.interlocutor = null;
             $scope.user = null;
             $scope.messages = [];
-            $scope.messageText = '';
+            $scope.messageText = undefined;
             $scope.isLoading = true;
             $scope.isMoreMessagesToLoad = true;
             var offset = 0;
@@ -51,7 +51,10 @@
                 $scope.isLoading = true;
                 return MessageService.getConversation($scope.user_id, $scope.interlocutor.id, offset).then(function(data){
                     console.log(data.messages);
-                    $scope.messages = data.messages.concat($scope.messages);
+                    //$scope.messages = data.messages.concat($scope.messages);
+					angular.forEach(data.messages, function(message){
+						$scope.messages.push(message);
+					});
                     offset += data.messages.length; // 20 basically
                     if(data.messages.length < 20) $scope.isMoreMessagesToLoad = false;
                 });
@@ -78,5 +81,9 @@
                     $scope.$emit('message-read', message.id);
                 }
             });
+			
+			$scope.date = function(date){
+				return new Date(date);
+			};
         }]);
 })();

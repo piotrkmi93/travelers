@@ -5,11 +5,15 @@
             <h1 class="animated infinite pulse" style="width: 95%;"><i class="fa fa-download" aria-hidden="true"></i> Pobieranie wiadomości...</h1>
         </div>
         <div ng-if="!isLoading && isMoreMessagesToLoad" class="message-row"><div class="col-xs-12 text-center"><a ng-click="loadOlderMessages()">Wczytaj wcześniejsze wiadomości</a></div></div>
-        <div class="message-row" ng-repeat="message in messages | orderBy: 'id'">
+        <div class="message-row" ng-repeat="message in messages | orderBy:'created_at'">
             <div class="col-xs-8 message-box" ng-class="{'col-xs-offset-4': message.to_user_id == user_id}">
-                <img ng-if="message.to_user_id != user_id" src="<% user.avatar %>" alt="<% message.created_at %>">
+                <a href="<% message.url %>">
+					<img ng-if="message.to_user_id != user_id" src="<% user.avatar %>" alt="<% message.created_at %>">
+				</a>
                 <p><% message.text %><br><small><% message.created_at %></small></p>
-                <img ng-if="message.to_user_id == user_id" src="<% interlocutor.thumb %>" alt="<% message.created_at %>">
+				<a href="<% message.url %>">
+					<img ng-if="message.to_user_id == user_id" src="<% interlocutor.thumb %>" alt="<% message.created_at %>">
+				</a>
             </div>
         </div>
     </div>
@@ -17,7 +21,7 @@
     <div class="new-message-box">
         <div class="row">
             <div class="col-xs-10">
-                <textarea ng-model="messageText" class="form-control"></textarea>
+                <textarea placeholder="Napisz wiadomość..." ng-model="messageText" class="form-control"></textarea>
             </div>
             <div class="col-xs-2">
                 <button ng-click="sendMessage()" class="btn btn-success btn-lg">Wyślij</button>

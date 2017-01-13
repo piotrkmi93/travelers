@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('UserModule')
-        .controller('CurrentUserController', ['$scope', '$interval', function ($scope, $interval) {
+        .controller('CurrentUserController', ['$scope', '$interval', '$rootScope', function ($scope, $interval, $rootScope) {
 
             $scope.chooseAvatarClick = function () {
                 var input = angular.element(document.querySelector('#avatar-input'));
@@ -30,6 +30,10 @@
                     }
                 }, 1000);
             };
+			
+			$scope.currentUserInit = function(yourId){
+				$rootScope.yourId = yourId;
+			};
 
         }]);
 })();

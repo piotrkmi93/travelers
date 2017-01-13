@@ -211,7 +211,7 @@ class PlaceController extends Controller
         $places = $this -> placeRepository -> getByAuthorId($user_id) -> toArray();
 
         foreach($places as &$place){
-            $place['deletable'] = empty($this -> tripPlaceRepository -> getByPlaceId($place['id']));
+            $place['deletable'] = count($this -> tripPlaceRepository -> getByPlaceId($place['id'])) == 0;
 
             $place['url'] = asset('places/' . $place['slug']);
             $place['is_owner'] = $user_id == Auth::user() -> id;

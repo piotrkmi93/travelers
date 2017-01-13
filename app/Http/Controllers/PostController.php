@@ -114,6 +114,7 @@ class PostController extends Controller
     }
 
     public function getUserPosts(Request $request){
+		$your_user_id = $request -> your_user_id;
         $user_id = $request -> user_id;
         $offset = $request -> offset;
 
@@ -126,7 +127,7 @@ class PostController extends Controller
             $post['time'] = Carbon::parse($post['created_at']) -> format('H:i');
 
             $post['likes_count'] = $this -> postLikeRepository -> count($post['id']);
-            $post['liked'] = $this -> postLikeRepository -> exists($user_id, $post['id']);
+            $post['liked'] = $this -> postLikeRepository -> exists($your_user_id, $post['id']);
 
             $post['comments_count'] = $this -> postCommentRepository -> count($post['id']);
         }

@@ -6,6 +6,9 @@
 
     angular.module('PostModule')
         .factory('PostService', ['$http', 'SERVER', function($http, SERVER){
+			
+			var busy = false;
+			
             return {
                 addPost: function(user_id, form){
 
@@ -33,14 +36,19 @@
                     });
                 },
 
-                getUserPosts: function(user_id, offset){
-                    return $http.post(SERVER.url + 'get_user_posts', {
-                        user_id: user_id,
-                        offset: offset
-                    }).then(function(response){
-                        // console.log(response);
-                        return response.data.posts;
-                    });
+                getUserPosts: function(user_id, offset, your_user_id){
+					if(!busy){
+						busy = true;
+						return $http.post(SERVER.url + 'get_user_posts', {
+							user_id: user_id,
+							offset: offset,
+							your_user_id: your_user_id
+						}).then(function(response){
+							busy = false;
+							return response.data.posts;
+						});
+					}
+                   
                 },
 
                 getUsersPosts: function(user_id, offset){
